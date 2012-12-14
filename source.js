@@ -7,14 +7,5 @@
 * Code style: http://docs.jquery.com/JQuery_Core_Style_Guidelines
 */
 
-function   ThisIs7InvalidId()
-{
-    var i = ( 7 + (8 - 9) ), a = function() {
-        return "**********";
-    };
-    if ( true ) {
-
-    }
-
-}
+fn( 1, [ 1, 2, 3 ] );
 
