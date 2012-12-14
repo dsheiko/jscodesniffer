@@ -56,3 +56,13 @@ foo("bar");
 if ( !("foo" in obj) ) {
 }
 ```
+
+* Single var statement per scope
+
+```
+var foo = "",
+    bar = "",
+    quux = function() {
+        var foo;
+    };
+```
