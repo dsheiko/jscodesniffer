@@ -1,0 +1,33 @@
+
+[
+    {
+        "describe": "Identifier shall not start with uppercase character",
+        "expected": "invalidIdentifierName",
+        "js": "var PascalCaseIdentifier = true;"
+    },
+    {
+        "describe": "Identifier shall not contain chained uppercase characters",
+        "expected" : "invalidIdentifierName",
+        "js": "var InvalidCCamelCaseIdentifier = true;"
+    },
+    {
+        "describe": "Identifier shall consist of word characters and only tralling digits allowed.",
+        "expected" : "invalidIdentifierName",
+        "js": "var Invalid1CamelCaseIdentifier = true;"
+    },
+    {
+        "describe": "Identifier shall be of camelCase",
+        "expected" : "",
+        "js": "var validCamelCaseIdentifier = true;"
+    },
+    {
+        "describe": "Identifier may have trailling digits",
+        "expected" : "",
+        "js": "var validCamelCaseIdentifier1 = true;"
+    },
+    {
+        "describe": "Constants shall be in uppercase",
+        "expected" : "",
+        "js": "var THIS_IS_A_CONSTANT = true;"
+    }
+]

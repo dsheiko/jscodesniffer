@@ -1,0 +1,28 @@
+
+[
+    {
+        "describe": "-",
+        "expected": "",
+        "js": "foo('single string arg');"
+    },
+    {
+        "describe": "-",
+        "expected": "",
+        "js": "foo([ 1, 2, 3 ]);"
+    },
+    {
+        "describe": "-",
+        "expected": "",
+        "js": "foo({ a: 1 });"
+    },
+    {
+        "describe": "-",
+        "expected": "",
+        "js": "foo( 'string arg', 'string arg' );"
+    },
+    {
+        "describe": "-",
+        "expected": "",
+        "js": "foo([ 1, 2 ], [ 1, 2 ]);"
+    }
+]

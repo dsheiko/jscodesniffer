@@ -1,0 +1,23 @@
+
+[
+    {
+        "describe": "Operator shall be followed by no more than one whitespace",
+        "expected": "invalidOperatorSpacing",
+        "js": "var  res = 1  + 1;"
+    },
+    {
+        "describe": "Operator shall be followed by no less than one whitespace",
+        "expected" : "invalidOperatorSpacing",
+        "js": "var  res = 'string'+ 'string';"
+    },
+    {
+        "describe": "Multi-symbol operator shall be preceded by no less than one whitespace",
+        "expected" : "invalidOperatorSpacing",
+        "js": "neg *=1;"
+    },
+    {
+        "describe": "Unitary +/- operators must be ignored by spacing sniff",
+        "expected" : "",
+        "js": "var a = +b;"
+    }
+]
