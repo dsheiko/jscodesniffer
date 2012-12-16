@@ -12,11 +12,14 @@ if ( process.argv.length < 3 ) {
 srcCodeFile = process.argv.slice( 2 )[ 0 ];
 flag = process.argv.slice( 2 )[ 1 ] || null;
 
+
+
 /**
+ * @TODO: try/catch on require esprima, showing install instructions
  * @TODO: read all files recursively in given folder
  * @TODO: proper error messaging when invalid arguments or cannot find the file
  */
-fs.readFile(srcCodeFile, "UTF-8", function (err, data) {
+fs.readFile(srcCodeFile, "UTF-8", function ( err, data ) {
     var logger;
     if (err) {
         throw err;
