@@ -1,28 +1,28 @@
 
 [
     {
-        "describe": "-",
+        "describe": "Single string argument shall have no spaces around",
         "expected": "",
         "js": "foo('single string arg');"
     },
     {
-        "describe": "-",
+        "describe": "Sinle array literal argument shall have no spaces around",
         "expected": "",
         "js": "foo([ 1, 2, 3 ]);"
     },
     {
-        "describe": "-",
+        "describe": "Single object literal argument shall have no spaces around",
         "expected": "",
         "js": "foo({ a: 1 });"
     },
     {
-        "describe": "-",
+        "describe": "Argument list shall have one spaces around",
         "expected": "",
         "js": "foo( 'string arg', 'string arg' );"
     },
     {
-        "describe": "-",
+        "describe": "Argument list with object/array literals shall have no spaces around",
         "expected": "",
-        "js": "foo([ 1, 2 ], [ 1, 2 ]);"
+        "js": "foo( [ 1, 2 ], [ 1, 2 ] );"
     }
 ]
