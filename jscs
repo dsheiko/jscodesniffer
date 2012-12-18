@@ -3,27 +3,55 @@ var esprima = require("esprima"),
     sniffer = require('./lib/Sniffer'),
     Standard = require('./standard/Idiomatic'),
     fs = require('fs'),
-    srcCodeFile;
+    path,
+    options = {},
+    helpScreen = "Usage: jscs <path>\n" +
+                    "<path> - filename or dir to sniff\n" +
+                    "[--standard=<Standard>] - apply specified standard\n" +
+                    "[--trace] - show tokens\n",
+
+    processFile = function( path, fn ) {
+            var data = fs.readFileSync( path, 'utf-8' );
+                    console.log( "File: " + path );
+                    fn( data );
+    },
+    processDir = function( path, fn ) {
+            var dir = fs.readdirSync( path );
+            dir && dir.forEach(function( file ){
+                    var re = /\.js$/gi;
+                    if ( re.test( file ) ) {
+                            processFile( path + "/" + file, fn );
+                    }
+            });
+    },
+    processPath = function( path, fn ) {
+            var stat;
+            if (  !fs.existsSync( path ) ) {
+                    return console.error( helpScreen );
+            }
+            stat = fs.statSync( path );
+            return stat.isFile() ? processFile( path, fn ) : processDir( path, fn );
+    };
 
 if ( process.argv.length < 3 ) {
-    throw new Error( "Correct syntax: ./t filename.js" );
+    return console.log( helpScreen );
 }
-srcCodeFile = process.argv.slice( 2 )[ 0 ];
-flag = process.argv.slice( 2 )[ 1 ] || null;
-
-
-
-/**
- * @TODO: try/catch on require esprima, showing install instructions
- * @TODO: read all files recursively in given folder
- * @TODO: proper error messaging when invalid arguments or cannot find the file
- */
-fs.readFile(srcCodeFile, "UTF-8", function ( err, data ) {
-    var logger;
-    if (err) {
-        throw err;
+// Obtain CLI arguments
+process.argv.slice( 2 ).forEach(function( arg ){
+    var slices;
+    if ( arg === "--help" ) {
+            return console.log( helpScreen );
     }
-    if ( flag === "-trace" ) {
+    if ( arg.indexOf( "--" ) === 0 ) {
+            slices = arg.split( "=" );
+            options[ slices[0] ] = slices[ 1 ] || null;
+    } else {
+            path = arg;
+    }
+});
+
+processPath( path , function( data ) {
+    if ( typeof options["--trace"] !== "undefined" ) {
         console.log( sniffer.trace(data, Standard) );
     } else {
         sniffer.run( data, Standard ).report();
