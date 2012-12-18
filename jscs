@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-// npm install esprima -g
 var esprima = require("esprima"),
     sniffer = require('./lib/Sniffer'),
     Standard = require('./standard/Idiomatic'),

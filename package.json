@@ -1,0 +1,33 @@
+{
+    "name": "JS_CodeSniffer",
+    "description": "Tokenises JavaScript files and detects violations of a defined set of coding standards",
+    "version": "0.1",
+    "author": "Dmitry Sheiko <me@dsheiko.com>",
+    "bin": {
+        "jscs": "./jscs"
+    },
+    "dependencies": {
+        "esprima": "*",
+        "assert": "*",
+        "mocha": "*"
+    },
+    "licenses": [
+    	{
+    		"type": "MIT",
+    		"url": "http://github.com/fawek/codepainter/raw/master/LICENSE"
+    	}
+    ],
+    "maintainers": [
+    	{
+    		"name": "Dmitry Sheiko",
+    		"email": "me@dsheiko.com",
+    		"web": "http://dsheiko.com"
+    	}
+    ],
+    "repositories": [
+    	{
+    		"type": "git",
+    		"url": "https://github.com/dsheiko/jscodesniffer.git"
+    	}
+    ]
+}
