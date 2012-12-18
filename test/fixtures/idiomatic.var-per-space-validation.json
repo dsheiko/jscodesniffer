@@ -1,6 +1,10 @@
 
 [
-
+    {
+        "describe": "Global scope shall have the only var statement",
+        "expected" : "tooManyVarStatements",
+        "js": "var bar; var a; var b;"
+    },
     {
         "describe": "Function scope shall have the only var statement",
         "expected" : "tooManyVarStatements",

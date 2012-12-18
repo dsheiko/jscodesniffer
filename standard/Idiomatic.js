@@ -17,7 +17,8 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
         sniffVarStatementPerScopeRule: function( tokens ) {
             var current = tokens.current(),
                 fetch;
-            if ( current.match("Keyword", [ "function" ]) && current.scope ) {
+            if ( tokens.key() === 0 ||
+                ( current.match("Keyword", [ "function" ]) && current.scope ) ) {
                 fetch = current.scope.asArray().filter(function( token ){
                     return token.match( "Keyword", [ "var" ] );
                 });
