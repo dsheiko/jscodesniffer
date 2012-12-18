@@ -43,7 +43,8 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                 prev = tokens.get( -1 ),
                 first,
                 last;
-            if ( prev && prev.match("Identifier") ) {
+            if ( prev && (prev.match("Identifier") ||
+                    prev.match("Keyword", ["function"])) ) {
                 return; // @see sniffArgumentSpacing
             }
             if ( current.match("Punctuator", [ "(" ]) && current.group ) {
