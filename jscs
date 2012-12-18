@@ -2,13 +2,13 @@
 var esprima = require("esprima"),
     sniffer = require('./lib/Sniffer'),
     util = require('./lib/Util'),
-    Standard = require('./standard/Idiomatic'),
+    Standard,
     fs = require('fs'),
     path,
     options = {},
     helpScreen = "Usage: jscs <path>\n" +
                     "<path> - filename or dir to sniff\n" +
-                    "[--standard=<Standard>] - apply specified standard\n" +
+                    "[--standard=<Standard>] - apply specified standard (Idiomatic, Jquery)\n" +
                     "[--trace] - show tokens\n",
 
     processFile = function( path, fn ) {
@@ -49,6 +49,14 @@ process.argv.slice( 2 ).forEach(function( arg ){
             path = arg;
     }
 });
+
+// Get standard sniffs
+options["--standard"] = options["--standard"] || "Idiomatic";
+try {
+    Standard = require('./standard/' + options["--standard"]);
+} catch ( e ) {
+    return console.error("Cannot find standard " + options["--standard"]);
+}
 
 processPath( path , function( path, data ) {
     var report;

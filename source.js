@@ -1,21 +1,20 @@
+/**
+* @package JSA.dbc
+* @author sheiko
+* @version 2.03
+* @license MIT
+* @copyright (c) Dmitry Sheiko http://www.dsheiko.com
+* Code style: http://docs.jquery.com/JQuery_Core_Style_Guidelines
+*/
 
-// 2.B.1.3
-// var statements should always be in the beginning of their respective scope (function).
-// Same goes for const and let from ECMAScript 6.
+function   ThisIs7InvalidId()
+{
+    var i = ( 7 + (8 - 9) ), a = function() {
+        return "**********";
+    };
+    if ( true ) {
 
-// Bad
-function foo() {
-foo();
-  // some statements here
+    }
 
-  var bar = "",
-    qux;
 }
 
-// Good
-function foo() {
-  var bar = "",
-    qux;
-
-  // all statements after the variables declarations.
-}
