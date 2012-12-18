@@ -12,7 +12,8 @@ var AbstractStandard = require('./AbstractStandard'),
     }()),
     AbstractIdiomatic = function() {
         this.extendExceptionMap({
-            invalidOperatorSpacing: "There must be one whitespace around operator",
+            invalidOperatorPrecedingSpacing: "There must be one preceding whitespace around operator (%s)",
+            invalidOperatorFollowingSpacing: "There must be one following whitespace around operator (%s)",
             invalidLiteralSpacing: "There must be one whitespace around literal (%s)",
             invalidConstructorName : "Identifier (%s) must be in PascalCase when it is a constructor, otherwise in camelCase",
             invalidIdentifierName : "Identifier (%s) must be in camelCase"
@@ -93,27 +94,15 @@ var AbstractStandard = require('./AbstractStandard'),
         sniffOperatorSpacing: function( tokens ) {
             var current = tokens.current(),
                 next = tokens.get( 1 ),
-
-                validateForEach = function( seqs ) {
-                    var i = 0, len = seqs.length, offset;
-                    for ( ; i < len; i++ ) {
-                        if ( tokens.matchValueSequence("Punctuator", seqs[ i ].split("")) ) {
-                            offset = (seqs[ i ].length - 1);
-                            validate.spacing( current, tokens.get(offset) );
-                            tokens.offsetSet( tokens.key() + offset );
-                            throw new StopIteration();
-                        }
-                    };
-                },
                 validate = (function( that ) {
                     return {
                         spacing: function( start, end ) {
                             // If not preceded by a linebreak, must be by exact one whitespace
                             ( start.before.whitespaceNum === 1 ) ||
-                                that.log( start, "invalidOperatorSpacing" );
+                                that.log( start, "invalidOperatorPrecedingSpacing" );
 
                             ( end.after.whitespaceNum === 1 || end.after.newlineNum ) ||
-                                that.log( end, "invalidOperatorSpacing" );
+                                that.log( end, "invalidOperatorFollowingSpacing" );
                         }
                     };
                 }( this ));
