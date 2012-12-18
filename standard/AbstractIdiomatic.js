@@ -153,7 +153,7 @@ var AbstractStandard = require('./AbstractStandard'),
                 // If not preceded by a linebreak,
                 // must be by exact one whitespace
                 if ( prev &&
-                    !prev.newlineNum &&
+                    !current.before.newlineNum &&
                     !prev.match( "Punctuator", [ "(" ] ) &&
                     current.before.whitespaceNum !== 1 ) {
                     this.log( current, "invalidLiteralSpacing" );
@@ -161,7 +161,7 @@ var AbstractStandard = require('./AbstractStandard'),
                 // If not followed by punctuator such as ,;:,
                 // must be by exact one whitespace
                 if ( next &&
-                     !next.newlineNum &&
+                     !current.after.newlineNum &&
                      !next.match( "Punctuator", [ ",", ":", ";", ")" ] ) &&
                      current.after.whitespaceNum !== 1 ) {
                     this.log( current, "invalidLiteralSpacing" );
