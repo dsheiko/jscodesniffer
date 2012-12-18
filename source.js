@@ -1,25 +1,21 @@
 
+// 2.B.1.3
+// var statements should always be in the beginning of their respective scope (function).
+// Same goes for const and let from ECMAScript 6.
 
-// Function Expression with Identifier
-// This preferred form has the added value of being
-// able to call itself and have an identity in stack traces:
-var factorial = function factorial( number ) {
-  if ( number < 2 ) {
-    return 1;
-  }
+// Bad
+function foo() {
+foo();
+  // some statements here
 
-  return number * factorial( number-1 );
-};
-
-// 2.B.2.4
-// Constructor Declaration
-function FooBar( options ) {
-
-  this.options = options;
+  var bar = "",
+    qux;
 }
 
-// Usage
-fooBar = new FooBar({ a: "alpha" });
+// Good
+function foo() {
+  var bar = "",
+    qux;
 
-fooBar.options;
-// { a: "alpha" }
+  // all statements after the variables declarations.
+}
