@@ -114,5 +114,10 @@ describe( 'Idiomatic Coding Style', function(){
        runTestSuit(
         getFixture( "idiomatic.var-per-space-validation.json" ), Idiomatic );
     });
+    describe('Grouping spacing', function(){
+       runTestSuit(
+        getFixture( "idiomatic.inner-grouping-spacing.json" ), Idiomatic );
+    });
+
 
 });

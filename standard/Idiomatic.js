@@ -55,12 +55,12 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                     ( first.before.whitespaceNum === 0 || first.before.newlineNum ) ||
                         this.log( first, "invalidInnerGroupingParenSpacing" );
                     ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                        this.log( first, "invalidInnerGroupingParenSpacing" );
+                        this.log( last, "invalidInnerGroupingParenSpacing" );
                 } else {
                     ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
                         this.log( first, "invalidGroupingParenSpacing" );
                     ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
-                        this.log( first, "invalidGroupingParenSpacing" );
+                        this.log( last, "invalidGroupingParenSpacing" );
                 }
             }
         },
