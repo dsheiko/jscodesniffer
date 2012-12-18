@@ -117,6 +117,23 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                                 this.argumentListTraillingSpaces( tokens );
                             }
                         },
+                         /**
+                        * If the argument is function expression or object/array
+                        * literal no spaces allowed
+                        * P.S. Line breaks allowed
+                        * @param TokenizerIterator group
+                        * @return boolean
+                        */
+                        argumentListLeadingSpaces: function( tokens ) {
+                            var first = tokens.getFirst();
+                            if ( first.match("Punctuator", [ "{", "[" ]) ) {
+                                ( first.before.whitespaceNum === 0 || first.before.newlineNum ) ||
+                                    that.log( first, "invalidArgumentListSpacing" );
+                            } else {
+                                ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
+                                    that.log( first, "invalidArgumentListSpacing" );
+                            }
+                        },
                         /**
                          * If the argument is function expression or object/array
                          * literal no spaces allowed
@@ -136,26 +153,8 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                                     that.log( last, "invalidArgumentListSpacing" );
                             }
 
-                        },
-                      /**
-                        * If the argument is function expression or object/array
-                        * literal no spaces allowed
-                        * P.S. Line breaks allowed
-                        * @param TokenizerIterator group
-                        * @return boolean
-                        */
-                        argumentListLeadingSpaces: function( tokens ) {
-                            var first = tokens.getFirst(),
-                                last = tokens.getLast();
-                            if ( first.match("Punctuator", [ "{", "[" ]) ||
-                                 last.match("Punctuator", [ "}", "]" ]) ) {
-                                ( first.before.whitespaceNum === 0 || first.before.newlineNum ) ||
-                                    that.log( last, "invalidArgumentListSpacing" );
-                            } else {
-                                ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
-                                    that.log( last, "invalidArgumentListSpacing" );
-                            }
                         }
+
 
                     }
                 }( this ));
