@@ -1,5 +1,4 @@
-var HIGHLIGHTING_OPEN = '\033[1;36m',
-    HIGHLIGHTING_CLOSE = '\033[0m',
+var util = require('../lib/Util'),
     AbstractStandard = function() {
         this.exceptions = {};
         this.extendExceptionMap = function( obj ) {
@@ -12,7 +11,7 @@ var HIGHLIGHTING_OPEN = '\033[1;36m',
                 throw new Error( "Exception description missing for the code " + exceptionCode );
             }
             this.logger.log(
-                [ this.exceptions[ exceptionCode ], HIGHLIGHTING_OPEN + token.value + HIGHLIGHTING_CLOSE ],
+                [ this.exceptions[ exceptionCode ], util.color("yellow", token.value) ],
                 exceptionCode, token.line, token.position
             );
         };
