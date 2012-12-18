@@ -10,6 +10,7 @@ var esprima = require("esprima"),
     TokenizerIterator = require("../lib/Tokenizer/TokenizerIterator"),
     AbstractStandard = require('../standard/AbstractStandard'),
     Idiomatic = require('../standard/Idiomatic'),
+    Jquery = require('../standard/Jquery'),
     util = require('../lib/Util'),
 
     getText = function( name ) {
@@ -85,23 +86,20 @@ describe('Tokenizer', function(){
 });
 
 
-describe( 'Idiomatic Coding Style', function(){
-
+describe( 'Idiomatic Style Manifesto', function(){
+   
     describe( 'Identifier name convention', function(){
        runTestSuit(
         getFixture( "idiomatic.identifier-name-validation.json" ), Idiomatic );
     });
-
     describe('Constructor name convention', function(){
        runTestSuit(
         getFixture( "idiomatic.constructor-name-validation.json" ), Idiomatic );
     });
-
     describe('Operator spacing', function(){
        runTestSuit(
         getFixture( "idiomatic.operator-spacing-validation.json" ), Idiomatic );
     });
-
     describe('Literal spacing', function(){
        runTestSuit(
         getFixture( "idiomatic.literal-spacing-validation.json" ), Idiomatic );
@@ -120,4 +118,16 @@ describe( 'Idiomatic Coding Style', function(){
     });
 
 
+});
+
+describe( 'jQuery Coding Style', function(){
+
+    describe( 'Argument spacing', function(){
+       runTestSuit(
+        getFixture( "jquery.argument-spacing-validation.json" ), Jquery );
+    });
+    describe('Grouping spacing', function(){
+       runTestSuit(
+        getFixture( "jquery.inner-grouping-spacing.json" ), Idiomatic );
+    });
 });

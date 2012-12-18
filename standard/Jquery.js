@@ -6,8 +6,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
         this.extendExceptionMap({
             invalidSingleArgumentSpacing: "There must be one whitespace around argument or no space when it is function expression or object/array/string literal",
             invalidArgumentListSpacing: "There must be one whitespace around argument list or no space when it is function expression or object/array literal",
-            invalidInnerGroupingParenSpacing: "There must be no spaces around expression of inner grouping parens",
-            invalidGroupingParenSpacing: "There must be one space around expression of outer grouping parens"
+            invalidInnerGroupingParenSpacing: "There must be one or no spaces around expression of inner grouping parens"
         });
     };
 
@@ -36,12 +35,7 @@ members = {
                         this.log( first, "invalidInnerGroupingParenSpacing" );
                     ( last.after.whitespaceNum < 2 || last.after.newlineNum ) ||
                         this.log( last, "invalidInnerGroupingParenSpacing" );
-                } else {
-                    ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
-                        this.log( first, "invalidGroupingParenSpacing" );
-                    ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
-                        this.log( last, "invalidGroupingParenSpacing" );
-                }
+                } 
             }
         },
          /**
@@ -131,7 +125,7 @@ members = {
                     }
                 }( this ));
 
-            if ( current.match("Identifier") && next && next.group ) {
+            if ( current.match("Identifier") && next && next.group && !current.parent ) {
                 fetch = next.group.asArray().filter(function( token ){
                     return token.match( "Punctuator", [ "," ] );
                 });

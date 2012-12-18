@@ -1,0 +1,18 @@
+
+[
+    {
+        "describe": "Inner grouping shall not have more than one space around",
+        "expected": "invalidGroupingParenSpacing",
+        "js": "foo( bar(  true  ) );"
+    },
+    {
+        "describe": "Inner grouping may have one space around",
+        "expected": "",
+        "js": "foo( bar( true ) );"
+    },
+    {
+        "describe": "Inner grouping may have no space around",
+        "expected": "",
+        "js": "foo( bar(true) );"
+    }
+]
