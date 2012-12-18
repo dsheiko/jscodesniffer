@@ -1,0 +1,13 @@
+
+[
+    {
+        "describe": "Inner grouping parens shall have no spaces around",
+        "expected": "invalidGroupingParenSpacing",
+        "js": "if (!('foo' in obj)) {}"
+    },
+    {
+        "describe": "Inner grouping parens shall have no spaces around",
+        "expected": "",
+        "js": "if ( !('foo' in obj) ) {}"
+    }
+]

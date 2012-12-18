@@ -50,11 +50,15 @@ process.argv.slice( 2 ).forEach(function( arg ){
     }
 });
 
+
 // Get standard sniffs
 options["--standard"] = options["--standard"] || "Idiomatic";
 try {
     Standard = require('./standard/' + options["--standard"]);
 } catch ( e ) {
+    if ( e.code !==  'MODULE_NOT_FOUND' ) {
+        throw e;
+    }
     return console.error("Cannot find standard " + options["--standard"]);
 }
 
