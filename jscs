@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 var esprima = require("esprima"),
     sniffer = require('./lib/Sniffer'),
+    util = require('./lib/Util'),
     Standard = require('./standard/Idiomatic'),
     fs = require('fs'),
     path,
@@ -12,8 +13,7 @@ var esprima = require("esprima"),
 
     processFile = function( path, fn ) {
             var data = fs.readFileSync( path, 'utf-8' );
-                    console.log( "File: " + path );
-                    fn( data );
+                    fn( path, data );
     },
     processDir = function( path, fn ) {
             var dir = fs.readdirSync( path );
@@ -50,10 +50,15 @@ process.argv.slice( 2 ).forEach(function( arg ){
     }
 });
 
-processPath( path , function( data ) {
+processPath( path , function( path, data ) {
+    var report;
     if ( typeof options["--trace"] !== "undefined" ) {
         console.log( sniffer.trace(data, Standard) );
     } else {
-        sniffer.run( data, Standard ).report();
+        if ( report = sniffer.run( data, Standard ).report() ) {
+            console.log( util.color("light_red", "File: " + path + "\n") + report );
+        } else {
+            console.log( util.color("light_green", "File: " + path + " - OK ") );
+        }
     }
 });
