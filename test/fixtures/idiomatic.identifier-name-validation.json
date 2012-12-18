@@ -1,11 +1,6 @@
 
 [
     {
-        "describe": "Identifier shall not start with uppercase character",
-        "expected": "invalidIdentifierName",
-        "js": "var PascalCaseIdentifier = true;"
-    },
-    {
         "describe": "Identifier shall not contain chained uppercase characters",
         "expected" : "invalidIdentifierName",
         "js": "var InvalidCCamelCaseIdentifier = true;"

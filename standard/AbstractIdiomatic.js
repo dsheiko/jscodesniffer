@@ -15,8 +15,7 @@ var AbstractStandard = require('./AbstractStandard'),
             invalidOperatorPrecedingSpacing: "There must be one preceding whitespace around operator (%s)",
             invalidOperatorFollowingSpacing: "There must be one following whitespace around operator (%s)",
             invalidLiteralSpacing: "There must be one whitespace around literal (%s)",
-            invalidConstructorName : "Identifier (%s) must be in PascalCase when it is a constructor, otherwise in camelCase",
-            invalidIdentifierName : "Identifier (%s) must be in camelCase"
+            invalidIdentifierName: "Identifier (%s) must be in PascalCase when it is a constructor, otherwise in camelCase"
         });
     },
     members = {
@@ -31,53 +30,21 @@ var AbstractStandard = require('./AbstractStandard'),
          */
         sniffIdentifierNamingConvention: function( tokenizer ) {
             var current = tokenizer.current(),
-                prev,
-                next,
-                afterNext,
-                // checks for cameCase
+                // checks for cameCase or PascalCase
                 isValidIdentifierName = function( string ) {
-                    var validRe = /^_?[a-z][a-zA-Z]*[0-9]*$/,
+                    var validRe = /^_?[a-zA-Z]*[0-9]*$/,
                         isConstantRe = /^[A-Z_]+[0-9]*$/,
                         noUcRepRe = /[A-Z]{2}/;
+
                     return isConstantRe.test( string ) ||
                         ( validRe.test( string ) && !noUcRepRe.test( string ) );
-                },
-                // checks for cameCase or PascalCase
-                isValidConstructorName = function( string ) {
-                    var validRe = /^_?[a-zA-Z]*[0-9]*$/,
-                        noUcRepRe = /[A-Z]{2}/;
-                    return validRe.test( string ) && !noUcRepRe.test( string );
                 };
 
             if ( current.match( "Identifier" ) ) {
-
-                prev = tokenizer.get( -1 );
-                next = tokenizer.get( 1 );
-                afterNext = tokenizer.get( 2 );
-
-                // Can be constructor
-                // Valid syntax: function foo ( ...
-                if ( prev && next && prev.match( "Keyword", ["function"] ) &&
-                     next.match( "Punctuator", ["("] ) ) {
-
-                     if ( !isValidConstructorName( current.value ) ) {
-                        this.log( current, "invalidConstructorName" );
-                    }
-
-                  // Valid syntax: foo = function ...
-                } else if ( next && next.match( "Punctuator", ["=", ":"] ) &&
-                        afterNext.match( "Keyword", ["function"] ) ) {
-
-                    if ( !isValidConstructorName( current.value ) ) {
-                        this.log( current, "invalidConstructorName" );
-                    }
-
-                } else {
-
-                    if ( !isValidIdentifierName( current.value ) ) {
-                        this.log( current, "invalidIdentifierName" );
-                    }
+                if ( !isValidIdentifierName( current.value ) ) {
+                    this.log( current, "invalidIdentifierName" );
                 }
+
             }
         },
 
