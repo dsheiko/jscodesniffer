@@ -90,7 +90,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                             var first = tokens.getFirst();
                             if ( first.match("Keyword", [ "function" ]) ||
                                 first.match("Punctuator", [ "{", "[" ]) ||
-                                first.match([ "Numeric", "String"]) ) {
+                                first.match([ "String"]) ) {
                                 ( first.before.whitespaceNum === 0 || first.before.newlineNum ) ||
                                     that.log( first, "invalidSingleArgumentSpacing" );
                             } else {
@@ -110,7 +110,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
 
                             if ( first.match("Keyword", [ "function" ]) ||
                                 last.match("Punctuator", [ "}", "]" ]) ||
-                                last.match([ "Numeric", "String"])) {
+                                last.match([ "String"])) {
                                 ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
                                     that.log( last, "invalidSingleArgumentSpacing" );
                             } else {
