@@ -66,3 +66,14 @@ var foo = "",
         var foo;
     };
 ```
+
+Setup and usage
+
+Just make sure all the required dependencies installed
+```
+npm i
+```
+and use the code sniffer:
+```
+jscs source-code.js
+```
