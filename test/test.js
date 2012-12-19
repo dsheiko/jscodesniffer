@@ -30,11 +30,11 @@ var esprima = require("esprima"),
         if ( !StandardConstr || !StandardConstr instanceof AbstractStandard ){
             throw new Error("You must pass in coding standard constructor with arguments");
         }
-        cases.forEach(function( usecase ){
+        cases.forEach(function( usecase, inx ){
              var logger = sniffer.run( usecase.js, StandardConstr ),
                  vardump;
              it( usecase.describe, function(){
-                 vardump = fixture + "\n\033[0m     " +
+                 vardump = fixture + " [" + inx + "]\n\033[0m     " +
                     util.color( "yellow", usecase.js ) +
                     util.color( "lightRed", "\n     >> " + logger.trace());
 
@@ -127,6 +127,6 @@ describe( 'jQuery Coding Style', function(){
        runTestSuit( "jquery.argument-spacing-validation.json", Jquery );
     });
     describe('Grouping spacing', function(){
-       runTestSuit( "jquery.inner-grouping-spacing.json", Idiomatic );
+       runTestSuit( "jquery.inner-grouping-spacing.json", Jquery );
     });
 });
