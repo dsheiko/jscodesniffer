@@ -6,7 +6,7 @@
         "js": "var InvalidCCamelCaseIdentifier = true;"
     },
     {
-        "describe": "Identifier shall consist of word characters and only tralling digits allowed.",
+        "describe": "Identifier shall consist of word characters and only traling digits allowed.",
         "expected" : "invalidIdentifierName",
         "js": "var Invalid1CamelCaseIdentifier = true;"
     },

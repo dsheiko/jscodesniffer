@@ -4,7 +4,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
     JqueryStandard = function() {
         this.logger = new Logger();
         this.extendExceptionMap({
-            invalidCommaPunctuatorSpacing: "Coma punctuator shall have single tralling space or line break",
+            invalidCommaPunctuatorSpacing: "Coma punctuator shall have single traling space or line break",
             invalidSingleArgumentExceptionLeadingSpacing: "There must be no leading whitespace for single argument such as function expression or object/array/string literal",
             invalidSingleArgumentExceptionTrailingSpacing: "There must be no trailing whitespace for single argument such as function expression or object/array/string literal",
             invalidSingleArgumentLeadingSpacing: "There must be one leading whitespace for the argument",

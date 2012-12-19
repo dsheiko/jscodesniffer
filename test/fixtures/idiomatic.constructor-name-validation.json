@@ -1,17 +1,17 @@
 
 [
     {
-        "describe": "Identifier of function expression shall consist of word characters and only tralling digits allowed.",
+        "describe": "Identifier of function expression shall consist of word characters and only traling digits allowed.",
         "expected" : "invalidIdentifierName",
         "js": "function Invalid1PascalCaseIdentifier(){}"
     },
     {
-        "describe": "Function name shall consist of word characters and only tralling digits allowed.",
+        "describe": "Function name shall consist of word characters and only traling digits allowed.",
         "expected" : "invalidIdentifierName",
         "js": "var Invalid1PascalCaseIdentifier = function(){}"
     },
     {
-        "describe": "Name of property with function expression shall consist of word characters and only tralling digits allowed.",
+        "describe": "Name of property with function expression shall consist of word characters and only traling digits allowed.",
         "expected" : "invalidIdentifierName",
         "js": "var obj = { Invalid1PascalCaseIdentifier: function(){} }"
     },
