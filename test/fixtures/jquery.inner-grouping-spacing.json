@@ -2,7 +2,7 @@
 [
     {
         "describe": "Inner grouping shall not have more than one space around",
-        "expected": "invalidGroupingParenSpacing",
+        "expected": "invalidInnerGroupingLeadingSpacing",
         "js": "foo( bar(  true  ) );"
     },
     {

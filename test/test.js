@@ -128,6 +128,6 @@ describe( 'jQuery Coding Style', function(){
     });
     describe('Grouping spacing', function(){
        runTestSuit(
-        getFixture( "jquery.inner-grouping-spacing.json" ), Idiomatic );
+        getFixture( "jquery.inner-grouping-spacing.json" ), Jquery );
     });
 });
