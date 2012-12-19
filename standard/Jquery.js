@@ -1,3 +1,10 @@
+/*
+ * @package JS_CodeSniffer
+ * @author sheiko
+ * @license MIT
+ * @copyright (c) Dmitry Sheiko http://www.dsheiko.com
+ * Code style: http://docs.jquery.com/JQuery_Core_Style_Guidelines
+ */
 var AbstractIdiomatic = require('./AbstractIdiomatic'),
     util = require("../lib/Util"),
     Logger = require('../lib/Logger'),
@@ -63,7 +70,7 @@ members = {
                     var first = tokens.getFirst();
                     if ( first.match("Keyword", [ "function" ]) ||
                         first.match("Punctuator", [ "{", "[" ]) ||
-                        first.match([ "String"]) ) {
+                        first.match([ "String" ]) ) {
                         ( first.before.whitespaceNum === 0 || first.before.newlineNum ) ||
                         that.log( first, "Jquery.invalidSingleArgumentExceptionLeadingSpacing" );
                     } else {
@@ -85,7 +92,7 @@ members = {
 
                     if ( first.match("Keyword", [ "function" ]) ||
                         last.match("Punctuator", [ "}", "]" ]) ||
-                        last.match([ "Numeric", "String"])) {
+                        last.match([ "Numeric", "String" ])) {
                         ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
                         that.log( last, "Jquery.invalidSingleArgumentExceptionTrailingSpacing" );
                     } else {
@@ -130,7 +137,7 @@ members = {
             }
         }( this ));
 
-        if ( ( current.match("Identifier") || current.match("Keyword", ["function"]) ) &&
+        if ( ( current.match("Identifier") || current.match("Keyword", [ "function" ]) ) &&
             next && next.group ) {
             fetch = next.group.asArray().filter(function( token ){
                 return token.match( "Punctuator", [ "," ] );
@@ -147,10 +154,10 @@ members = {
                 }
             }
             // Check comma punctuators. One space or line break expected
-            fetch.length && fetch.forEach(function( token ){
+            fetch.length && fetch.forEach( function( token ){
                 ( token.after.whitespaceNum === 1 || token.after.newlineNum ) ||
                 this.log( token, "Jquery.invalidCommaPunctuatorSpacing" );
-            }, this);
+            }, this );
 
         }
     }

@@ -1,3 +1,10 @@
+/*
+ * @package JS_CodeSniffer
+ * @author sheiko
+ * @license MIT
+ * @copyright (c) Dmitry Sheiko http://www.dsheiko.com
+ * Code style: http://docs.jquery.com/JQuery_Core_Style_Guidelines
+ */
 var AbstractIdiomatic = require('./AbstractIdiomatic'),
     util = require("../lib/Util"),
     Logger = require('../lib/Logger'),
@@ -50,7 +57,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                 first,
                 last;
             if ( prev && (prev.match("Identifier") ||
-                    prev.match("Keyword", ["function"])) ) {
+                    prev.match("Keyword", [ "function" ])) ) {
                 return; // @see sniffArgumentSpacing
             }
             if ( current.match("Punctuator", [ "(" ]) && current.group ) {
@@ -97,7 +104,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                             var first = tokens.getFirst();
                             if ( first.match("Keyword", [ "function" ]) ||
                                 first.match("Punctuator", [ "{", "[" ]) ||
-                                first.match([ "String"]) ) {
+                                first.match([ "String" ]) ) {
                                 ( first.before.whitespaceNum === 0 || first.before.newlineNum ) ||
                                     that.log( first, "Idiomatic.invalidSingleArgumentExceptionLeadingSpacing" );
                             } else {
@@ -118,7 +125,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
 
                             if ( first.match("Keyword", [ "function" ]) ||
                                 last.match("Punctuator", [ "}", "]" ]) ||
-                                last.match([ "String"])) {
+                                last.match([ "String" ])) {
                                 ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
                                     that.log( last, "Idiomatic.invalidSingleArgumentExceptionTrailingSpacing" );
                             } else {
