@@ -7,7 +7,7 @@
     },
     {
         "describe": "Literal shall be followed by no less than one whitespace",
-        "expected" : "invalidLiteralTraillingSpacing",
+        "expected" : "invalidLiteralTrailingSpacing",
         "js": "if ( 'string'==true) { }"
     },
     {

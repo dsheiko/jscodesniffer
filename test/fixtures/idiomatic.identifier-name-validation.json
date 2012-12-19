@@ -16,7 +16,7 @@
         "js": "var validCamelCaseIdentifier = true;"
     },
     {
-        "describe": "Identifier may have trailling digits",
+        "describe": "Identifier may have trailing digits",
         "expected" : "",
         "js": "var validCamelCaseIdentifier1 = true;"
     },

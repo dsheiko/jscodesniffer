@@ -9,12 +9,12 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
             invalidCommaPunctuatorSpacing: "Comma must be followed by exact one whitespace",
             invalidSingleArgumentExceptionLeadingSpacing: "There must be no leading whitespaces for the argument when it is function expression or object/array/string literal",
             invalidSingleArgumentLeadingSpacing: "There must be one leading whitespace for the argument",
-            invalidSingleArgumentExceptionTraillingSpacing: "There must be no trailing whitespaces for the argument when it is function expression or object/array/string literal",
-            invalidSingleArgumentTraillingSpacing: "There must be one trailing whitespace for the argument",
+            invalidSingleArgumentExceptionTrailingSpacing: "There must be no trailing whitespaces for the argument when it is function expression or object/array/string literal",
+            invalidSingleArgumentTrailingSpacing: "There must be one trailing whitespace for the argument",
             invalidArgumentListLeadingExceptionSpacing: "There must be no leading whitespaces for the argument list when it is function expression or object/array/string literal",
             invalidArgumentListLeadingSpacing: "There must be one leading whitespace for the argument list",
-            invalidArgumentListTraillingExceptionSpacing: "There must be no trailing whitespaces for the argument list when it is function expression or object/array/string literal",
-            invalidArgumentListTraillingSpacing: "There must be one trailing whitespace for the argument list",
+            invalidArgumentListTrailingExceptionSpacing: "There must be no trailing whitespaces for the argument list when it is function expression or object/array/string literal",
+            invalidArgumentListTrailingSpacing: "There must be one trailing whitespace for the argument list",
             invalidInnerGroupingParenSpacing: "There must be no spaces around expression of inner grouping parens",
             invalidGroupingParenSpacing: "There must be one space around expression of outer grouping parens"
         });
@@ -112,7 +112,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                         * @param TokenizerIterator group
                         * @return boolean
                         */
-                        singleArgumentTraillingSpaces: function( tokens ) {
+                        singleArgumentTrailingSpaces: function( tokens ) {
                             var first = tokens.getFirst(),
                                 last = tokens.getLast();
 
@@ -120,10 +120,10 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                                 last.match("Punctuator", [ "}", "]" ]) ||
                                 last.match([ "String"])) {
                                 ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                                    that.log( last, "invalidSingleArgumentExceptionTraillingSpacing" );
+                                    that.log( last, "invalidSingleArgumentExceptionTrailingSpacing" );
                             } else {
                                 ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
-                                    that.log( last, "invalidSingleArgumentTraillingSpacing" );
+                                    that.log( last, "invalidSingleArgumentTrailingSpacing" );
                             }
                         },
                          /**
@@ -150,16 +150,16 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                          * @param TokenizerIterator group
                          * @return boolean
                          */
-                        argumentListTraillingSpaces: function( tokens ) {
+                        argumentListTrailingSpaces: function( tokens ) {
                             var first = tokens.getFirst(),
                                 last = tokens.getLast();
                             if ( first.match("Punctuator", [ "{", "[" ]) ||
                                  last.match("Punctuator", [ "}", "]" ]) ) {
                                 ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                                    that.log( last, "invalidArgumentListTraillingExceptionSpacing" );
+                                    that.log( last, "invalidArgumentListTrailingExceptionSpacing" );
                             } else {
                                 ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
-                                    that.log( last, "invalidArgumentListTraillingSpacing" );
+                                    that.log( last, "invalidArgumentListTrailingSpacing" );
                             }
 
                         }
@@ -175,10 +175,10 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                 // One argument
                 if ( fetch.length === 0 ) {
                     validate.singleArgumentLeadingSpaces( next.group );
-                    validate.singleArgumentTraillingSpaces( next.group );
+                    validate.singleArgumentTrailingSpaces( next.group );
                 } else {
                     validate.argumentListLeadingSpaces( next.group );
-                    validate.argumentListTraillingSpaces( next.group );
+                    validate.argumentListTrailingSpaces( next.group );
                 }
                 // Check comma punctuators. One space or line break expected
                 fetch.length && fetch.forEach(function( token ){

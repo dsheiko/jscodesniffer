@@ -1,1 +1,1 @@
-var  res = 'string'!='another string';
+util.vardump( tokenizer.parse(data).trace() );

@@ -6,15 +6,15 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
         this.extendExceptionMap({
             invalidCommaPunctuatorSpacing: "Coma punctuator shall have single tralling space or line break",
             invalidSingleArgumentExceptionLeadingSpacing: "There must be no leading whitespace for single argument such as function expression or object/array/string literal",
-            invalidSingleArgumentExceptionTraillingSpacing: "There must be no trailing whitespace for single argument such as function expression or object/array/string literal",
+            invalidSingleArgumentExceptionTrailingSpacing: "There must be no trailing whitespace for single argument such as function expression or object/array/string literal",
             invalidSingleArgumentLeadingSpacing: "There must be one leading whitespace for the argument",
-            invalidSingleArgumentTraillingSpacing: "There must be one trailing whitespace for the argument",
-            invalidSingleArgumentTraillingExceptionSpacing: "There must be no trailing whitespaces for the argument",
+            invalidSingleArgumentTrailingSpacing: "There must be one trailing whitespace for the argument",
+            invalidSingleArgumentTrailingExceptionSpacing: "There must be no trailing whitespaces for the argument",
             invalidArgumentListLeadingSpacing: "There must be one leading whitespace for the argument list",
-            invalidArgumentListTraillingSpacing: "There must be one trailing whitespace for the argument list",
-            invalidArgumentListTraillingExceptionSpacing: "There must be no trailing whitespaces for argument list",
+            invalidArgumentListTrailingSpacing: "There must be one trailing whitespace for the argument list",
+            invalidArgumentListTrailingExceptionSpacing: "There must be no trailing whitespaces for argument list",
             invalidInnerGroupingLeadingSpacing: "There must be one or no leading spaces for the expression of inner grouping parens",
-            invalidInnerGroupingTraillingSpacing: "There must be one or no trailling spaces for the expression of inner grouping parens"
+            invalidInnerGroupingTrailingSpacing: "There must be one or no trailing spaces for the expression of inner grouping parens"
         });
     };
 
@@ -47,7 +47,7 @@ members = {
                     ( first.before.whitespaceNum < 2 || first.before.newlineNum ) ||
                         that.log( first, "invalidInnerGroupingLeadingSpacing" );
                     ( last.after.whitespaceNum < 2 || last.after.newlineNum ) ||
-                        that.log( last, "invalidInnerGroupingTraillingSpacing" );
+                        that.log( last, "invalidInnerGroupingTrailingSpacing" );
 
                 },
 
@@ -79,7 +79,7 @@ members = {
                 * @param TokenizerIterator group
                 * @return boolean
                 */
-                singleArgumentTraillingSpaces: function( tokens ) {
+                singleArgumentTrailingSpaces: function( tokens ) {
                     var first = tokens.getFirst(),
                     last = tokens.getLast();
 
@@ -87,14 +87,14 @@ members = {
                         last.match("Punctuator", [ "}", "]" ]) ||
                         last.match([ "Numeric", "String"])) {
                         ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                        that.log( last, "invalidSingleArgumentExceptionTraillingSpacing" );
+                        that.log( last, "invalidSingleArgumentExceptionTrailingSpacing" );
                     } else {
                         if ( last.match("Punctuator", [ "}", "]" ])) {
                             ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                            that.log( last, "invalidSingleArgumentTraillingExceptionSpacing" );
+                            that.log( last, "invalidSingleArgumentTrailingExceptionSpacing" );
                         } else {
                             ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
-                            that.log( last, "invalidSingleArgumentTraillingSpacing" );
+                            that.log( last, "invalidSingleArgumentTrailingSpacing" );
                         }
                     }
                 },
@@ -105,14 +105,14 @@ members = {
                 * @param TokenizerIterator group
                 * @return boolean
                 */
-                argumentListTraillingSpaces: function( tokens ) {
+                argumentListTrailingSpaces: function( tokens ) {
                     var last = tokens.getLast();
                     if ( last.match("Punctuator", [ "}", "]" ])) {
                         ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                        that.log( last, "invalidArgumentListTraillingExceptionSpacing" );
+                        that.log( last, "invalidArgumentListTrailingExceptionSpacing" );
                     } else {
                         ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
-                        that.log( last, "invalidArgumentListTraillingSpacing" );
+                        that.log( last, "invalidArgumentListTrailingSpacing" );
                     }
                 },
                /**
@@ -140,10 +140,10 @@ members = {
             } else {
                 if ( fetch.length === 0 ) {
                     validate.singleArgumentLeadingSpaces( next.group );
-                    validate.singleArgumentTraillingSpaces( next.group );
+                    validate.singleArgumentTrailingSpaces( next.group );
                 } else {
                     validate.argumentListLeadingSpaces( next.group );
-                    validate.argumentListTraillingSpaces( next.group );
+                    validate.argumentListTrailingSpaces( next.group );
                 }
             }
             // Check comma punctuators. One space or line break expected
