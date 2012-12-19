@@ -14,7 +14,8 @@ var AbstractStandard = require('./AbstractStandard'),
         this.extendExceptionMap({
             invalidOperatorPrecedingSpacing: "There must be one preceding whitespace around operator (%s)",
             invalidOperatorFollowingSpacing: "There must be one following whitespace around operator (%s)",
-            invalidLiteralSpacing: "There must be one whitespace around literal (%s)",
+            invalidLiteralLeadingSpacing: "There must be one leading whitespace for the literal (%s)",
+            invalidLiteralTraillingSpacing: "There must be one leading whitespace for the literal (%s)",
             invalidIdentifierName: "Identifier (%s) must be in PascalCase when it is a constructor, otherwise in camelCase"
         });
     },
@@ -112,7 +113,7 @@ var AbstractStandard = require('./AbstractStandard'),
                     !current.before.newlineNum &&
                     !prev.match( "Punctuator", [ "(" ] ) &&
                     current.before.whitespaceNum !== 1 ) {
-                    this.log( current, "invalidLiteralSpacing" );
+                    this.log( current, "invalidLiteralLeadingSpacing" );
                 }
                 // If not followed by punctuator such as ,;:,
                 // must be by exact one whitespace
@@ -120,7 +121,7 @@ var AbstractStandard = require('./AbstractStandard'),
                      !current.after.newlineNum &&
                      !next.match( "Punctuator", [ ",", ":", ";", ")" ] ) &&
                      current.after.whitespaceNum !== 1 ) {
-                    this.log( current, "invalidLiteralSpacing" );
+                    this.log( current, "invalidLiteralTraillingSpacing" );
                 }
             }
         }
