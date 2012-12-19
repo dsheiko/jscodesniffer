@@ -83,12 +83,12 @@ var AbstractStandard = require('./AbstractStandard'),
 
                 // Plus, but not incrementor, not unary +
                 if ( current.match( "Punctuator", [ "+" ] ) && next &&
-                        !next.match("Identifier") ) {
+                        !next.match([ "Numeric", "String", "Identifier" ]) ) {
                     validate.spacing( current, current );
                 }
                 // Minus, but not decrementor, not unary -
                 if ( current.match( "Punctuator", [ "-" ] ) && next &&
-                        !next.match("Identifier") ) {
+                        !next.match([ "Numeric", "String", "Identifier" ]) ) {
                     validate.spacing( current, current );
                 }
         },
@@ -111,7 +111,7 @@ var AbstractStandard = require('./AbstractStandard'),
                 // must be by exact one whitespace
                 if ( prev &&
                     !current.before.newlineNum &&
-                    !prev.match( "Punctuator", [ "(" ] ) &&
+                    !prev.match( "Punctuator", [ "(", "+", "-" ] ) &&
                     current.before.whitespaceNum !== 1 ) {
                     this.log( current, "invalidLiteralLeadingSpacing" );
                 }
