@@ -43,7 +43,7 @@ var esprima = require("esprima"),
 
                  }
                  if ( usecase.unexpected ) {
-                    return assert.fail( logger.hasMessage(usecase.unexpected),
+                    return assert( !logger.hasMessage(usecase.unexpected),
                         vardump);
                  }
                  assert( logger.isEmpty(), vardump);
