@@ -15,7 +15,7 @@ var AbstractStandard = require('./AbstractStandard'),
             invalidOperatorPrecedingSpacing: "There must be one preceding whitespace around operator (%s)",
             invalidOperatorFollowingSpacing: "There must be one following whitespace around operator (%s)",
             invalidLiteralLeadingSpacing: "There must be one leading whitespace for the literal (%s)",
-            invalidLiteralTraillingSpacing: "There must be one leading whitespace for the literal (%s)",
+            invalidLiteralTraillingSpacing: "There must be one trailling whitespace for the literal (%s)",
             invalidIdentifierName: "Identifier (%s) must be in PascalCase when it is a constructor, otherwise in camelCase"
         });
     },
