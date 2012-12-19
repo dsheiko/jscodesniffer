@@ -67,15 +67,26 @@ members = {
                 * @return boolean
                 */
                 singleArgumentLeadingSpaces: function( tokens ) {
-                    var first = tokens.getFirst();
-                    if ( first.match("Keyword", [ "function" ]) ||
+                    var first = tokens.getFirst(),
+                        second = tokens.get( 1 ),
+                        validateException = function() {
+                            ( first.before.whitespaceNum === 0 || first.before.newlineNum ) ||
+                                that.log( first, "Jquery.invalidSingleArgumentExceptionLeadingSpacing" );
+                        },
+                        validateRegular = function() {
+                            ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
+                                that.log( first, "Jquery.invalidSingleArgumentLeadingSpacing" );
+                        };
+
+                    // If the second token is an operator. E.g. foo( "ex" + 1 )
+                    if ( second && second.match("Punctuator", [ "+", "-" ])) {
+                        validateRegular();
+                    } else if ( first.match("Keyword", [ "function" ]) ||
                         first.match("Punctuator", [ "{", "[" ]) ||
                         first.match([ "String" ]) ) {
-                        ( first.before.whitespaceNum === 0 || first.before.newlineNum ) ||
-                        that.log( first, "Jquery.invalidSingleArgumentExceptionLeadingSpacing" );
+                        validateException();
                     } else {
-                        ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
-                        that.log( first, "Jquery.invalidSingleArgumentLeadingSpacing" );
+                        validateRegular();
                     }
                 },
                /**
@@ -88,21 +99,31 @@ members = {
                 */
                 singleArgumentTrailingSpaces: function( tokens ) {
                     var first = tokens.getFirst(),
-                    last = tokens.getLast();
+                        last = tokens.getLast(),
+                        second = tokens.get( 1 ),
+                        validateException = function() {
+                            ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
+                                that.log( last, "Jquery.invalidSingleArgumentExceptionTrailingSpacing" );
+                        },
+                        validateRegular = function() {
+                            if ( last.match("Punctuator", [ "}", "]" ])) {
+                                ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
+                                that.log( last, "Jquery.invalidSingleArgumentTrailingExceptionSpacing" );
+                            } else {
+                                ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
+                                that.log( last, "Jquery.invalidSingleArgumentTrailingSpacing" );
+                            }
+                        };
 
-                    if ( first.match("Keyword", [ "function" ]) ||
+                    // If the second token is an operator. E.g. foo( "ex" + 1 )
+                    if ( second && second.match("Punctuator", [ "+", "-" ])) {
+                        validateRegular();
+                    } else if ( first.match("Keyword", [ "function" ]) ||
                         last.match("Punctuator", [ "}", "]" ]) ||
                         last.match([ "String" ])) {
-                        ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                        that.log( last, "Jquery.invalidSingleArgumentExceptionTrailingSpacing" );
+                        validateException();
                     } else {
-                        if ( last.match("Punctuator", [ "}", "]" ])) {
-                            ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                            that.log( last, "Jquery.invalidSingleArgumentTrailingExceptionSpacing" );
-                        } else {
-                            ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
-                            that.log( last, "Jquery.invalidSingleArgumentTrailingSpacing" );
-                        }
+                        validateRegular();
                     }
                 },
                /**

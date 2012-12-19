@@ -1,1 +1,1 @@
-tokens.get( -1 );
+throw new Error( "Exception description missing for the code " + exceptionCode );
