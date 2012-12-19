@@ -7,8 +7,14 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
             tooManyVarStatements: "Only one variable statement per scope allowed",
             invalidVarStatementPos: "Variable statements should always be in the beginning of their respective scope",
             invalidCommaPunctuatorSpacing: "Comma must be followed by exact one whitespace",
-            invalidSingleArgumentSpacing: "There must be one whitespace around argument or no space when it is function expression or object/array/string literal",
-            invalidArgumentListSpacing: "There must be one whitespace around argument list or no space when it is function expression or object/array literal",
+            invalidSingleArgumentExceptionLeadingSpacing: "There must be no leading whitespaces for the argument when it is function expression or object/array/string literal",
+            invalidSingleArgumentLeadingSpacing: "There must be one leading whitespace for the argument",
+            invalidSingleArgumentExceptionTraillingSpacing: "There must be no trailing whitespaces for the argument when it is function expression or object/array/string literal",
+            invalidSingleArgumentTraillingSpacing: "There must be one trailing whitespace for the argument",
+            invalidArgumentListLeadingExceptionSpacing: "There must be no leading whitespaces for the argument list when it is function expression or object/array/string literal",
+            invalidArgumentListLeadingSpacing: "There must be one leading whitespace for the argument list",
+            invalidArgumentListTraillingExceptionSpacing: "There must be no trailing whitespaces for the argument list when it is function expression or object/array/string literal",
+            invalidArgumentListTraillingSpacing: "There must be one trailing whitespace for the argument list",
             invalidInnerGroupingParenSpacing: "There must be no spaces around expression of inner grouping parens",
             invalidGroupingParenSpacing: "There must be one space around expression of outer grouping parens"
         });
@@ -93,9 +99,10 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                                 first.match("Punctuator", [ "{", "[" ]) ||
                                 first.match([ "String"]) ) {
                                 ( first.before.whitespaceNum === 0 || first.before.newlineNum ) ||
-                                    that.log( first, "invalidSingleArgumentSpacing" );
+                                    that.log( first, "invalidSingleArgumentExceptionLeadingSpacing" );
                             } else {
-                                this.argumentListLeadingSpaces( tokens );
+                                ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
+                                    that.log( first, "invalidSingleArgumentLeadingSpacing" );
                             }
                         },
                        /**
@@ -113,9 +120,10 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                                 last.match("Punctuator", [ "}", "]" ]) ||
                                 last.match([ "String"])) {
                                 ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                                    that.log( last, "invalidSingleArgumentSpacing" );
+                                    that.log( last, "invalidSingleArgumentExceptionTraillingSpacing" );
                             } else {
-                                this.argumentListTraillingSpaces( tokens );
+                                ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
+                                    that.log( last, "invalidSingleArgumentTraillingSpacing" );
                             }
                         },
                          /**
@@ -129,10 +137,10 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                             var first = tokens.getFirst();
                             if ( first.match("Punctuator", [ "{", "[" ]) ) {
                                 ( first.before.whitespaceNum === 0 || first.before.newlineNum ) ||
-                                    that.log( first, "invalidArgumentListSpacing" );
+                                    that.log( first, "invalidArgumentListLeadingExceptionSpacing" );
                             } else {
                                 ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
-                                    that.log( first, "invalidArgumentListSpacing" );
+                                    that.log( first, "invalidArgumentListLeadingSpacing" );
                             }
                         },
                         /**
@@ -148,10 +156,10 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                             if ( first.match("Punctuator", [ "{", "[" ]) ||
                                  last.match("Punctuator", [ "}", "]" ]) ) {
                                 ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                                    that.log( last, "invalidArgumentListSpacing" );
+                                    that.log( last, "invalidArgumentListTraillingExceptionSpacing" );
                             } else {
                                 ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
-                                    that.log( last, "invalidArgumentListSpacing" );
+                                    that.log( last, "invalidArgumentListTraillingSpacing" );
                             }
 
                         }
