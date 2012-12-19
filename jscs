@@ -62,15 +62,15 @@ try {
     return console.error("Cannot find standard " + options["--standard"]);
 }
 
-processPath( path , function( path, data ) {
+processPath( path , function(path, data) {
     var report;
     if ( typeof options["--trace"] !== "undefined" ) {
         console.log( sniffer.trace(data, Standard) );
     } else {
         if ( report = sniffer.run( data, Standard ).report() ) {
-            console.log( util.color("light_red", "File: " + path + "\n") + report );
+            console.log( util.color("lightRed", "File: " + path + "\n") + report );
         } else {
-            console.log( util.color("light_green", "File: " + path + " - OK ") );
+            console.log( util.color("lightGreen", "File: " + path + " - OK ") );
         }
     }
 });

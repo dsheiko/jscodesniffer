@@ -3,12 +3,12 @@
     {
         "describe": "Operator shall be preceded by no more than one whitespace",
         "expected": "invalidOperatorPrecedingSpacing",
-        "js": "var  res = 1  + 1;"
+        "js": "var  res = 1  * 1;"
     },
     {
         "describe": "Operator shall be preceded by no less than one whitespace",
         "expected" : "invalidOperatorPrecedingSpacing",
-        "js": "var  res = 'string'+ 'string';"
+        "js": "var  res = 'string'!='another string';"
     },
     {
         "describe": "Multi-symbol operator shall be followed by no less than one whitespace",

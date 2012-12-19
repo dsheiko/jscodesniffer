@@ -1,1 +1,1 @@
-foo( bar(true) );
+var  res = 'string'!='another string';

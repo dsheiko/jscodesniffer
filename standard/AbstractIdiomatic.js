@@ -77,7 +77,7 @@ var AbstractStandard = require('./AbstractStandard'),
 
 
               if ( current.match( "Punctuator", [ ">>>=", "*=", "/=", "%=", "+=", "-=", "<<=", ">>=",
-                  "&=", "^=", "|=", "=", "*", "/", "%", "++", "--" ] ) ) {
+                  "&=", "^=", "|=", "!===", "!==", "!=", "===", "==", "=", "*", "/", "%" ] ) ) {
                     validate.spacing( current, current );
                }
 
