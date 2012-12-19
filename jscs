@@ -16,12 +16,14 @@ var esprima = require("esprima"),
                     fn( path, data );
     },
     processDir = function( path, fn ) {
-            var dir = fs.readdirSync( path );
+            var dir = fs.readdirSync( path ),
+                stat;
             dir && dir.forEach(function( file ){
                     var re = /\.js$/gi;
-                    if ( re.test( file ) ) {
-                            processFile( path + "/" + file, fn );
-                    }
+                    stat = fs.statSync( path + "/" + file );
+                    stat.isFile() && re.test( file ) &&
+                        processFile( path + "/" + file, fn );
+                    stat.isDirectory() && processDir( path + "/" + file, fn );
             });
     },
     processPath = function( path, fn ) {
