@@ -2,13 +2,18 @@
 var esprima = require("esprima"),
     sniffer = require('./lib/Sniffer'),
     util = require('./lib/Util'),
+    Reporter = require('./lib/Reporter'),
     Standard,
     fs = require('fs'),
     path,
+    reporter = new Reporter("full"),
     options = {},
     helpScreen = "Usage: jscs <path>\n" +
                     "<path> - filename or dir to sniff\n" +
                     "[--standard=<Standard>] - apply specified standard (Idiomatic, Jquery)\n" +
+                    "[--report-full] - full report with source codes\n" +
+                    "[--report-summary] - summary report\n" +
+                    "[--report-xml] - printing an XML report\n" +
                     "[--trace] - show tokens\n",
 
     processFile = function( path, fn ) {
@@ -64,15 +69,22 @@ try {
     return console.error("Cannot find standard " + options["--standard"]);
 }
 
+if ( typeof options["--trace"] !== "undefined" ) {
+    reporter = new Reporter("trace");
+}
+if ( typeof options["--report-xml"] !== "undefined" ) {
+    reporter = new Reporter("xml");
+}
+if ( typeof options["--report-summary"] !== "undefined" ) {
+    reporter = new Reporter("summary");
+}
+
 processPath( path , function(path, data) {
-    var report;
     if ( typeof options["--trace"] !== "undefined" ) {
-        console.log( sniffer.trace(data, Standard) );
+        reporter.add( path, sniffer.trace(data, Standard) );
     } else {
-        if ( report = sniffer.run( data, Standard ).report() ) {
-            console.log( util.color("lightRed", "File: " + path + "\n") + report );
-        } else {
-            console.log( util.color("lightGreen", "File: " + path + " - OK ") );
-        }
+        reporter.add( path, sniffer.run(data, Standard).getMessages() );
     }
 });
+
+console.log( reporter.print() );

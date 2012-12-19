@@ -2,7 +2,7 @@
 [
     {
         "describe": "Inner grouping shall not have more than one space around",
-        "expected": "invalidInnerGroupingLeadingSpacing",
+        "expected": "Jquery.invalidInnerGroupingLeadingSpacing",
         "js": "foo( bar(  true  ) );"
     },
     {
@@ -12,7 +12,7 @@
     },
     {
         "describe": "Inner grouping may have no space around",
-        "expected": "",
+        "unexpected": "Jquery.invalidInnerGroupingLeadingSpacing",
         "js": "foo( bar(true) );"
     }
 ]

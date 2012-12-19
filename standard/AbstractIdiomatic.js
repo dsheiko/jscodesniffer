@@ -12,11 +12,11 @@ var AbstractStandard = require('./AbstractStandard'),
     }()),
     AbstractIdiomatic = function() {
         this.extendExceptionMap({
-            invalidOperatorPrecedingSpacing: "There must be one preceding whitespace around operator (%s)",
-            invalidOperatorFollowingSpacing: "There must be one following whitespace around operator (%s)",
-            invalidLiteralLeadingSpacing: "There must be one leading whitespace for the literal (%s)",
-            invalidLiteralTrailingSpacing: "There must be one trailing whitespace for the literal (%s)",
-            invalidIdentifierName: "Identifier (%s) must be in PascalCase when it is a constructor, otherwise in camelCase"
+            "AbstractIdiomatic.invalidOperatorPrecedingSpacing": "There must be one preceding whitespace around operator (%s)",
+            "AbstractIdiomatic.invalidOperatorFollowingSpacing": "There must be one following whitespace around operator (%s)",
+            "AbstractIdiomatic.invalidLiteralLeadingSpacing": "There must be one leading whitespace for the literal (%s)",
+            "AbstractIdiomatic.invalidLiteralTrailingSpacing": "There must be one trailing whitespace for the literal (%s)",
+            "AbstractIdiomatic.invalidIdentifierName": "Identifier (%s) must be in PascalCase when it is a constructor, otherwise in camelCase"
         });
     },
     members = {
@@ -43,7 +43,7 @@ var AbstractStandard = require('./AbstractStandard'),
 
             if ( current.match( "Identifier" ) ) {
                 if ( !isValidIdentifierName( current.value ) ) {
-                    this.log( current, "invalidIdentifierName" );
+                    this.log( current, "AbstractIdiomatic.invalidIdentifierName" );
                 }
 
             }
@@ -67,10 +67,10 @@ var AbstractStandard = require('./AbstractStandard'),
                         spacing: function( start, end ) {
                             // If not preceded by a linebreak, must be by exact one whitespace
                             ( start.before.whitespaceNum === 1 ) ||
-                                that.log( start, "invalidOperatorPrecedingSpacing" );
+                                that.log( start, "AbstractIdiomatic.invalidOperatorPrecedingSpacing" );
 
                             ( end.after.whitespaceNum === 1 || end.after.newlineNum ) ||
-                                that.log( end, "invalidOperatorFollowingSpacing" );
+                                that.log( end, "AbstractIdiomatic.invalidOperatorFollowingSpacing" );
                         }
                     };
                 }( this ));
@@ -113,7 +113,7 @@ var AbstractStandard = require('./AbstractStandard'),
                     !current.before.newlineNum &&
                     !prev.match( "Punctuator", [ "(", "+", "-" ] ) &&
                     current.before.whitespaceNum !== 1 ) {
-                    this.log( current, "invalidLiteralLeadingSpacing" );
+                    this.log( current, "AbstractIdiomatic.invalidLiteralLeadingSpacing" );
                 }
                 // If not followed by punctuator such as ,;:,
                 // must be by exact one whitespace
@@ -121,7 +121,7 @@ var AbstractStandard = require('./AbstractStandard'),
                      !current.after.newlineNum &&
                      !next.match( "Punctuator", [ ",", ":", ";", ")" ] ) &&
                      current.after.whitespaceNum !== 1 ) {
-                    this.log( current, "invalidLiteralTrailingSpacing" );
+                    this.log( current, "AbstractIdiomatic.invalidLiteralTrailingSpacing" );
                 }
             }
         }

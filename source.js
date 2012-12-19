@@ -1,1 +1,1 @@
-util.vardump( tokenizer.parse(data).trace() );
+foo( bar(  true  ) );

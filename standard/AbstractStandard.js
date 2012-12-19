@@ -12,7 +12,7 @@ var util = require('../lib/Util'),
             }
             this.logger.log(
                 [ this.exceptions[ exceptionCode ], util.color("yellow", token.value) ],
-                exceptionCode, token.line, token.position
+                exceptionCode, token.line, token.column
             );
         };
     };

@@ -2,12 +2,12 @@
 [
     {
         "describe": "Identifier shall not contain chained uppercase characters",
-        "expected" : "invalidIdentifierName",
+        "expected" : "AbstractIdiomatic.invalidIdentifierName",
         "js": "var InvalidCCamelCaseIdentifier = true;"
     },
     {
         "describe": "Identifier shall consist of word characters and only traling digits allowed.",
-        "expected" : "invalidIdentifierName",
+        "expected" : "AbstractIdiomatic.invalidIdentifierName",
         "js": "var Invalid1CamelCaseIdentifier = true;"
     },
     {

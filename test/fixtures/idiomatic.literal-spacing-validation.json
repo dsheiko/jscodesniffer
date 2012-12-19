@@ -2,12 +2,12 @@
 [
     {
         "describe": "Literal shall be preceded by no less than one whitespace",
-        "expected": "invalidLiteralLeadingSpacing",
+        "expected": "AbstractIdiomatic.invalidLiteralLeadingSpacing",
         "js": "var a =1;"
     },
     {
         "describe": "Literal shall be followed by no less than one whitespace",
-        "expected" : "invalidLiteralTrailingSpacing",
+        "expected" : "AbstractIdiomatic.invalidLiteralTrailingSpacing",
         "js": "if ( 'string'==true) { }"
     },
     {

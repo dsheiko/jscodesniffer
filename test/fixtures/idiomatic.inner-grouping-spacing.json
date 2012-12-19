@@ -2,7 +2,7 @@
 [
     {
         "describe": "Inner grouping parens shall have no spaces around",
-        "expected": "invalidGroupingParenSpacing",
+        "expected": "Idiomatic.invalidGroupingParenSpacing",
         "js": "if (!('foo' in obj)) {}"
     },
     {

@@ -4,17 +4,17 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
     JqueryStandard = function() {
         this.logger = new Logger();
         this.extendExceptionMap({
-            invalidCommaPunctuatorSpacing: "Coma punctuator shall have single traling space or line break",
-            invalidSingleArgumentExceptionLeadingSpacing: "There must be no leading whitespace for single argument such as function expression or object/array/string literal",
-            invalidSingleArgumentExceptionTrailingSpacing: "There must be no trailing whitespace for single argument such as function expression or object/array/string literal",
-            invalidSingleArgumentLeadingSpacing: "There must be one leading whitespace for the argument",
-            invalidSingleArgumentTrailingSpacing: "There must be one trailing whitespace for the argument",
-            invalidSingleArgumentTrailingExceptionSpacing: "There must be no trailing whitespaces for the argument",
-            invalidArgumentListLeadingSpacing: "There must be one leading whitespace for the argument list",
-            invalidArgumentListTrailingSpacing: "There must be one trailing whitespace for the argument list",
-            invalidArgumentListTrailingExceptionSpacing: "There must be no trailing whitespaces for argument list",
-            invalidInnerGroupingLeadingSpacing: "There must be one or no leading spaces for the expression of inner grouping parens",
-            invalidInnerGroupingTrailingSpacing: "There must be one or no trailing spaces for the expression of inner grouping parens"
+            "Jquery.invalidCommaPunctuatorSpacing": "Coma punctuator shall have single traling space or line break",
+            "Jquery.invalidSingleArgumentExceptionLeadingSpacing": "There must be no leading whitespace for single argument such as function expression or object/array/string literal",
+            "Jquery.invalidSingleArgumentExceptionTrailingSpacing": "There must be no trailing whitespace for single argument such as function expression or object/array/string literal",
+            "Jquery.invalidSingleArgumentLeadingSpacing": "There must be one leading whitespace for the argument",
+            "Jquery.invalidSingleArgumentTrailingSpacing": "There must be one trailing whitespace for the argument",
+            "Jquery.invalidSingleArgumentTrailingExceptionSpacing": "There must be no trailing whitespaces for the argument",
+            "Jquery.invalidArgumentListLeadingSpacing": "There must be one leading whitespace for the argument list",
+            "Jquery.invalidArgumentListTrailingSpacing": "There must be one trailing whitespace for the argument list",
+            "Jquery.invalidArgumentListTrailingExceptionSpacing": "There must be no trailing whitespaces for argument list",
+            "Jquery.invalidInnerGroupingLeadingSpacing": "There must be one or no leading spaces for the expression of inner grouping parens",
+            "Jquery.invalidInnerGroupingTrailingSpacing": "There must be one or no trailing spaces for the expression of inner grouping parens"
         });
     };
 
@@ -45,9 +45,9 @@ members = {
                         last = tokens.getLast();
 
                     ( first.before.whitespaceNum < 2 || first.before.newlineNum ) ||
-                        that.log( first, "invalidInnerGroupingLeadingSpacing" );
+                        that.log( first, "Jquery.invalidInnerGroupingLeadingSpacing" );
                     ( last.after.whitespaceNum < 2 || last.after.newlineNum ) ||
-                        that.log( last, "invalidInnerGroupingTrailingSpacing" );
+                        that.log( last, "Jquery.invalidInnerGroupingTrailingSpacing" );
 
                 },
 
@@ -65,10 +65,10 @@ members = {
                         first.match("Punctuator", [ "{", "[" ]) ||
                         first.match([ "String"]) ) {
                         ( first.before.whitespaceNum === 0 || first.before.newlineNum ) ||
-                        that.log( first, "invalidSingleArgumentExceptionLeadingSpacing" );
+                        that.log( first, "Jquery.invalidSingleArgumentExceptionLeadingSpacing" );
                     } else {
                         ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
-                        that.log( first, "invalidSingleArgumentLeadingSpacing" );
+                        that.log( first, "Jquery.invalidSingleArgumentLeadingSpacing" );
                     }
                 },
                /**
@@ -87,14 +87,14 @@ members = {
                         last.match("Punctuator", [ "}", "]" ]) ||
                         last.match([ "Numeric", "String"])) {
                         ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                        that.log( last, "invalidSingleArgumentExceptionTrailingSpacing" );
+                        that.log( last, "Jquery.invalidSingleArgumentExceptionTrailingSpacing" );
                     } else {
                         if ( last.match("Punctuator", [ "}", "]" ])) {
                             ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                            that.log( last, "invalidSingleArgumentTrailingExceptionSpacing" );
+                            that.log( last, "Jquery.invalidSingleArgumentTrailingExceptionSpacing" );
                         } else {
                             ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
-                            that.log( last, "invalidSingleArgumentTrailingSpacing" );
+                            that.log( last, "Jquery.invalidSingleArgumentTrailingSpacing" );
                         }
                     }
                 },
@@ -109,10 +109,10 @@ members = {
                     var last = tokens.getLast();
                     if ( last.match("Punctuator", [ "}", "]" ])) {
                         ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                        that.log( last, "invalidArgumentListTrailingExceptionSpacing" );
+                        that.log( last, "Jquery.invalidArgumentListTrailingExceptionSpacing" );
                     } else {
                         ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
-                        that.log( last, "invalidArgumentListTrailingSpacing" );
+                        that.log( last, "Jquery.invalidArgumentListTrailingSpacing" );
                     }
                 },
                /**
@@ -124,7 +124,7 @@ members = {
                 argumentListLeadingSpaces: function( tokens ) {
                     var first = tokens.getFirst();
                     ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
-                    that.log( first, "invalidArgumentListLeadingSpacing" );
+                    that.log( first, "Jquery.invalidArgumentListLeadingSpacing" );
                 }
 
             }
@@ -149,7 +149,7 @@ members = {
             // Check comma punctuators. One space or line break expected
             fetch.length && fetch.forEach(function( token ){
                 ( token.after.whitespaceNum === 1 || token.after.newlineNum ) ||
-                this.log( token, "invalidCommaPunctuatorSpacing" );
+                this.log( token, "Jquery.invalidCommaPunctuatorSpacing" );
             }, this);
 
         }

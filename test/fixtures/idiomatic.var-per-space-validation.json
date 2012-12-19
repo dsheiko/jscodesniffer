@@ -2,22 +2,22 @@
 [
     {
         "describe": "Global scope shall have the only var statement",
-        "expected" : "tooManyVarStatements",
+        "expected" : "Idiomatic.tooManyVarStatements",
         "js": "var bar; var a; var b;"
     },
     {
         "describe": "Function scope shall have the only var statement",
-        "expected" : "tooManyVarStatements",
+        "expected" : "Idiomatic.tooManyVarStatements",
         "js": "var  bar; function fn() { var a; var b; };"
     },
     {
         "describe": "Var statement shall be declared at the begining of the scope",
-        "expected" : "invalidVarStatementPos",
+        "expected" : "Idiomatic.invalidVarStatementPos",
         "js": "var fn = function() { fn(); var foo; };"
     },
     {
         "describe": "Var statement shall be declared at the begining of the function expression scope",
-        "expected" : "invalidVarStatementPos",
+        "expected" : "Idiomatic.invalidVarStatementPos",
         "js": "var obj = { fn: function() { fn(); var foo; } };"
     }
 ]
