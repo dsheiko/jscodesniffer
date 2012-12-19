@@ -92,7 +92,7 @@ members = {
 
                     if ( first.match("Keyword", [ "function" ]) ||
                         last.match("Punctuator", [ "}", "]" ]) ||
-                        last.match([ "Numeric", "String" ])) {
+                        last.match([ "String" ])) {
                         ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
                         that.log( last, "Jquery.invalidSingleArgumentExceptionTrailingSpacing" );
                     } else {

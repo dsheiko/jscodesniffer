@@ -1,1 +1,1 @@
-foo( bar(  true  ) );
+tokens.get( -1 );
