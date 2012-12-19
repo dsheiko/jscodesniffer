@@ -4,6 +4,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
     JqueryStandard = function() {
         this.logger = new Logger();
         this.extendExceptionMap({
+            invalidCommaPunctuatorSpacing: "Coma punctuator shall have single tralling space or line break",
             invalidSingleArgumentExceptionLeadingSpacing: "There must be no leading whitespace for single argument such as function expression or object/array/string literal",
             invalidSingleArgumentExceptionTraillingSpacing: "There must be no trailing whitespace for single argument such as function expression or object/array/string literal",
             invalidArgumentListLeadingSpacing: "There must be one leading whitespace for the argument list",
@@ -15,7 +16,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
     };
 
 members = {
-    
+
     /**
          * Sniff at function arguments for
          * liberal spacing
@@ -39,12 +40,12 @@ members = {
                 innerGroupingSpacing: function( tokens ) {
                     var first = tokens.getFirst(),
                         last = tokens.getLast();
-                        
+
                     ( first.before.whitespaceNum < 2 || first.before.newlineNum ) ||
                         that.log( first, "invalidInnerGroupingLeadingSpacing" );
                     ( last.after.whitespaceNum < 2 || last.after.newlineNum ) ||
                         that.log( last, "invalidInnerGroupingTraillingSpacing" );
-                    
+
                 },
 
                 /**
@@ -120,13 +121,13 @@ members = {
             }
         }( this ));
 
-        if ( ( current.match("Identifier") || current.match("Keyword", ["function"]) ) && 
+        if ( ( current.match("Identifier") || current.match("Keyword", ["function"]) ) &&
             next && next.group ) {
             fetch = next.group.asArray().filter(function( token ){
                 return token.match( "Punctuator", [ "," ] );
             });
-            if ( next.parent !== null ) { 
-                validate.innerGroupingSpacing( next.group );            
+            if ( next.parent !== null ) {
+                validate.innerGroupingSpacing( next.group );
             } else {
                 if ( fetch.length === 0 ) {
                     validate.singleArgumentLeadingSpaces( next.group );
@@ -140,7 +141,7 @@ members = {
             fetch.length && fetch.forEach(function( token ){
                 ( token.after.whitespaceNum === 1 || token.after.newlineNum ) ||
                 this.log( token, "invalidCommaPunctuatorSpacing" );
-            });
+            }, this);
 
         }
     }
