@@ -1,7 +1,6 @@
 JS_CodeSniffer
 ==============
 
-Tokenises JavaScript files and detects violations of a defined set of coding standards
 JS_CodeSniffer is a nodeJs application that tokenises and "sniffs" JavaScript files to detect violations of a defined coding standard. It is an essential development tool that ensures your code remains clean and consistent.
 A coding standard in JS_CodeSniffer is a collection of sniff files. Each sniff checks one part of the coding standard only. The default coding standard used by JS_CodeSniffer is the Idiomatic Style Manifesto (https://github.com/rwldrn/idiomatic.js).
 
