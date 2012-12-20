@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 var esprima = require("esprima"),
     sniffer = require('./lib/Sniffer'),
-    util = require('./lib/Util'),
     Reporter = require('./lib/Reporter'),
     Standard,
     fs = require('fs'),
