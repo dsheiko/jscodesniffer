@@ -19,7 +19,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
             "Jquery.invalidSingleArgumentTrailingExceptionSpacing": "There must be no trailing whitespaces for the argument",
             "Jquery.invalidArgumentListLeadingSpacing": "There must be one leading whitespace for the argument list",
             "Jquery.invalidArgumentListTrailingSpacing": "There must be one trailing whitespace for the argument list",
-            "Jquery.invalidArgumentListTrailingExceptionSpacing": "There must be no trailing whitespaces for argument list",
+            "Jquery.invalidArgumentListTrailingExceptionSpacing": "Multi-line function/object/array literals go snug at end",
             "Jquery.invalidInnerGroupingLeadingSpacing": "There must be one or no leading spaces for the expression of inner grouping parens",
             "Jquery.invalidInnerGroupingTrailingSpacing": "There must be one or no trailing spaces for the expression of inner grouping parens"
         });
@@ -134,8 +134,9 @@ members = {
                 * @return boolean
                 */
                 argumentListTrailingSpaces: function( tokens ) {
-                    var last = tokens.getLast();
-                    if ( last.match("Punctuator", [ "}", "]" ])) {
+                    var first = tokens.getFirst(),
+                        last = tokens.getLast();
+                    if ( first.line < last.line ) {
                         ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
                         that.log( last, "Jquery.invalidArgumentListTrailingExceptionSpacing" );
                     } else {
@@ -161,7 +162,7 @@ members = {
         if ( ( current.match("Identifier") || current.match("Keyword", [ "function" ]) ) &&
             next && next.group ) {
             fetch = next.group.asArray().filter(function( token ){
-                return token.match( "Punctuator", [ "," ] );
+                return token.match( "Punctuator", [ "," ]);
             });
             if ( next.parent !== null ) {
                 validate.innerGroupingSpacing( next.group );
