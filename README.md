@@ -45,8 +45,8 @@ Edit scripts/jscs-svn-pre-commit and replace JSCS value with your own path to JS
 JSCS = "/your-path/jscodesniffer"
 ```
 ```
-Copy scripts/jscs-svn-pre-commit to your repository hooks folder. E.g.
-/repositories/<project>/hooks/
+Make a symlink of scripts/jscs-svn-pre-commit in your repository hooks folder. E.g.
+n -s scripts/jscs-svn-pre-commit /repositories/<project>/hooks/pre-commit
 ```
 
 ## Following sniffs implemented
