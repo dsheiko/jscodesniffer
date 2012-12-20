@@ -21,8 +21,8 @@
         "js": "foo( 'string arg', 'string arg' );"
     },
     {
-        "describe": "Argument list with object/array literals shall have no spaces around",
+        "describe": "Multi-line function/object/array literals go snug at end",
         "expected": "",
-        "js": "foo( 1, [ 1, 2 ]);"
+        "js": "foo( 1, [ 1,\n 2 ]);"
     }
 ]
