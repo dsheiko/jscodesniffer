@@ -20,7 +20,7 @@ Simply get detailed report on the file coding style according to Idiomatic Style
 ./jscs source-code.js
 ```
 
-![JS CodeSniffer Full Report Example](https://github.com/dsheiko/jscodesniffer/doc/sample1.jpg "JS CodeSniffer Full Report Example")
+![JS CodeSniffer Full Report Example](https://raw.github.com/dsheiko/jscodesniffer/master/doc/sample1.jpg "JS CodeSniffer Full Report Example")
 
 Get detailed report on the coding style for all *.js/*.json files of the 'lib' folder according to jQuery Coding Style Guide
 ```
@@ -31,7 +31,7 @@ Get summary report
 ```
 ./jscs lib --report-summary
 ```
-![JS CodeSniffer Summary Report Example](https://github.com/dsheiko/jscodesniffer/doc/sample1.jpg "JS CodeSniffer Summary Report Example")
+![JS CodeSniffer Summary Report Example](https://raw.github.com/dsheiko/jscodesniffer/master/doc/sample2.jpg "JS CodeSniffer Summary Report Example")
 
 Get XML report (which allows you to parse the output easily and use the results in your own scripts)
 ```
