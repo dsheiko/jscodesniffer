@@ -68,7 +68,7 @@ exec( command, function( error, stdout, stderr ) {
                 if ( msgs.length ) {
                     exit = 1;
                     reporter.add( file, msgs );
-                    throw reporter.print();
+                    console.error( reporter.print() );
                     process.exit( 1 );
                 }
             });
