@@ -7,6 +7,7 @@ var esprima = require("esprima"),
     path,
     reporter = new Reporter("full"),
     options = {},
+    stdout,
     helpScreen = "Usage: jscs <path>\n" +
                     "<path> - filename or dir to sniff\n" +
                     "[--standard=<Standard>] - apply specified standard (Idiomatic, Jquery)\n" +
@@ -67,7 +68,8 @@ try {
     if ( e.code !==  'MODULE_NOT_FOUND' ) {
         throw e;
     }
-    return console.error("Cannot find standard " + options["--standard"]);
+    console.error("Cannot find standard " + options["--standard"]);
+    process.exit( 2 );
 }
 
 if ( typeof options["--trace"] !== "undefined" ) {
@@ -88,4 +90,10 @@ processPath( path , function(path, data) {
     }
 });
 
-console.log( reporter.print() );
+stdout = reporter.print();
+if ( stdout.length ) {
+    console.error( stdout );
+} else {
+    process.exit( 1 );
+}
+
