@@ -1,1 +1,1 @@
-throw new Error( "Exception description missing for the code " + exceptionCode );
+if (!('foo' in obj)) {}

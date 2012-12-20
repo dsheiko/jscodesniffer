@@ -22,8 +22,10 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
             "Idiomatic.invalidArgumentListLeadingSpacing": "There must be one leading whitespace for the argument list",
             "Idiomatic.invalidArgumentListTrailingExceptionSpacing": "There must be no trailing whitespaces for the argument list when it is function expression or object/array/string literal",
             "Idiomatic.invalidArgumentListTrailingSpacing": "There must be one trailing whitespace for the argument list",
-            "Idiomatic.invalidInnerGroupingParenSpacing": "There must be no spaces around expression of inner grouping parens",
-            "Idiomatic.invalidGroupingParenSpacing": "There must be one space around expression of outer grouping parens"
+            "Idiomatic.invalidInnerGroupingLeadingSpacing": "There must be no leading spaces for expression of inner grouping parens",
+            "Idiomatic.invalidInnerGroupingTrailingSpacing": "There must be no trailing spaces for expression of inner grouping parens",
+            "Idiomatic.invalidOutterGroupingLeadingSpacing": "There must be single leading space for expression of outter grouping parens",
+            "Idiomatic.invalidOutterGroupingTrailingSpacing": "There must be single trailing space for expression of outter grouping parens"
         });
     },
     members = {
@@ -67,14 +69,19 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                 // Inner grouping parens
                 if ( current.parent !== null ) {
                     ( first.before.whitespaceNum === 0 || first.before.newlineNum ) ||
-                        this.log( first, "Idiomatic.invalidInnerGroupingParenSpacing" );
+                        this.log( first, "Idiomatic.invalidInnerGroupingLeadingSpacing" );
                     ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                        this.log( last, "Idiomatic.invalidInnerGroupingParenSpacing" );
-                } else {
+                        this.log( last, "Idiomatic.invalidInnerGroupingTrailingSpacing" );
+                } 
+                // if/else/for/while/try always have spaces, braces and span multiple lines
+                // this encourages readability
+                if ( current.parent === null && 
+                    current.match("Keyword", [ "if", "else", "for", "while", "try" ]) ) {
                     ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
-                        this.log( first, "Idiomatic.invalidGroupingParenSpacing" );
+                        this.log( first, "Idiomatic.invalidOutterGroupingLeadingSpacing" );
                     ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
-                        this.log( last, "Idiomatic.invalidGroupingParenSpacing" );
+                        this.log( last, "Idiomatic.invalidOutterGroupingTrailingSpacing" );
+                
                 }
             }
         },
