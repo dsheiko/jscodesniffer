@@ -24,9 +24,10 @@ var esprima = require("esprima"),
             var dir = fs.readdirSync( path ),
                 stat;
             dir && dir.forEach(function( file ){
-                    var re = /\.js$/gi;
+                    var re = /\.js$/gi,
+                        excludeRe = /\.min\.js$/gi;
                     stat = fs.statSync( path + "/" + file );
-                    stat.isFile() && re.test( file ) &&
+                    stat.isFile() && re.test( file ) && !re.test( excludeRe ) &&
                         processFile( path + "/" + file, fn );
                     stat.isDirectory() && processDir( path + "/" + file, fn );
             });
