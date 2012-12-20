@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-var JSCS = "/repositories/home/sheiko/vhosts/os.htdocs/jscodesniffer/",
+var JSCS = "<Your path to jscodesniffer>",
     DEFAULT_STANDARD = "Idiomatic",
     SVN_LOOK = "/usr/bin/svnlook",
     REPOS = process.argv[ 2 ],
