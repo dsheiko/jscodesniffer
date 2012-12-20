@@ -35,7 +35,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
             if ( tokens.key() === 0 ||
                 ( current.match("Keyword", [ "function" ]) && current.scope ) ) {
                 fetch = current.scope.asArray().filter(function( token ){
-                    return token.match( "Keyword", [ "var" ] );
+                    return token.match( "Keyword", [ "var" ]);
                 });
                 fetch.length > 1 && this.log( current, "Idiomatic.tooManyVarStatements" );
                 if ( fetch.length === 1 && !current.scope.current().match("Keyword", [ "var" ])) {
@@ -72,16 +72,17 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                         this.log( first, "Idiomatic.invalidInnerGroupingLeadingSpacing" );
                     ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
                         this.log( last, "Idiomatic.invalidInnerGroupingTrailingSpacing" );
-                } 
+                }
                 // if/else/for/while/try always have spaces, braces and span multiple lines
                 // this encourages readability
-                if ( current.parent === null && 
-                    current.match("Keyword", [ "if", "else", "for", "while", "try" ]) ) {
+                if ( current.parent === null &&
+                    prev.match("Keyword", [ "if", "else", "for", "while", "try" ]) ) {
+
                     ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
                         this.log( first, "Idiomatic.invalidOutterGroupingLeadingSpacing" );
                     ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
                         this.log( last, "Idiomatic.invalidOutterGroupingTrailingSpacing" );
-                
+
                 }
             }
         },
@@ -184,7 +185,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
 
             if ( current.match("Identifier") && next && next.group ) {
                 fetch = next.group.asArray().filter(function( token ){
-                    return token.match( "Punctuator", [ "," ] );
+                    return token.match( "Punctuator", [ "," ]);
                 });
                 // One argument
                 if ( fetch.length === 0 ) {
