@@ -35,7 +35,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
             if ( tokens.key() === 0 ||
                 ( current.match("Keyword", [ "function" ]) && current.scope ) ) {
                 fetch = current.scope.asArray().filter(function( token ){
-                    return token.match( "Keyword", [ "var" ]);
+                    return token.match( "Keyword", [ "var" ] );
                 });
                 fetch.length > 1 && this.log( current, "Idiomatic.tooManyVarStatements" );
                 if ( fetch.length === 1 && !current.scope.current().match("Keyword", [ "var" ])) {
@@ -185,7 +185,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
 
             if ( current.match("Identifier") && next && next.group ) {
                 fetch = next.group.asArray().filter(function( token ){
-                    return token.match( "Punctuator", [ "," ]);
+                    return token.match( "Punctuator", [ "," ] );
                 });
                 // One argument
                 if ( fetch.length === 0 ) {

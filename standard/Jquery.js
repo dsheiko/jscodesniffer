@@ -136,7 +136,11 @@ members = {
                 argumentListTrailingSpaces: function( tokens ) {
                     var first = tokens.getFirst(),
                         last = tokens.getLast();
-                    if ( first.line < last.line ) {
+                    if ( first.line < last.line &&
+                        ( last.match("Keyword", [ "function" ]) ||
+                          last.match("Punctuator", [ "}", "]" ]) ||
+                          last.match([ "String" ]) )
+                    ) {
                         ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
                         that.log( last, "Jquery.invalidArgumentListTrailingExceptionSpacing" );
                     } else {
@@ -162,7 +166,7 @@ members = {
         if ( ( current.match("Identifier") || current.match("Keyword", [ "function" ]) ) &&
             next && next.group ) {
             fetch = next.group.asArray().filter(function( token ){
-                return token.match( "Punctuator", [ "," ]);
+                return token.match( "Punctuator", [ "," ] );
             });
             if ( next.parent !== null ) {
                 validate.innerGroupingSpacing( next.group );

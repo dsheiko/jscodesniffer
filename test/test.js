@@ -1,5 +1,11 @@
-/**
- * Mocha driven
+/*
+ * @package JS_CodeSniffer
+ * @author sheiko
+ * @license MIT
+ * @copyright (c) Dmitry Sheiko http://www.dsheiko.com
+ * Code style: http://docs.jquery.com/JQuery_Core_Style_Guidelines
+ *
+ * Mocha driven tests
  */
 var esprima = require("esprima"),
     sniffer = require('../lib/Sniffer'),
@@ -19,7 +25,7 @@ var esprima = require("esprima"),
     getFixture = function( name ) {
         return JSON.parse( getText( name ) );
     },
-    repeatCall = function( fn, repNum) {
+    repeatCall = function( fn, repNum ) {
         var i = 1;
         for ( ; i <= repNum; i++ ) {
             fn();
@@ -36,56 +42,56 @@ var esprima = require("esprima"),
              it( usecase.describe, function(){
                  vardump = fixture + " [" + inx + "]\n\033[0m     " +
                     util.color( "yellow", usecase.js ) +
-                    util.color( "lightRed", "\n     >> " + logger.trace());
+                    util.color( "lightRed", "\n     >> " + logger.trace() );
 
                  if ( usecase.expected ) {
-                    return assert( logger.hasMessage(usecase.expected), vardump);
+                    return assert( logger.hasMessage(usecase.expected), vardump );
 
                  }
                  if ( usecase.unexpected ) {
                     return assert( !logger.hasMessage(usecase.unexpected),
-                        vardump);
+                        vardump );
                  }
-                 assert( logger.isEmpty(), vardump);
+                 assert( logger.isEmpty(), vardump );
 
              });
         });
     };
 
-describe('Util', function(){
-  describe('#sprintf()', function(){
-    it('should properly format argument string', function(){
-       var cases = getFixture( "util.sprintf.json" );
+describe( 'Util', function(){
+  describe( '#sprintf()', function(){
+    it( 'should properly format argument string', function(){
+       var cases = getFixture("util.sprintf.json");
        cases.forEach(function( usecase ){
            assert.equal( usecase.expected,
                 util.sprintf( usecase.format,
-                usecase.arguments[0], usecase.arguments[1] ) );
+                usecase.arguments[ 0 ], usecase.arguments[ 1 ] ) );
        });
     });
   });
 });
 
-describe('Tokenizer', function(){
-    var js = getText( "tokenizer.js" );
-    it('should properly extend esprima tokens array', function(){
+describe( 'Tokenizer', function(){
+    var js = getText("tokenizer.js");
+    it( 'should properly extend esprima tokens array', function(){
        var tokens = tokenizer.parse( js ),
            token = tokens.current();
        assert.strictEqual( true, tokens instanceof TokenizerIterator );
        assert.strictEqual( true, token instanceof Token );
     });
 
-    it('should properly navigate tokenizer iterator', function(){
+    it( 'should properly navigate tokenizer iterator', function(){
        var tokens = tokenizer.parse( js ),
            token;
 
-       repeatCall(function(){
+       repeatCall( function(){
            tokens.next();
-       }, 3)
+       }, 3 );
        token = tokens.current();
        assert.strictEqual( "String", token.type );
        assert.strictEqual( "'value'", token.value );
 
-       tokens.nextMatch( "Identifier" );
+       tokens.nextMatch("Identifier");
        token = tokens.current();
        assert.strictEqual( "Identifier", token.type );
        assert.strictEqual( "fn", token.value );
@@ -99,23 +105,23 @@ describe( 'Idiomatic Style Manifesto', function(){
     describe( 'Identifier name convention', function(){
        runTestSuit( "idiomatic.identifier-name-validation.json", Idiomatic );
     });
-    describe('Constructor name convention', function(){
+    describe( 'Constructor name convention', function(){
        runTestSuit( "idiomatic.constructor-name-validation.json", Idiomatic );
     });
-    describe('Operator spacing', function(){
-       runTestSuit("idiomatic.operator-spacing-validation.json", Idiomatic );
+    describe( 'Operator spacing', function(){
+       runTestSuit( "idiomatic.operator-spacing-validation.json", Idiomatic );
     });
-    describe('Literal spacing', function(){
-       runTestSuit("idiomatic.literal-spacing-validation.json", Idiomatic );
+    describe( 'Literal spacing', function(){
+       runTestSuit( "idiomatic.literal-spacing-validation.json", Idiomatic );
     });
-    describe('Argument spacing', function(){
-       runTestSuit("idiomatic.argument-spacing-validation.json", Idiomatic );
+    describe( 'Argument spacing', function(){
+       runTestSuit( "idiomatic.argument-spacing-validation.json", Idiomatic );
     });
-    describe('Var statement convention', function(){
-       runTestSuit("idiomatic.var-per-space-validation.json", Idiomatic );
+    describe( 'Var statement convention', function(){
+       runTestSuit( "idiomatic.var-per-space-validation.json", Idiomatic );
     });
-    describe('Grouping spacing', function(){
-       runTestSuit("idiomatic.inner-grouping-spacing.json", Idiomatic );
+    describe( 'Grouping spacing', function(){
+       runTestSuit( "idiomatic.inner-grouping-spacing.json", Idiomatic );
     });
 
 
@@ -126,7 +132,7 @@ describe( 'jQuery Coding Style', function(){
     describe( 'Argument spacing', function(){
        runTestSuit( "jquery.argument-spacing-validation.json", Jquery );
     });
-    describe('Grouping spacing', function(){
+    describe( 'Grouping spacing', function(){
        runTestSuit( "jquery.inner-grouping-spacing.json", Jquery );
     });
 });

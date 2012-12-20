@@ -1,1 +1,5 @@
-if (!('foo' in obj)) {}
+esprimaSyntaxTree = esprima.parse( data, {
+                    comment: true,
+                    range: true,
+                    tokens: true
+                });
