@@ -33,6 +33,7 @@ var esprima = require("esprima"),
     },
     processPath = function( path, fn ) {
             var stat;
+            path = path.replace(/\/+$/, "");
             if (  !fs.existsSync( path ) ) {
                     return console.error( helpScreen );
             }

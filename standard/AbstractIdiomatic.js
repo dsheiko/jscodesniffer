@@ -40,10 +40,12 @@ var AbstractStandard = require('./AbstractStandard'),
             var current = tokenizer.current(),
                 // checks for cameCase or PascalCase
                 isValidIdentifierName = function( string ) {
-                    var validRe = /^_?[a-zA-Z]*[0-9]*$/,
+                    var validRe = /^_*[a-zA-Z]*[0-9]*$/,
                         isConstantRe = /^[A-Z_]+[0-9]*$/,
                         noUcRepRe = /[A-Z]{2}/;
-
+                    if ( string === "$" ) {
+                        return true;
+                    }
                     return isConstantRe.test( string ) ||
                         ( validRe.test( string ) && !noUcRepRe.test( string ) );
                 };
