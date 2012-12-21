@@ -1,14 +1,10 @@
 #!/bin/bash
 
-JSCS_BIN=/usr/bin/jscs
+JSCS_BIN=/usr/local/bin/jscs
 JSCS_CODING_STANDARD=Idiomatic
 TMP_STAGING=".tmp_staging"
+JSCS_FILE_PATTERN="\.js$"
 
-# parse config
-CONFIG_FILE=$(dirname $0)/config
-if [ -e $CONFIG_FILE ]; then
-    . $CONFIG_FILE
-fi
 
 # simple check if code sniffer is set up correctly
 if [ ! -x $JSCS_BIN ]; then
@@ -34,6 +30,7 @@ if [ "$FILES" == "" ]; then
     exit 0
 fi
 
+
 # create temporary copy of staging area
 if [ -e $TMP_STAGING ]; then
     rm -rf $TMP_STAGING
@@ -44,7 +41,7 @@ mkdir $TMP_STAGING
 FILES_TO_CHECK=""
 for FILE in $FILES
 do
-    echo "$FILE" | egrep -q "$JSCS_FILE_PATTERN"
+    echo "$FILE" | egrep -i "$JSCS_FILE_PATTERN"
     RETVAL=$?
     if [ "$RETVAL" -eq "0" ]
     then
@@ -75,11 +72,12 @@ done
 OUTPUT=$($JSCS_BIN $STAGED_FILES --standard=$JSCS_CODING_STANDARD)
 RETVAL=$?
 
+
 # delete temporary copy of staging area
 rm -rf $TMP_STAGING
 
 if [ $RETVAL -ne 0 ]; then
-    echo "$OUTPUT" | less
+    echo "$OUTPUT" 
 fi
 
 exit $RETVAL
