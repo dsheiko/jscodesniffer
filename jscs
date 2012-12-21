@@ -14,6 +14,7 @@ var esprima = require("esprima"),
                     "[--report-full] - full report with source codes\n" +
                     "[--report-summary] - summary report\n" +
                     "[--report-xml] - printing an XML report\n" +
+                    "[--highlight=0] - disable colors on reports\n" +
                     "[--trace] - show tokens\n",
 
     processFile = function( path, fn ) {
@@ -90,7 +91,7 @@ processPath( path , function(path, data) {
     }
 });
 
-stdout = reporter.print();
+stdout = reporter.print( options["--highlight"] ? { highlight: false } : {} );
 if ( stdout.length ) {
     console.error( stdout );
 } else {
