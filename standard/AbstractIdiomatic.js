@@ -2,7 +2,8 @@
  * @package JS_CodeSniffer
  * @author sheiko
  * @license MIT
- * @copyright (c) Dmitry Sheiko http://www.dsheiko.com *
+ * @copyright (c) Dmitry Sheiko http://www.dsheiko.com
+ * @jscs standard:Jquery
  * Code style: http://docs.jquery.com/JQuery_Core_Style_Guidelines
  */
 var AbstractStandard = require('./AbstractStandard'),
