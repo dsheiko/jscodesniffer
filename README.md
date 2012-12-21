@@ -44,13 +44,15 @@ Edit scripts/jscs-svn-pre-commit and replace JSCS value with your own path to JS
 ```
 JSCS = "/your-path/jscodesniffer"
 ```
-```
+
 Make a symlink of scripts/jscs-svn-pre-commit in your repository hooks folder. E.g.
+```
 ln -s /<full path>/scripts/jscs-svn-pre-commit /repositories/<project>/hooks/pre-commit
 ```
 
 ## Using the git pre-commit hook
 Make a symlink of scripts/jscs-git-pre-commit in your repository .git/hooks folder. E.g.
+```
 ln -s /<full path>/scripts/jscs-git-pre-commit /<project>/.git/hooks/pre-commit
 ```
 
@@ -116,6 +118,7 @@ var foo = "",
         var foo;
     };
 ```
+
 
 ### JQuery Core Style Guidelines:
 
