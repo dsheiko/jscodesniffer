@@ -37,7 +37,7 @@ Get XML report (which allows you to parse the output easily and use the results 
 ./jscs lib --report-xml
 ```
 
-## Using the Subversion pre-commit Hook
+## Using the Subversion pre-commit hook
 
 A pre-commit hook is a feature available in the Subversion version control system that allows code to be validated before it is committed to the repository.
 Edit scripts/jscs-svn-pre-commit and replace JSCS value with your own path to JS CodeSniffer
@@ -46,8 +46,14 @@ JSCS = "/your-path/jscodesniffer"
 ```
 ```
 Make a symlink of scripts/jscs-svn-pre-commit in your repository hooks folder. E.g.
-n -s scripts/jscs-svn-pre-commit /repositories/<project>/hooks/pre-commit
+ln -s /<full path>/scripts/jscs-svn-pre-commit /repositories/<project>/hooks/pre-commit
 ```
+
+## Using the git pre-commit hook
+Make a symlink of scripts/jscs-git-pre-commit in your repository .git/hooks folder. E.g.
+ln -s /<full path>/scripts/jscs-git-pre-commit /<project>/.git/hooks/pre-commit
+```
+
 
 ## Following sniffs implemented
 
