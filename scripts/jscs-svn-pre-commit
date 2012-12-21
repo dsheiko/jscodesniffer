@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+// @TODO rewrite it as bash script performing jscs on temporarily created folder
+// It will allow add easily additional tasks
 var JSCS = "<Your path to jscodesniffer>",
     DEFAULT_STANDARD = "Idiomatic",
     SVN_LOOK = "/usr/bin/svnlook",
