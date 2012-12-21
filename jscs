@@ -94,7 +94,6 @@ processPath( path , function(path, data) {
 stdout = reporter.print( options["--highlight"] ? { highlight: false } : {} );
 if ( stdout.length ) {
     console.error( stdout );
-} else {
     process.exit( 1 );
-}
+} 
 
