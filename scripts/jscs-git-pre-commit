@@ -31,6 +31,7 @@ if [ "$FILES" == "" ]; then
 fi
 
 
+
 # create temporary copy of staging area
 if [ -e $TMP_STAGING ]; then
     rm -rf $TMP_STAGING
