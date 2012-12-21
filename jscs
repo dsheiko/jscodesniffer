@@ -36,7 +36,7 @@ var esprima = require("esprima"),
             var stat;
             path = path.replace(/\/+$/, "");
             if (  !fs.existsSync( path ) ) {
-                    return console.error( helpScreen );
+                    return console.error( path + " doesn't exist\n" );
             }
             stat = fs.statSync( path );
             return stat.isFile() ? processFile( path, fn ) : processDir( path, fn );

@@ -18,7 +18,7 @@ var util = require('../lib/Util'),
                 throw new Error( "Exception description missing for the code " + exceptionCode );
             }
             this.logger.log(
-                [ this.exceptions[ exceptionCode ], util.color( "yellow", token.value ) ],
+                [ this.exceptions[ exceptionCode ], "[color:yellow]" + token.value + "[/color]" ],
                 exceptionCode, token.line, token.column
             );
         };

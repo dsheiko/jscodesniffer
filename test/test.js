@@ -42,7 +42,7 @@ var esprima = require("esprima"),
              it( usecase.describe, function(){
                  vardump = fixture + " [" + inx + "]\n\033[0m     " +
                     util.color( "yellow", usecase.js ) +
-                    util.color( "lightRed", "\n     >> " + logger.trace() );
+                    util.color( "light red", "\n     >> " + logger.trace() );
 
                  if ( usecase.expected ) {
                     return assert( logger.hasMessage(usecase.expected), vardump );

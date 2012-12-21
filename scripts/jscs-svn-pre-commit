@@ -14,7 +14,6 @@ var JSCS = "<Your path to jscodesniffer>",
     esprima = require( JSCS + "node_modules/esprima/esprima"),
     sniffer = require( JSCS + 'lib/Sniffer' ),
     Reporter = require( JSCS + 'lib/Reporter' ),
-    util = require( JSCS + 'lib/Util' ),
     reporter = new Reporter("full"),
     command,
     Standard,
@@ -40,7 +39,6 @@ try {
     sys.puts( e.message );
     process.exit( 2 );
 }
-util.BEAUTIFY = false;
 command = SVN_LOOK + " changed -t \"" + TXN + "\"  \"" + REPOS + "\" " + process.argv.slice( 4 ).join(" ");
 exec( command, function( error, stdout, stderr ) {
         if ( error !== null ) {
@@ -70,7 +68,7 @@ exec( command, function( error, stdout, stderr ) {
                 if ( msgs.length ) {
                     exit = 1;
                     reporter.add( file, msgs );
-                    console.error( reporter.print() );
+                    console.error( reporter.print({ highlight: false }) );
                     process.exit( 1 );
                 }
             });
