@@ -65,7 +65,7 @@ describe( 'Util', function(){
        cases.forEach(function( usecase ){
            assert.equal( usecase.expected,
                 util.sprintf( usecase.format,
-                usecase.arguments[ 0 ], usecase.arguments[ 1 ] ) );
+                usecase.cases[ 0 ], usecase.cases[ 1 ] ) );
        });
     });
   });

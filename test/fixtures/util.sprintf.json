@@ -3,16 +3,16 @@
     {
         "expected": "..A1..",
         "format": "..%s..",
-        "arguments": [ "A1", "A2" ]
+        "cases": [ "A1", "A2" ]
     },
     {
         "expected": "..A1..A2..",
         "format": "..%s..%s..",
-        "arguments": [ "A1", "A2" ]
+        "cases": [ "A1", "A2" ]
     },
     {
         "expected": "..A1 ..",
         "format": "..%3s..",
-        "arguments": [ "A1", "A2" ]
+        "cases": [ "A1", "A2" ]
     }
 ]

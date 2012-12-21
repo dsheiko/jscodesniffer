@@ -160,7 +160,7 @@ members = {
                     that.log( first, "Jquery.invalidArgumentListLeadingSpacing" );
                 }
 
-            }
+            };
         }( this ));
 
         if ( ( current.match("Identifier") || current.match("Keyword", [ "function" ]) ) &&

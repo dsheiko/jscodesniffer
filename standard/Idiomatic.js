@@ -180,7 +180,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                         }
 
 
-                    }
+                    };
                 }( this ));
 
             if ( current.match("Identifier") && next && next.group ) {

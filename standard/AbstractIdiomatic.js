@@ -2,7 +2,7 @@
  * @package JS_CodeSniffer
  * @author sheiko
  * @license MIT
- * @copyright (c) Dmitry Sheiko http://www.dsheiko.com
+ * @copyright (c) Dmitry Sheiko http://www.dsheiko.com *
  * Code style: http://docs.jquery.com/JQuery_Core_Style_Guidelines
  */
 var AbstractStandard = require('./AbstractStandard'),
@@ -12,7 +12,7 @@ var AbstractStandard = require('./AbstractStandard'),
         var StopIteration = function( message ){
             this.name = "StopIteration";
             this.message = message || "StopIteration thrown";
-        }
+        };
         StopIteration.prototype = new ReferenceError();
         StopIteration.constructor = StopIteration;
         return StopIteration;
