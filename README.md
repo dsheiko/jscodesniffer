@@ -8,10 +8,22 @@ STATUS: 0.1.1 Beta
 
 ## Setup
 
-Just make sure all the required dependencies installed
+JS_CodeSniffer relies on node.js. If you don't have node.js installed, just follow the instructions:
+https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
+
+Make sure all the required dependencies installed
 ```
 npm i
 ```
+Make sure the binary is executable
+```
+chmod +x jscs
+```
+You can also create a symlink to make it globally available
+```
+ln -s jscs /usr/local/bin/jscs
+```
+
 ## Usage
 
 Simply get detailed report on the file coding style according to Idiomatic Style Manifesto
