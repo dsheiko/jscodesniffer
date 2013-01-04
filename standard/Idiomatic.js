@@ -36,10 +36,10 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
             if ( tokens.key() === 0 ||
                 ( current.match("Keyword", [ "function" ]) && current.scope ) ) {
                 fetch = current.scope.asArray().filter(function( token ){
-                    return token.match( "Keyword", [ "var" ] );
+                    return token.match( "Keyword", [ "var", "const" ] );
                 });
                 fetch.length > 1 && this.log( current, "Idiomatic.tooManyVarStatements" );
-                if ( fetch.length === 1 && !current.scope.current().match("Keyword", [ "var" ])) {
+                if ( fetch.length === 1 && !current.scope.current().match("Keyword", [ "var", "const" ])) {
                     this.log( current, "Idiomatic.invalidVarStatementPos" );
                 }
             }
