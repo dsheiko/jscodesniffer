@@ -1,11 +1,15 @@
 #!/usr/bin/env node
+const MIN_REPORT_WIDTH = 32,
+      DEFAULT_REPORT_WIDTH = 84;
 var esprima = require("esprima"),
     sniffer = require('./lib/Sniffer'),
     Reporter = require('./lib/Reporter'),
     Standard,
     fs = require('fs'),
     path,
-    reporter = new Reporter("full"),
+    reportWidth = DEFAULT_REPORT_WIDTH,
+    reporter,
+    repOptions,
     options = {},
     stdout,
     helpScreen = "Usage: jscs <path>\n" +
@@ -15,6 +19,7 @@ var esprima = require("esprima"),
                     "[--report-summary] - summary report\n" +
                     "[--report-xml] - printing an XML report\n" +
                     "[--highlight=0] - disable colors on reports\n" +
+                    "[--reportWidth=" + DEFAULT_REPORT_WIDTH + "] - How many columns wide screen reports should be printed\n" +
                     "[--trace] - show tokens\n",
 
     processFile = function( path, fn ) {
@@ -59,7 +64,10 @@ process.argv.slice( 2 ).forEach(function( arg ){
             path = arg;
     }
 });
-
+if ( typeof options["--reportWidth"] !== "undefined" &&
+    options["--reportWidth"] >= MIN_REPORT_WIDTH ) {
+    reportWidth = options["--reportWidth"];
+}
 
 // Get standard sniffs
 options["--standard"] = options["--standard"] || "Idiomatic";
@@ -73,15 +81,12 @@ try {
     process.exit( 2 );
 }
 
-if ( typeof options["--trace"] !== "undefined" ) {
-    reporter = new Reporter("trace");
-}
-if ( typeof options["--report-xml"] !== "undefined" ) {
-    reporter = new Reporter("xml");
-}
-if ( typeof options["--report-summary"] !== "undefined" ) {
-    reporter = new Reporter("summary");
-}
+
+repOptions = ({ format: "full", width: reportWidth });
+( typeof options["--trace"] !== "undefined" ) && ( repOptions.format = "trace" );
+( typeof options["--report-xml"] !== "undefined" ) && ( repOptions.format = "xml" );
+( typeof options["--report-summary"] !== "undefined" ) && ( repOptions.format = "summary" );
+reporter = new Reporter( repOptions );
 
 processPath( path , function(path, data) {
     if ( typeof options["--trace"] !== "undefined" ) {
@@ -95,5 +100,5 @@ stdout = reporter.print( options["--highlight"] ? { highlight: false } : {} );
 if ( stdout.length ) {
     console.error( stdout );
     process.exit( 1 );
-} 
+}
 
