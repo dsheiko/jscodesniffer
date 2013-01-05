@@ -76,7 +76,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                 }
                 // if/else/for/while/try always have spaces, braces and span multiple lines
                 // this encourages readability
-                if ( current.parent === null &&
+                if ( current.parent === null && prev && 
                     prev.match("Keyword", [ "if", "else", "for", "while", "try" ]) ) {
 
                     ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
