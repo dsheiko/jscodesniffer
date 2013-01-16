@@ -15,9 +15,6 @@ var esprima = require("esprima"),
     tokenizer = require('../lib/Tokenizer'),
     Token = require("../lib/Tokenizer/Token"),
     TokenizerIterator = require("../lib/Tokenizer/TokenizerIterator"),
-    AbstractStandard = require('../standard/AbstractStandard'),
-    Idiomatic = require('../standard/Idiomatic'),
-    Jquery = require('../standard/Jquery'),
     util = require('../lib/Util'),
 
     getText = function( name ) {
@@ -32,13 +29,10 @@ var esprima = require("esprima"),
             fn();
         }
     },
-    runTestSuit = function( fixture, StandardConstr ) {
+    runTestSuit = function( fixture, StandardName ) {
         var cases = getFixture( fixture );
-        if ( !StandardConstr || !StandardConstr instanceof AbstractStandard ){
-            throw new Error("You must pass in coding standard constructor with arguments");
-        }
         cases.forEach(function( usecase, inx ){
-             var logger = sniffer.run( usecase.js, StandardConstr ),
+             var logger = sniffer.run( usecase.js, StandardName ),
                  vardump;
              it( usecase.describe, function(){
                  vardump = fixture + " [" + inx + "]\n\033[0m     " +
@@ -104,25 +98,25 @@ describe( 'Tokenizer', function(){
 describe( 'Idiomatic Style Manifesto', function(){
 
     describe( 'Identifier name convention', function(){
-       runTestSuit( "idiomatic.identifier-name-validation.json", Idiomatic );
+       runTestSuit( "idiomatic.identifier-name-validation.json", "Idiomatic" );
     });
     describe( 'Constructor name convention', function(){
-       runTestSuit( "idiomatic.constructor-name-validation.json", Idiomatic );
+       runTestSuit( "idiomatic.constructor-name-validation.json", "Idiomatic" );
     });
     describe( 'Operator spacing', function(){
-       runTestSuit( "idiomatic.operator-spacing-validation.json", Idiomatic );
+       runTestSuit( "idiomatic.operator-spacing-validation.json", "Idiomatic" );
     });
     describe( 'Literal spacing', function(){
-       runTestSuit( "idiomatic.literal-spacing-validation.json", Idiomatic );
+       runTestSuit( "idiomatic.literal-spacing-validation.json", "Idiomatic" );
     });
     describe( 'Argument spacing', function(){
-       runTestSuit( "idiomatic.argument-spacing-validation.json", Idiomatic );
+       runTestSuit( "idiomatic.argument-spacing-validation.json", "Idiomatic" );
     });
     describe( 'Var statement convention', function(){
-       runTestSuit( "idiomatic.var-per-space-validation.json", Idiomatic );
+       runTestSuit( "idiomatic.var-per-space-validation.json", "Idiomatic" );
     });
     describe( 'Grouping spacing', function(){
-       runTestSuit( "idiomatic.inner-grouping-spacing.json", Idiomatic );
+       runTestSuit( "idiomatic.inner-grouping-spacing.json", "Idiomatic" );
     });
 
 
@@ -131,9 +125,9 @@ describe( 'Idiomatic Style Manifesto', function(){
 describe( 'jQuery Coding Style', function(){
 
     describe( 'Argument spacing', function(){
-       runTestSuit( "jquery.argument-spacing-validation.json", Jquery );
+       runTestSuit( "jquery.argument-spacing-validation.json", "Jquery" );
     });
     describe( 'Grouping spacing', function(){
-       runTestSuit( "jquery.inner-grouping-spacing.json", Jquery );
+       runTestSuit( "jquery.inner-grouping-spacing.json", "Jquery" );
     });
 });

@@ -70,29 +70,23 @@ if ( typeof options["--reportWidth"] !== "undefined" &&
 }
 
 // Get standard sniffs
-options["--standard"] = options["--standard"] || "Idiomatic";
-try {
-    Standard = require('./standard/' + options["--standard"]);
-} catch ( e ) {
-    if ( e.code !==  'MODULE_NOT_FOUND' ) {
-        throw e;
-    }
-    console.error("Cannot find standard " + options["--standard"]);
-    process.exit( 2 );
-}
-
+Standard = options["--standard"] || "Idiomatic";
 
 repOptions = ({ format: "full", width: reportWidth });
 ( typeof options["--trace"] !== "undefined" ) && ( repOptions.format = "trace" );
-( typeof options["--report-xml"] !== "undefined" ) && ( repOptions.format = "xml" );
 ( typeof options["--report-summary"] !== "undefined" ) && ( repOptions.format = "summary" );
+if ( typeof options["--report-xml"] !== "undefined" ) {
+    repOptions.format = "xml";
+    options["--highlight"] = true;
+}
 reporter = new Reporter( repOptions );
 
 processPath( path , function(path, data) {
     if ( typeof options["--trace"] !== "undefined" ) {
-        reporter.add( path, sniffer.trace(data, Standard) );
+        reporter.add( path, sniffer.trace(data) );
     } else {
-        reporter.add( path, sniffer.run(data, Standard).getMessages() );
+        logger = sniffer.run(data, Standard);
+        reporter.add( path, logger.getMessages(), logger.standard );
     }
 });
 
