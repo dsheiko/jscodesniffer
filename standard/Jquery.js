@@ -36,10 +36,11 @@ members = {
     * @return void
     */
     sniffArgumentSpacing: function( tokens ) {
-        var current = tokens.current(),
-        next = tokens.get( 1 ),
-        fetch,
-        validate = (function( that ) {
+        var that = this,
+            current = tokens.current(),
+            next = tokens.get( 1 ),
+            fetch,
+            validate = (function( that ) {
             return {
                /**
                 * If inside other function call, no spaces wrapping the expression allowed
@@ -183,7 +184,7 @@ members = {
             // Check comma punctuators. One space or line break expected
             fetch.length && fetch.forEach( function( token ){
                 ( token.after.whitespaceNum === 1 || token.after.newlineNum ) ||
-                this.log( token, "Jquery.invalidCommaPunctuatorSpacing" );
+                that.log( token, "Jquery.invalidCommaPunctuatorSpacing" );
             }, this );
 
         }
