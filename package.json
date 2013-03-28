@@ -1,7 +1,7 @@
 {
     "name": "JS_CodeSniffer",
     "description": "Tokenises JavaScript files and detects violations of a defined set of coding standards",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "author": "Dmitry Sheiko <me@dsheiko.com>",
     "bin": {
         "jscs": "./jscs"
