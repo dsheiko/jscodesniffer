@@ -1,6 +1,6 @@
 {
     "name": "JS_CodeSniffer",
-    "description": "Tokenises JavaScript files and detects violations of a defined set of coding standards",
+    "description": "Tool to ensure that your JavaScript code does not violate the specified coding standard (Idiomatic Style Manifesto or JQuery Core Style Guidelines)",
     "version": "1.0.4",
     "author": "Dmitry Sheiko <me@dsheiko.com>",
     "bin": {
