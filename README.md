@@ -150,3 +150,5 @@ var foo = "",
   * If inside other function call, no spaces wrapping the expression allowed otherwise grouping parens must have one padding space
   * Functions, object literals, array literals and string literals go snug to front and back of the parentheses when it's the only argument
   * Multi-line function/object/array literals go snug at end
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/ec7ee35f81b13e41097453e9da3106cb "githalytics.com")](http://githalytics.com/dsheiko/jscodesniffer)
