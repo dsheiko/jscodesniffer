@@ -52,6 +52,10 @@ var AbstractStandard = require('./AbstractStandard'),
                 };
 
             if ( current.match( "Identifier" ) ) {
+                // Exception: window.XMLHttpRequest is still a proper named constructor
+                if ( tokenizer.get( -1 ) && tokenizer.get( -1 ).match( "Punctuator", [ "." ] ) ) {
+                    return true;
+                }
                 if ( !isValidIdentifierName( current.value ) ) {
                     this.log( current, "AbstractIdiomatic.invalidIdentifierName" );
                 }
