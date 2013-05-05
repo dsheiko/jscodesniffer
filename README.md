@@ -4,7 +4,7 @@ JS_CodeSniffer
 JS_CodeSniffer is a node.js application that tokenises and "sniffs" JavaScript files to detect violations of a defined coding standard. It is an essential development tool that ensures your code remains clean and consistent.
 A coding standard in JS_CodeSniffer is a collection of sniff files. Each sniff checks one part of the coding standard only. The default coding standard used by JS_CodeSniffer is the Idiomatic Style Manifesto (https://github.com/rwldrn/idiomatic.js).
 
-STATUS: 1.0.2
+STATUS: 1.0.4
 
 JS Sniffer online available at http://jscodesniffer.dsheiko.com
 
@@ -150,3 +150,5 @@ var foo = "",
   * If inside other function call, no spaces wrapping the expression allowed otherwise grouping parens must have one padding space
   * Functions, object literals, array literals and string literals go snug to front and back of the parentheses when it's the only argument
   * Multi-line function/object/array literals go snug at end
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/ec7ee35f81b13e41097453e9da3106cb "githalytics.com")](http://githalytics.com/dsheiko/jscodesniffer)

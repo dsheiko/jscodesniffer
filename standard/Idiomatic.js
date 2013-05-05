@@ -76,7 +76,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                 }
                 // if/else/for/while/try always have spaces, braces and span multiple lines
                 // this encourages readability
-                if ( current.parent === null && prev && 
+                if ( current.parent === null && prev &&
                     prev.match("Keyword", [ "if", "else", "for", "while", "try" ]) ) {
 
                     ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
@@ -95,7 +95,8 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
          * @return void
          */
         sniffArgumentSpacing: function( tokens ) {
-            var current = tokens.current(),
+            var that = this,
+                current = tokens.current(),
                 next = tokens.get( 1 ),
                 fetch,
                 validate = (function( that ) {
@@ -184,7 +185,8 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                     };
                 }( this ));
 
-            if ( current.match("Identifier") && next && next.group ) {
+            if ( ( current.match("Identifier") || current.match("Keyword", [ "function" ]) ) &&
+                next && next.group ) {
                 fetch = next.group.asArray().filter(function( token ){
                     return token.match( "Punctuator", [ "," ] );
                 });
@@ -199,7 +201,7 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                 // Check comma punctuators. One space or line break expected
                 fetch.length && fetch.forEach(function( token ){
                     ( token.after.whitespaceNum === 1 || token.after.newlineNum ) ||
-                        this.log( token, "Idiomatic.invalidCommaPunctuatorSpacing" );
+                        that.log( token, "Idiomatic.invalidCommaPunctuatorSpacing" );
                 });
 
             }
