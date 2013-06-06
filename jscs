@@ -10,6 +10,7 @@ var esprima = require("esprima"),
     reportWidth = DEFAULT_REPORT_WIDTH,
     reporter,
     repOptions,
+    extensibleReport = '',
     options = {},
     stdout,
     helpScreen = "Usage: jscs <path>\n" +
@@ -17,7 +18,9 @@ var esprima = require("esprima"),
                     "[--standard=<Standard>] - apply specified standard (Idiomatic, Jquery)\n" +
                     "[--report-full] - full report with source codes\n" +
                     "[--report-summary] - summary report\n" +
-                    "[--report-xml] - printing an XML report\n" +
+                    "[--report=xml] - printing an XML report\n" +
+                    "[--report=checkstyle] - printing Jenkins-friendly checkstyle report\n" +
+                    "[--report=filePath] - write the report to the specified file path\n" +
                     "[--highlight=0] - disable colors on reports\n" +
                     "[--reportWidth=" + DEFAULT_REPORT_WIDTH + "] - How many columns wide screen reports should be printed\n" +
                     "[--trace] - show tokens\n",
@@ -75,10 +78,13 @@ Standard = options["--standard"] || "Idiomatic";
 repOptions = ({ format: "full", width: reportWidth });
 ( typeof options["--trace"] !== "undefined" ) && ( repOptions.format = "trace" );
 ( typeof options["--report-summary"] !== "undefined" ) && ( repOptions.format = "summary" );
-if ( typeof options["--report-xml"] !== "undefined" ) {
-    repOptions.format = "xml";
-    options["--highlight"] = true;
+
+if ( options["--report"] === "checkstyle" || options["--report"] === "xml") {
+    repOptions.format = options["--report"];
+    options["--highlight"] = "0";
 }
+
+
 reporter = new Reporter( repOptions );
 
 processPath( path , function(path, data) {
@@ -90,9 +96,24 @@ processPath( path , function(path, data) {
     }
 });
 
-stdout = reporter.print( options["--highlight"] ? { highlight: false } : {} );
+// If checkstyle already exists (e.g. built by phpcs), extend it with actual report body
+if ( options["--report"] === "checkstyle" && typeof options["--report-file"] !== "undefined" &&
+    fs.existsSync( options["--report-file"] )) {
+    var data = fs.readFileSync( options["--report-file"], 'utf-8' ),
+        // Extract body of the existing report
+        re1 = /^\s*<\?xml.*?\?>/i,
+        re2 = /^\s*<checkstyle.*?>/i,
+        re3 = /<\/checkstyle>\s*$/i;
+        extensibleReport = data.replace( re1, "" ).replace( re2, "" ).replace( re3, "" );
+}
+
+stdout = reporter.print( options["--highlight"] === "0" ? { highlight: false } : {}, extensibleReport );
 if ( stdout.length ) {
-    console.error( stdout );
+    if ( typeof options["--report-file"] !== "undefined" ) {
+        fs.writeFileSync( options["--report-file"], stdout, 'utf-8' );
+    } else {
+        console.error( stdout );
+    }
     process.exit( 1 );
 }
 
