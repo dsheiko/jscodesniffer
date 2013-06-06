@@ -51,6 +51,20 @@ Get XML report (which allows you to parse the output easily and use the results 
 ./jscs lib --report-xml
 ```
 
+[Apache Ant](http://ant.apache.org/) build script reporting to [Jenkins](http://jenkins-ci.org) Checkstyle plugin.
+NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will find created by phpcs checkstyle.xml and extend its body instead of overriding the report.
+```
+<target name="jscs-ci"
+         description="Find coding standard violations using JS_CodeSniffer and print human readable output.">
+  <exec executable="jscs">
+   <arg value="--standard=Jquery" />
+   <arg value="--report=checkstyle" />
+   <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
+   <arg path="${basedir}/src" />
+  </exec>
+ </target>
+```
+
 ## Environments
 
 Standard to sniff against can be enforced on the file by following instructions directly in the code
