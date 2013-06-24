@@ -50,7 +50,7 @@ Get summary report
 
 Get XML report (which allows you to parse the output easily and use the results in your own scripts)
 ```
-./jscs lib --report-xml
+./jscs lib --report=xml
 ```
 
 [Apache Ant](http://ant.apache.org/) build script reporting to [Jenkins](http://jenkins-ci.org) Checkstyle plugin.

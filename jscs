@@ -20,7 +20,7 @@ var esprima = require("esprima"),
                     "[--report-summary] - summary report\n" +
                     "[--report=xml] - printing an XML report\n" +
                     "[--report=checkstyle] - printing Jenkins-friendly checkstyle report\n" +
-                    "[--report=filePath] - write the report to the specified file path\n" +
+                    "[--report-file=filePath] - write the report to the specified file path\n" +
                     "[--highlight=0] - disable colors on reports\n" +
                     "[--reportWidth=" + DEFAULT_REPORT_WIDTH + "] - How many columns wide screen reports should be printed\n" +
                     "[--trace] - show tokens\n",
