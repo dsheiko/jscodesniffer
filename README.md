@@ -53,7 +53,7 @@ Get XML report (which allows you to parse the output easily and use the results 
 ./jscs lib --report=xml
 ```
 
-[Apache Ant](http://ant.apache.org/) build script reporting to [Jenkins](http://jenkins-ci.org) Checkstyle plugin.
+Setting up [Apache Ant](http://ant.apache.org/) build script reporting to [Jenkins](http://jenkins-ci.org) Checkstyle plugin.
 NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will find created by phpcs checkstyle.xml and extend its body instead of overriding the report.
 ```
 <target name="jscs-ci"
@@ -65,6 +65,26 @@ NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will fi
    <arg path="${basedir}/src" />
   </exec>
  </target>
+```
+
+Setting up [Grunt](http://gruntjs.com/) task:
+*Gruntfile.js*
+```
+grunt.initConfig({
+    jscs: {
+        options: {
+            "standard": "Jquery"
+        },
+        all: ["folder"]
+      }
+  });
+```
+*package.json*
+```
+"devDependencies": {
+    //..
+    "jscodesniffer": ">1.0.0"
+  }
 ```
 
 ## Environments
