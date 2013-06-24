@@ -39,9 +39,10 @@ var AbstractStandard = require('./AbstractStandard'),
          */
         sniffIdentifierNamingConvention: function( tokenizer ) {
             var current = tokenizer.current(),
+                specCharsRe = /_/g,
                 // checks for cameCase or PascalCase
                 isValidIdentifierName = function( string ) {
-                    var validRe = /^_*\$*[a-zA-Z]*[0-9]*$/,
+                    var validRe = /^\$*[a-zA-Z]*[0-9]*$/,
                         isConstantRe = /^[A-Z_]+[0-9]*$/;
                     if ( string === "$" ) {
                         return true;
@@ -55,13 +56,12 @@ var AbstractStandard = require('./AbstractStandard'),
                 if ( tokenizer.get( -1 ) && tokenizer.get( -1 ).match( "Punctuator", [ "." ] ) ) {
                     return true;
                 }
-                if ( !isValidIdentifierName( current.value ) ) {
+                if ( !isValidIdentifierName( current.value.replace( specCharsRe, "" ) ) ) {
                     this.log( current, "AbstractIdiomatic.invalidIdentifierName" );
                 }
 
             }
         },
-
 
 
         /**
