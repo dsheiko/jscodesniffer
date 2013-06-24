@@ -25,8 +25,8 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
             "Idiomatic.invalidArgumentListTrailingSpacing": "There must be one trailing whitespace for the argument list",
             "Idiomatic.invalidInnerGroupingLeadingSpacing": "There must be no leading spaces for expression of inner grouping parens",
             "Idiomatic.invalidInnerGroupingTrailingSpacing": "There must be no trailing spaces for expression of inner grouping parens",
-            "Idiomatic.invalidOutterGroupingLeadingSpacing": "There must be single leading space for expression of outter grouping parens",
-            "Idiomatic.invalidOutterGroupingTrailingSpacing": "There must be single trailing space for expression of outter grouping parens"
+            "Idiomatic.invalidOutterGroupingLeadingSpacing": "There must be a single leading space for expression of outter grouping parens",
+            "Idiomatic.invalidOutterGroupingTrailingSpacing": "There must be a single trailing space for expression of outter grouping parens"
         });
     },
     members = {

@@ -13,8 +13,8 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
         this.logger = new Logger();
         this.extendExceptionMap({
             "Jquery.invalidCommaPunctuatorSpacing": "Coma punctuator shall have single traling space or line break",
-            "Jquery.invalidSingleArgumentExceptionLeadingSpacing": "There must be no leading whitespace for single argument such as function expression or object/array/string literal",
-            "Jquery.invalidSingleArgumentExceptionTrailingSpacing": "There must be no trailing whitespace for single argument such as function expression or object/array/string literal",
+            "Jquery.invalidSingleArgumentExceptionLeadingSpacing": "There must be no leading whitespace for a single argument such as function expression or object/array/string literal",
+            "Jquery.invalidSingleArgumentExceptionTrailingSpacing": "There must be no trailing whitespace for a single argument such as function expression or object/array/string literal",
             "Jquery.invalidSingleArgumentLeadingSpacing": "There must be one leading whitespace for the argument",
             "Jquery.invalidSingleArgumentTrailingSpacing": "There must be one trailing whitespace for the argument",
             "Jquery.invalidSingleArgumentTrailingExceptionSpacing": "There must be no trailing whitespaces for the argument",
@@ -70,12 +70,19 @@ members = {
                 */
                 singleArgumentLeadingSpaces: function( tokens ) {
                     var first = tokens.getFirst(),
+                        last = tokens.getLast(),
                         second = tokens.get( 1 ),
                         validateException = function() {
                             ( first.before.whitespaceNum === 0 || first.before.newlineNum ) ||
                                 that.log( first, "Jquery.invalidSingleArgumentExceptionLeadingSpacing" );
                         },
                         validateRegular = function() {
+                            // Verify one leading space for a single argument, but not when an exeption
+                            if ( first.match("Keyword", [ "function" ]) ||
+                                last.match("Punctuator", [ "}", "]" ]) ||
+                                last.match([ "String" ])) {
+                                return;
+                            }
                             ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
                                 that.log( first, "Jquery.invalidSingleArgumentLeadingSpacing" );
                         };
@@ -84,8 +91,8 @@ members = {
                     if ( second && second.match("Punctuator", [ "+", "-" ])) {
                         validateRegular();
                     } else if ( first.match("Keyword", [ "function" ]) ||
-                        first.match("Punctuator", [ "{", "[" ]) ||
-                        first.match([ "String" ]) ) {
+                        last.match("Punctuator", [ "}", "]" ]) ||
+                        last.match([ "String" ]) ) {
                         validateException();
                     } else {
                         validateRegular();
@@ -108,13 +115,15 @@ members = {
                                 that.log( last, "Jquery.invalidSingleArgumentExceptionTrailingSpacing" );
                         },
                         validateRegular = function() {
-                            if ( last.match("Punctuator", [ "}", "]" ])) {
-                                ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                                that.log( last, "Jquery.invalidSingleArgumentTrailingExceptionSpacing" );
-                            } else {
-                                ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
-                                that.log( last, "Jquery.invalidSingleArgumentTrailingSpacing" );
+                            // Verify one trailing space for a single argument, but not when an exeption
+                            if ( first.match("Keyword", [ "function" ]) ||
+                                last.match("Punctuator", [ "}", "]" ]) ||
+                                last.match([ "String" ])) {
+                                return;
                             }
+                            ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
+                            that.log( last, "Jquery.invalidSingleArgumentTrailingSpacing" );
+
                         };
 
                     // If the second token is an operator. E.g. foo( "ex" + 1 )
