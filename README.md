@@ -70,20 +70,22 @@ NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will fi
 Setting up [Grunt](http://gruntjs.com/) task:
 *Gruntfile.js*
 ```
+grunt.loadNpmTasks('grunt-jscs');
 grunt.initConfig({
-    jscs: {
+     // Validate against jQuery coding standard
+     jscs: {
         options: {
             "standard": "Jquery"
         },
-        all: ["folder"]
-      }
+        all: ["js-folder"]
+     }
   });
 ```
 *package.json*
 ```
 "devDependencies": {
     //..
-    "jscodesniffer": ">1.0.0"
+    "grunt-jscs": ">0.0.1"
   }
 ```
 
