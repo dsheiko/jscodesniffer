@@ -40,7 +40,13 @@ var AbstractIdiomatic = require('./AbstractIdiomatic'),
                 });
                 fetch.length > 1 && this.log( current, "Idiomatic.tooManyVarStatements" );
                 if ( fetch.length === 1 && !current.scope.current().match("Keyword", [ "var", "const" ])) {
-                    this.log( current, "Idiomatic.invalidVarStatementPos" );
+                  // Sequence "use strict"; var ... is valid
+                  if ( current.scope.current().match("String") &&
+                        current.scope.get(1).match("Punctuator") &&
+                        current.scope.get(2).match("Keyword", [ "var", "const" ])) {
+                        return;
+                  }
+                  this.log( current, "Idiomatic.invalidVarStatementPos" );
                 }
             }
         },

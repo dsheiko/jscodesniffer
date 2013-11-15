@@ -191,3 +191,19 @@ var foo = "",
   * Multi-line function/object/array literals go snug at end
 
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/ec7ee35f81b13e41097453e9da3106cb "githalytics.com")](http://githalytics.com/dsheiko/jscodesniffer)
+
+
+# Implementation notes
+
+JSCodeSniffer uses token array provided by Esprima. It wraps the array elements with TokenizerIterator object that enhance
+the sequence with backward/forward navigation and matching methods.
+JSCodeSniffer traverses tokens sequence till a stop condition. Then it relies on the following methods to find out about surroundings of the current tokens:
+
+* instance.current() - the same as instance.get(0)
+* instance.get(N positive value) - next N's token
+* instance.get(N negative value) - prev N's token
+
+and following methods to examine if a token matches given conditions:
+
+* instance.match("String") - is a token of the type "String"
+* instance.match("Keyword", [ "var", "const" ]) - is a token of the type "Keyword" with value "var" or "const"
