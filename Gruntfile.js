@@ -2,7 +2,7 @@
 module.exports = function(grunt) {
 
   grunt.loadNpmTasks("grunt-contrib-jshint");
-  grunt.loadNpmTasks("grunt-mocha-test");
+  grunt.loadNpmTasks("grunt-mocha-cli");
 
     grunt.initConfig({
         jshint: {
@@ -11,7 +11,7 @@ module.exports = function(grunt) {
             },
             all: ["lib/**/*.js", "standard/**/*.js"]
         },
-        mochaTest: {
+        mochacli: {
             test: {
                 options: {
                     reporter: 'spec'
@@ -21,7 +21,7 @@ module.exports = function(grunt) {
         }
     });
 
-  grunt.registerTask("test", ["jshint", "mochaTest"]);
+  grunt.registerTask("test", ["jshint", "mochacli"]);
   grunt.registerTask("default", ["test"]);
 
 };
