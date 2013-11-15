@@ -17,10 +17,11 @@
   "homepage": "https://github.com/dsheiko/jscodesniffer.git",
   "description": "Tool to ensure that your JavaScript code does not violate the specified coding standard (Idiomatic Style Manifesto or JQuery Core Style Guidelines)",
   "keywords": [
-    "styleguide"
+    "styleguide",
+    "formatter"
   ],
   "authors": [
-    "formatter"
+    "Dmitry Sheiko (http://dsheiko.com)"
   ],
   "license": "MIT",
   "ignore": [
