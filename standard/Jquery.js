@@ -1,207 +1,138 @@
 /*
- * @package JS_CodeSniffer
+ * @package jscodesniffer
  * @author sheiko
  * @license MIT
  * @copyright (c) Dmitry Sheiko http://www.dsheiko.com
  * @jscs standard:Jquery
  * Code style: http://docs.jquery.com/JQuery_Core_Style_Guidelines
  */
-var AbstractIdiomatic = require('./AbstractIdiomatic'),
-    util = require("../lib/Util"),
-    Logger = require('../lib/Logger'),
-    JqueryStandard = function() {
-        this.logger = new Logger();
-        this.extendExceptionMap({
-            "Jquery.invalidCommaPunctuatorSpacing": "Coma punctuator shall have single traling space or line break",
-            "Jquery.invalidSingleArgumentExceptionLeadingSpacing": "There must be no leading whitespace for a single argument such as function expression or object/array/string literal",
-            "Jquery.invalidSingleArgumentExceptionTrailingSpacing": "There must be no trailing whitespace for a single argument such as function expression or object/array/string literal",
-            "Jquery.invalidSingleArgumentLeadingSpacing": "There must be one leading whitespace for the argument",
-            "Jquery.invalidSingleArgumentTrailingSpacing": "There must be one trailing whitespace for the argument",
-            "Jquery.invalidSingleArgumentTrailingExceptionSpacing": "There must be no trailing whitespaces for the argument",
-            "Jquery.invalidArgumentListLeadingSpacing": "There must be one leading whitespace for the argument list",
-            "Jquery.invalidArgumentListTrailingSpacing": "There must be one trailing whitespace for the argument list",
-            "Jquery.invalidArgumentListTrailingExceptionSpacing": "Multi-line function/object/array literals go snug at end",
-            "Jquery.invalidInnerGroupingLeadingSpacing": "There must be one or no leading spaces for the expression of inner grouping parens",
-            "Jquery.invalidInnerGroupingTrailingSpacing": "There must be one or no trailing spaces for the expression of inner grouping parens"
-        });
+
+// UMD boilerplate according to https://github.com/umdjs/umd
+if ( typeof module === 'object' && typeof define !== 'function' ) {
+    var define = function ( factory ) {
+        module.exports = factory( require, exports, module );
     };
+}
+define( function ( require, exports, module ) {
+  return {
+    "Indentation": {
+      "allowOnlyTabs": true,
+      "allowOnlySpaces": true
+    },
 
-members = {
+    "LineSpacing": {
+      "allowLineTrailingSpaces": false
+    },
 
-   /**
-    * Sniff at function arguments for
-    * liberal spacing
-    *
-    * @param TokenizerIterator tokens
-    * @return void
-    */
-    sniffArgumentSpacing: function( tokens ) {
-        var that = this,
-            current = tokens.current(),
-            next = tokens.get( 1 ),
-            fetch,
-            validate = (function( that ) {
-            return {
-               /**
-                * If inside other function call, no spaces wrapping the expression allowed
-                * otherwise grouping parens must have one padding space
-                *
-                * @param TokenizerIterator tokens
-                * @return void
-                */
-                innerGroupingSpacing: function( tokens ) {
-                    var first = tokens.getFirst(),
-                        last = tokens.getLast();
+    "LineLength": {
+      "allowMaxLength": 80
+    },
 
-                    ( first.before.whitespaceNum < 2 || first.before.newlineNum ) ||
-                        that.log( first, "Jquery.invalidInnerGroupingLeadingSpacing" );
-                    ( last.after.whitespaceNum < 2 || last.after.newlineNum ) ||
-                        that.log( last, "Jquery.invalidInnerGroupingTrailingSpacing" );
+    "CommaPunctuatorSpacing": {
+      "disallowPrecedingSpaces": false
+    },
+    "SemicolonPunctuatorSpacing": {
+      "disallowPrecedingSpaces": false
+    },
 
-                },
 
-               /**
-                * Functions, object literals, array literals and string literals
-                * go snug to front and back of the parentheses - but ONLY
-                * when it's the only argument
-                * P.S. Line breaks allowed
-                * @param TokenizerIterator group
-                * @return boolean
-                */
-                singleArgumentLeadingSpaces: function( tokens ) {
-                    var first = tokens.getFirst(),
-                        last = tokens.getLast(),
-                        second = tokens.get( 1 ),
-                        validateException = function() {
-                            ( first.before.whitespaceNum === 0 || first.before.newlineNum ) ||
-                                that.log( first, "Jquery.invalidSingleArgumentExceptionLeadingSpacing" );
-                        },
-                        validateRegular = function() {
-                            // Verify one leading space for a single argument, but not when an exeption
-                            if ( first.match("Keyword", [ "function" ]) ||
-                                last.match("Punctuator", [ "}", "]" ]) ||
-                                last.match([ "String" ])) {
-                                return;
-                            }
-                            ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
-                                that.log( first, "Jquery.invalidSingleArgumentLeadingSpacing" );
-                        };
+    "CompoundStatementConventions": {
+      "for": [
+        "IfStatement",
+        "SwitchStatement",
+        "WhileStatement",
+        "DoWhileStatement",
+        "ForStatement",
+        "ForInStatement",
+        "WithStatement",
+        "TryStatement"
+      ],
+      "requireBraces": true,
+      "requireMultipleLines": true
+    },
+    "UnaryExpressionIdentifierSpacing": {
+      "allowTrailingWhitespaces" : 0
+    },
 
-                    // If the second token is an operator. E.g. foo( "ex" + 1 )
-                    if ( second && second.match("Punctuator", [ "+", "-" ])) {
-                        validateRegular();
-                    } else if ( first.match("Keyword", [ "function" ]) ||
-                        last.match("Punctuator", [ "}", "]" ]) ||
-                        last.match([ "String" ]) ) {
-                        validateException();
-                    } else {
-                        validateRegular();
-                    }
-                },
-               /**
-                * Functions, object literals, array literals and string literals
-                * go snug to front and back of the parentheses - but ONLY
-                * when it's the only argument
-                * P.S. Line breaks allowed
-                * @param TokenizerIterator group
-                * @return boolean
-                */
-                singleArgumentTrailingSpaces: function( tokens ) {
-                    var first = tokens.getFirst(),
-                        last = tokens.getLast(),
-                        second = tokens.get( 1 ),
-                        validateException = function() {
-                            ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                                that.log( last, "Jquery.invalidSingleArgumentExceptionTrailingSpacing" );
-                        },
-                        validateRegular = function() {
-                            // Verify one trailing space for a single argument, but not when an exeption
-                            if ( first.match("Keyword", [ "function" ]) ||
-                                last.match("Punctuator", [ "}", "]" ]) ||
-                                last.match([ "String" ])) {
-                                return;
-                            }
-                            ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
-                            that.log( last, "Jquery.invalidSingleArgumentTrailingSpacing" );
+    "TernaryConditionalPunctuatorsSpacing": {
+      "allowTestTrailingWhitespaces": 1,
+      "allowConsequentPrecedingWhitespaces": 1,
+      "allowConsequentTrailingWhitespaces": 1,
+      "allowAlternatePrecedingWhitespaces": 1
+    },
 
-                        };
+    "EmptyConstructsSpacing": {
+      "for": [
+        "ObjectExpression",
+        "ArrayExpression",
+        "CallExpression"
+      ],
+      "allowWhitespaces": false
+    },
+    "ObjectLiteralSpacing": {
+      "allowKeyPrecedingWhitespaces": 1,
+      "allowKeyTrailingWhitespaces": 0,
+      "allowValuePrecedingWhitespaces": 1,
+      "allowValueTrailingWhitespaces": 1
+    },
+    "ArrayLiteralSpacing": {
+      "allowElementPrecedingWhitespaces": 1,
+      "allowElementTrailingWhitespaces": 1
+    },
 
-                    // If the second token is an operator. E.g. foo( "ex" + 1 )
-                    if ( second && second.match("Punctuator", [ "+", "-" ])) {
-                        validateRegular();
-                    } else if ( first.match("Keyword", [ "function" ]) ||
-                        last.match("Punctuator", [ "}", "]" ]) ||
-                        last.match([ "String" ])) {
-                        validateException();
-                    } else {
-                        validateRegular();
-                    }
-                },
-               /**
-                * Multi-line function/object/array literals go snug at end.
-                * In other cases there must be one whitespace following argument list
-                * P.S. Line breaks allowed
-                * @param TokenizerIterator group
-                * @return boolean
-                */
-                argumentListTrailingSpaces: function( tokens ) {
-                    var first = tokens.getFirst(),
-                        last = tokens.getLast();
-                    if ( first.line < last.line &&
-                        ( last.match("Keyword", [ "function" ]) ||
-                          last.match("Punctuator", [ "}", "]" ]) ||
-                          last.match([ "String" ]) )
-                    ) {
-                        ( last.after.whitespaceNum === 0 || last.after.newlineNum ) ||
-                        that.log( last, "Jquery.invalidArgumentListTrailingExceptionSpacing" );
-                    } else {
-                        ( last.after.whitespaceNum === 1 || last.after.newlineNum ) ||
-                        that.log( last, "Jquery.invalidArgumentListTrailingSpacing" );
-                    }
-                },
-               /**
-                * Always include extra space preceding argument list
-                * P.S. Line breaks allowed
-                * @param TokenizerIterator group
-                * @return boolean
-                */
-                argumentListLeadingSpaces: function( tokens ) {
-                    var first = tokens.getFirst();
-                    ( first.before.whitespaceNum === 1 || first.before.newlineNum ) ||
-                    that.log( first, "Jquery.invalidArgumentListLeadingSpacing" );
-                }
+    "QuoteConventions": {
+      "allowDoubleQuotes": true,
+      "allowSingleQuotes": false
+    },
 
-            };
-        }( this ));
+    "VariableNamingConventions": {
+      "allowCase": ["camel"],
+      "allowRepeating": true,
+      "allowNumbers": true
+    },
+    "FunctionNamingConventions": {
+      "allowCase": ["camel", "pascal"],
+      "allowRepeating": true,
+      "allowNumbers": true
+    },
 
-        if ( ( current.match("Identifier") || current.match("Keyword", [ "function" ]) ) &&
-            next && next.group ) {
-            fetch = next.group.asArray().filter(function( token ){
-                return token.match( "Punctuator", [ "," ] );
-            });
-            if ( next.parent !== null ) {
-                validate.innerGroupingSpacing( next.group );
-            } else {
-                if ( fetch.length === 0 ) {
-                    validate.singleArgumentLeadingSpaces( next.group );
-                    validate.singleArgumentTrailingSpaces( next.group );
-                } else {
-                    validate.argumentListLeadingSpaces( next.group );
-                    validate.argumentListTrailingSpaces( next.group );
-                }
-            }
-            // Check comma punctuators. One space or line break expected
-            fetch.length && fetch.forEach( function( token ){
-                ( token.after.whitespaceNum === 1 || token.after.newlineNum ) ||
-                that.log( token, "Jquery.invalidCommaPunctuatorSpacing" );
-            }, this );
-
+    "ArgumentsSpacing": {
+      "allowArgPrecedingWhitespaces": 1,
+      "allowArgTrailingWhitespaces": 1,
+      "exceptions": {
+        "singleArg" : {
+          "for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
+          "allowArgPrecedingWhitespaces": 0,
+          "allowArgTrailingWhitespaces": 0
+        },
+        "firstArg": {
+          "for": [ "FunctionExpression" ],
+          "allowArgPrecedingWhitespaces": 0
+        },
+        "lastArg": {
+          "for": [ "FunctionExpression" ],
+          "allowArgTrailingWhitespaces": 0
         }
+      }
+    },
+    "ParametersSpacing": {
+      "allowParamPrecedingWhitespaces": 1,
+      "allowParamTrailingWhitespaces": 1
+    },
+
+    "ChainedMethodCallsSpacing" : {
+      "allowTrailingObjectWhitespaces": 0,
+      "allowPrecedingPropertyWhitespaces": 0
+    },
+
+    "OperatorSpacing" : {
+      "allowOperatorPrecedingWhitespaces": 1,
+      "allowOperatorTrailingWhitespaces": 1
+    },
+
+    "VariableDeclarationPerScopeConventions" : {
+      "disallowMultiplePerBlockScope": true
     }
 
-};
-
-
-JqueryStandard.prototype = new AbstractIdiomatic();
-util.extend( JqueryStandard.prototype, members );
-module.exports = JqueryStandard;
+  };
+});

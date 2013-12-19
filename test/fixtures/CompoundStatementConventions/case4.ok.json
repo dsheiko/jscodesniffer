@@ -1,0 +1,73 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "DoWhileStatement",
+            "body": {
+                "type": "BlockStatement",
+                "body": [],
+                "range": [
+                    3,
+                    6
+                ],
+                "loc": {
+                    "start": {
+                        "line": 1,
+                        "column": 3
+                    },
+                    "end": {
+                        "line": 2,
+                        "column": 1
+                    }
+                }
+            },
+            "test": {
+                "type": "Literal",
+                "value": true,
+                "raw": "true",
+                "range": [
+                    14,
+                    18
+                ],
+                "loc": {
+                    "start": {
+                        "line": 2,
+                        "column": 9
+                    },
+                    "end": {
+                        "line": 2,
+                        "column": 13
+                    }
+                }
+            },
+            "range": [
+                0,
+                19
+            ],
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 2,
+                    "column": 14
+                }
+            }
+        }
+    ],
+    "range": [
+        0,
+        19
+    ],
+    "loc": {
+        "start": {
+            "line": 1,
+            "column": 0
+        },
+        "end": {
+            "line": 2,
+            "column": 14
+        }
+    }
+}

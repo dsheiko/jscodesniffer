@@ -1,0 +1,1 @@
+try { i++; } catch(e) {}

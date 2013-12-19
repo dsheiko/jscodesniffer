@@ -1,8 +1,8 @@
+/*
+ * @jscs standard:Jquery
+ */
 "use strict";
 function a() {};
 var some = 4,
-    other = 5,
-    soWWWRONG = 7,
-
-    takenChild = new TreeElement( dummies.serializedTreeStruct.children[ 0 ]),
-    $testItem = $( $("section.example .summary")[ 0 ]);
+    oth_er = 5,
+    soWWWRONG = 7;

@@ -1,0 +1,166 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "TryStatement",
+            "block": {
+                "type": "BlockStatement",
+                "body": [
+                    {
+                        "type": "ExpressionStatement",
+                        "expression": {
+                            "type": "UpdateExpression",
+                            "operator": "++",
+                            "argument": {
+                                "type": "Identifier",
+                                "name": "i",
+                                "range": [
+                                    7,
+                                    8
+                                ],
+                                "loc": {
+                                    "start": {
+                                        "line": 2,
+                                        "column": 0
+                                    },
+                                    "end": {
+                                        "line": 2,
+                                        "column": 1
+                                    }
+                                }
+                            },
+                            "prefix": false,
+                            "range": [
+                                7,
+                                10
+                            ],
+                            "loc": {
+                                "start": {
+                                    "line": 2,
+                                    "column": 0
+                                },
+                                "end": {
+                                    "line": 2,
+                                    "column": 3
+                                }
+                            }
+                        },
+                        "range": [
+                            7,
+                            11
+                        ],
+                        "loc": {
+                            "start": {
+                                "line": 2,
+                                "column": 0
+                            },
+                            "end": {
+                                "line": 2,
+                                "column": 4
+                            }
+                        }
+                    }
+                ],
+                "range": [
+                    4,
+                    14
+                ],
+                "loc": {
+                    "start": {
+                        "line": 1,
+                        "column": 4
+                    },
+                    "end": {
+                        "line": 3,
+                        "column": 1
+                    }
+                }
+            },
+            "guardedHandlers": [],
+            "handlers": [
+                {
+                    "type": "CatchClause",
+                    "param": {
+                        "type": "Identifier",
+                        "name": "e",
+                        "range": [
+                            21,
+                            22
+                        ],
+                        "loc": {
+                            "start": {
+                                "line": 3,
+                                "column": 8
+                            },
+                            "end": {
+                                "line": 3,
+                                "column": 9
+                            }
+                        }
+                    },
+                    "body": {
+                        "type": "BlockStatement",
+                        "body": [],
+                        "range": [
+                            24,
+                            26
+                        ],
+                        "loc": {
+                            "start": {
+                                "line": 3,
+                                "column": 11
+                            },
+                            "end": {
+                                "line": 3,
+                                "column": 13
+                            }
+                        }
+                    },
+                    "range": [
+                        15,
+                        26
+                    ],
+                    "loc": {
+                        "start": {
+                            "line": 3,
+                            "column": 2
+                        },
+                        "end": {
+                            "line": 3,
+                            "column": 13
+                        }
+                    }
+                }
+            ],
+            "finalizer": null,
+            "range": [
+                0,
+                26
+            ],
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 3,
+                    "column": 13
+                }
+            }
+        }
+    ],
+    "range": [
+        0,
+        26
+    ],
+    "loc": {
+        "start": {
+            "line": 1,
+            "column": 0
+        },
+        "end": {
+            "line": 3,
+            "column": 13
+        }
+    }
+}

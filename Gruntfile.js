@@ -16,12 +16,12 @@ module.exports = function(grunt) {
                 options: {
                     reporter: 'spec'
                 },
-                src: ['test/**/*.js']
+                src: ['test/unit-tests.js']
             }
         }
     });
 
-  grunt.registerTask("test", ["jshint", "mochacli"]);
+  grunt.registerTask("test", ["mochacli"]);
   grunt.registerTask("default", ["test"]);
 
 };

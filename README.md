@@ -1,4 +1,4 @@
-JS_CodeSniffer
+JS_CodeSniffer v.2.x
 ==============
 [![Build Status](https://travis-ci.org/dsheiko/jscodesniffer.png)](https://travis-ci.org/dsheiko/jscodesniffer)
 [![NPM version](https://badge.fury.io/js/jscodesniffer.png)](http://badge.fury.io/js/jscodesniffer)
@@ -6,7 +6,6 @@ JS_CodeSniffer
 JS_CodeSniffer is a node.js application that tokenises and "sniffs" JavaScript files to detect violations of a defined coding standard. It is an essential development tool that ensures your code remains clean and consistent.
 A coding standard in JS_CodeSniffer is a collection of sniff files. Each sniff checks one part of the coding standard only. The default coding standard used by JS_CodeSniffer is the Idiomatic Style Manifesto (https://github.com/rwldrn/idiomatic.js).
 
-STATUS: 1.1.1
 
 JS Sniffer online available at http://jscodesniffer.dsheiko.com
 
@@ -116,94 +115,3 @@ Make a symlink of scripts/jscs-git-pre-commit in your repository .git/hooks fold
 ln -s /<full path>/scripts/jscs-git-pre-commit /<project>/.git/hooks/pre-commit
 ```
 
-
-## Following sniffs implemented
-
-### Idiomatic Style Manifesto:
-
-* Identifier naming convention
-  * Constructors must be on PascalCase and other identifiers of camelCase
-  * Neither Pascal nor CamelCase allows repeating uppercase characters
-  * Both allow but only trailing digits
-
-```
-var camelCase,
-    camelCase1,
-    PascalCaseIdentifier = function(){},
-    obj = { PascalCaseIdentifier: function(){} };
-```
-
-* Liberal spacing on operators (Arithmetic Operators, Assignment Operators, Bitwise Operators, Comparison Operators, Logical Operators)
-
-```
-num >> 0;
-num >>> 0;
-length === 0;
-```
-
-* Liberal spacing on primitive type literals ( Boolean, Date, Number, RegExp,  String)
-
-```
-var num = 42,
-    str = "string",
-    re = /A-Z/,
-    coercion = 42 + "string" + null;
-```
-
-* Liberal spacing on function arguments
-
-```
-foo( 1, 2, 3 );
-foo([ "alpha", "beta" ]);
-foo({
-  a: "alpha",
-  b: "beta"
-});
-foo("bar");
-```
-
-* Liberal spacing within grouping parenthesis
-
-```
-if ( !("foo" in obj) ) {
-}
-```
-
-* Single var statement per scope
-
-```
-var foo = "",
-    bar = "",
-    quux = function() {
-        var foo;
-    };
-```
-
-
-### JQuery Core Style Guidelines:
-
-* Identifier naming convention
-* Liberal spacing on operators (Arithmetic Operators, Assignment Operators, Bitwise Operators, Comparison Operators, Logical Operators)
-* Liberal spacing on primitive type literals ( Boolean, Date, Number, RegExp,  String)
-* Liberal spacing on function arguments
-  * If inside other function call, no spaces wrapping the expression allowed otherwise grouping parens must have one padding space
-  * Functions, object literals, array literals and string literals go snug to front and back of the parentheses when it's the only argument
-  * Multi-line function/object/array literals go snug at end
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/ec7ee35f81b13e41097453e9da3106cb "githalytics.com")](http://githalytics.com/dsheiko/jscodesniffer)
-
-
-# Implementation notes
-
-JSCodeSniffer uses token array provided by Esprima. It wraps the array elements with TokenizerIterator object that enhance
-the sequence with backward/forward navigation and matching methods.
-JSCodeSniffer traverses tokens sequence till a stop condition. Then it relies on the following methods to find out about surroundings of the current tokens:
-
-* instance.current() - the same as instance.get(0)
-* instance.get(N positive value) - next N's token
-* instance.get(N negative value) - prev N's token
-
-and following methods to examine if a token matches given conditions:
-
-* instance.match("String") - is a token of the type "String"
-* instance.match("Keyword", [ "var", "const" ]) - is a token of the type "Keyword" with value "var" or "const"
