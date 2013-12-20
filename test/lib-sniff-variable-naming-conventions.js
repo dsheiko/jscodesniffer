@@ -1,5 +1,5 @@
 var esprima = require("../node_modules/esprima/esprima"),
-    should = require('../node_modules/should/should'),
+    should = require('should'),
     fixture = require('./inc/fixture'),
     locEntity = require('./inc/LocEntity'),
     sniffClass = require('../lib/Sniff/SyntaxTree/VariableNamingConventions'),

@@ -1,4 +1,4 @@
-var should = require('../node_modules/should/should'),
+var should = require('should'),
     fixture = require('./inc/fixture'),
     locEntity = require('./inc/LocEntity'),
     sniffClass = require('../lib/Sniff/SyntaxTree/FunctionNamingConventions'),

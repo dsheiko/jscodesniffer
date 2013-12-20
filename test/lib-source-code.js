@@ -1,4 +1,4 @@
-var should = require('../node_modules/should/should'),
+var should = require('should'),
     SourceCode = require('../lib/SourceCode');
 
 

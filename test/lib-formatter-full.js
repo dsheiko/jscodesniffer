@@ -1,4 +1,4 @@
-var should = require('../node_modules/should/should'),
+var should = require('should'),
     Formatter = require('../lib/Formatter/Full'),
 
     normalize = function( out ) {
