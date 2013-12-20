@@ -76,7 +76,7 @@ try {
   sniffer = new Sniffer();
   dictionary = new Dictionary();
 
-  rulesetOverrides = cli.readLocalConfig( "." );
+  rulesetOverrides = cli.readRealtimeConfig( "." );
 
   cli.applyToEveryFileInPath( where , function( pathArg, data ) {
       logger = sniffer.getTestResults( data, options, rulesetOverrides );
