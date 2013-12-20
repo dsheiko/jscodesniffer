@@ -140,7 +140,7 @@ rule-sets that you want your code be validated against. To make the notation ava
 ### Indentation
 
 
-```
+```javascript
 {
   /*
     Ruleset: Indentation
