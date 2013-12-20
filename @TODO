@@ -9,3 +9,4 @@ it ("must..."
 it ("must..."
 7. Make online validator
 8. Make inline documentation compatible to JSDoc 3 (http://usejsdoc.org/tags-param.html)
+9. Integration tests

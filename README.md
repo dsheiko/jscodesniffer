@@ -1,13 +1,26 @@
-JS_CodeSniffer v.2.x
+JSCodeSniffer v.2.x
 ==============
 [![Build Status](https://travis-ci.org/dsheiko/jscodesniffer.png)](https://travis-ci.org/dsheiko/jscodesniffer)
 [![NPM version](https://badge.fury.io/js/jscodesniffer.png)](http://badge.fury.io/js/jscodesniffer)
 
-JS_CodeSniffer is a node.js application that tokenises and "sniffs" JavaScript files to detect violations of a defined coding standard. It is an essential development tool that ensures your code remains clean and consistent.
-A coding standard in JS_CodeSniffer is a collection of sniff files. Each sniff checks one part of the coding standard only. The default coding standard used by JS_CodeSniffer is the Idiomatic Style Manifesto (https://github.com/rwldrn/idiomatic.js).
+JSCodeSniffer is a node.js application that validates JavaScript sources against provided coding style, just like phpcs.
+One can define a custom coding style by using described below JSON notation or use one of predefined standards.
 
 
-JS Sniffer online available at http://jscodesniffer.dsheiko.com
+## Features
+* Tool is available as UMD (can be used with nodejs or as a RequireJS module)
+* Predefined popular coding styles (jQuery Coding Style Guide, Idiomatic Style Manifesto)
+* Reports in the style of phpcs
+* Solution ready for Continuous Integration
+    - Provided Git pre-commit hook script
+    - Provided SVN pre-commit hook script
+    - Provided Grunt task
+    - Provided Jenkins CheckStyle report
+* Custom standard can be easily configured by using JSON notation
+* Scripts can be associated to a coding style in block comments using @jscs tag
+* Relaxing options can be provided with real-time configuration (.jscsrc) per project
+
+
 
 ## Setup
 
@@ -27,7 +40,7 @@ You can also create a symlink to make it globally available
 ln -s jscs /usr/local/bin/jscs
 ```
 
-## Usage
+## Using JSCodeSniffer in the command line
 
 Simply get detailed report on the file coding style according to Idiomatic Style Manifesto
 ```
@@ -66,7 +79,11 @@ NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will fi
  </target>
 ```
 
-Setting up [Grunt](http://gruntjs.com/) task:
+## Using JSCodeSniffer as RequireJS (AMD) module
+...
+
+
+## Setting up [Grunt](http://gruntjs.com/) task
 
 *Gruntfile.js*
 ```
@@ -115,3 +132,66 @@ Make a symlink of scripts/jscs-git-pre-commit in your repository .git/hooks fold
 ln -s /<full path>/scripts/jscs-git-pre-commit /<project>/.git/hooks/pre-commit
 ```
 
+## Declaring coding style
+Standard declaration are located in standard directory. You can store there in a file named after your custom standard name
+rule-sets that you want your code be validated against. To make the notation available for AMD/RequireJs, wrap the JSON into UMD ...
+
+
+### Indentation
+
+Rule | Value
+:----|:----
+allowOnlyTabs | `<Boolean>`
+allowOnlySpaces | `<Boolean>`
+
+*Example*
+```
+{
+  "Indentation": {
+      "allowOnlyTabs": true,
+      "allowOnlySpaces": false
+  }
+}
+```
+
+### LineSpacing
+
+
+Rule | Value
+:----|:----
+allowLineTrailingSpaces | `<Boolean>`
+
+
+*Example*
+```
+{
+  "LineSpacing": {
+      "allowLineTrailingSpaces": false
+    }
+}
+```
+
+### QuoteConventions
+
+
+Rule | Value
+:----|:----
+allowDoubleQuotes | `<Boolean>`
+allowSingleQuotes | `<Boolean>`
+
+
+*Example*
+```
+{
+ "QuoteConventions": {
+      "allowDoubleQuotes": true,
+      "allowSingleQuotes": false
+    }
+}
+```
+
+*Meaning*
+```
+var foo = "bar"; // Good
+var foo = 'bar'; // Bad
+```
