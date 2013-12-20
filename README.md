@@ -139,59 +139,169 @@ rule-sets that you want your code be validated against. To make the notation ava
 
 ### Indentation
 
-Rule | Value
-:----|:----
-allowOnlyTabs | `<Boolean>`
-allowOnlySpaces | `<Boolean>`
 
-*Example*
 ```
 {
-  "Indentation": {
+  /*
+    Ruleset: Indentation
+    defines what characters allowed for line indentation
+  */
+    "Indentation": {
       "allowOnlyTabs": true,
-      "allowOnlySpaces": false
-  }
-}
-```
-
-### LineSpacing
-
-
-Rule | Value
-:----|:----
-allowLineTrailingSpaces | `<Boolean>`
-
-
-*Example*
-```
-{
-  "LineSpacing": {
+      "allowOnlySpaces": true
+    },
+  /*
+    Ruleset: LineSpacing
+    defines if trailing spaces allowed for lines
+  */
+    "LineSpacing": {
       "allowLineTrailingSpaces": false
+    },
+  /*
+    Ruleset: LineLength
+    defines allowed range for line length
+  */
+    "LineLength": {
+      "allowMaxLength": 80,
+      "allowMinLength": 0
+    },
+  /*
+    Ruleset: CommaPunctuatorSpacing
+    defines spacing conventions for comma punctuator
+    Example:
+    // good
+    var foo, bar;
+    // bad
+    var foo , bar;
+  */
+    "CommaPunctuatorSpacing": {
+      "disallowPrecedingSpaces": false
+    },
+/*
+    Ruleset: SemicolonPunctuatorSpacing
+    defines spacing conventions for semicolon punctuator
+    Example:
+    // good
+    var foo;
+    // bad
+    var foo ;
+  */
+    "SemicolonPunctuatorSpacing": {
+      "disallowPrecedingSpaces": false
+    },
+
+  /*
+    Ruleset: CompoundStatementConventions
+    defines scoping rules for compound statements
+
+    Example:
+
+    // good
+    if ( true ) {
+      var foo = "bar";
     }
-}
-```
 
-### QuoteConventions
+    // bad
+    if ( true ) var foo = "bar";
 
+  */
+    "CompoundStatementConventions": {
+      "for": [
+        "IfStatement",
+        "SwitchStatement",
+        "WhileStatement",
+        "DoWhileStatement",
+        "ForStatement",
+        "ForInStatement",
+        "WithStatement",
+        "TryStatement"
+      ],
+      "requireBraces": true,
+      "requireMultipleLines": true
+    },
+    "UnaryExpressionIdentifierSpacing": {
+      "allowTrailingWhitespaces" : 0
+    },
 
-Rule | Value
-:----|:----
-allowDoubleQuotes | `<Boolean>`
-allowSingleQuotes | `<Boolean>`
+    "TernaryConditionalPunctuatorsSpacing": {
+      "allowTestTrailingWhitespaces": 1,
+      "allowConsequentPrecedingWhitespaces": 1,
+      "allowConsequentTrailingWhitespaces": 1,
+      "allowAlternatePrecedingWhitespaces": 1
+    },
 
+    "EmptyConstructsSpacing": {
+      "for": [
+        "ObjectExpression",
+        "ArrayExpression",
+        "CallExpression"
+      ],
+      "allowWhitespaces": false
+    },
+    "ObjectLiteralSpacing": {
+      "allowKeyPrecedingWhitespaces": 1,
+      "allowKeyTrailingWhitespaces": 0,
+      "allowValuePrecedingWhitespaces": 1,
+      "allowValueTrailingWhitespaces": 1
+    },
+    "ArrayLiteralSpacing": {
+      "allowElementPrecedingWhitespaces": 1,
+      "allowElementTrailingWhitespaces": 1
+    },
 
-*Example*
-```
-{
- "QuoteConventions": {
+    "QuoteConventions": {
       "allowDoubleQuotes": true,
       "allowSingleQuotes": false
-    }
-}
-```
+    },
 
-*Meaning*
-```
-var foo = "bar"; // Good
-var foo = 'bar'; // Bad
+    "VariableNamingConventions": {
+      "allowCase": ["camel"],
+      "allowRepeating": true,
+      "allowNumbers": true
+    },
+    "FunctionNamingConventions": {
+      "allowCase": ["camel", "pascal"],
+      "allowRepeating": true,
+      "allowNumbers": true
+    },
+
+    "ArgumentsSpacing": {
+      "allowArgPrecedingWhitespaces": 1,
+      "allowArgTrailingWhitespaces": 1,
+      "exceptions": {
+        "singleArg" : {
+          "for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
+          "allowArgPrecedingWhitespaces": 0,
+          "allowArgTrailingWhitespaces": 0
+        },
+        "firstArg": {
+          "for": [ "FunctionExpression" ],
+          "allowArgPrecedingWhitespaces": 0
+        },
+        "lastArg": {
+          "for": [ "FunctionExpression" ],
+          "allowArgTrailingWhitespaces": 0
+        }
+      }
+    },
+    "ParametersSpacing": {
+      "allowParamPrecedingWhitespaces": 1,
+      "allowParamTrailingWhitespaces": 1
+    },
+
+    "ChainedMethodCallsSpacing" : {
+      "allowTrailingObjectWhitespaces": 0,
+      "allowPrecedingPropertyWhitespaces": 0
+    },
+
+    "OperatorSpacing" : {
+      "allowOperatorPrecedingWhitespaces": 1,
+      "allowOperatorTrailingWhitespaces": 1
+    },
+
+    "VariableDeclarationPerScopeConventions" : {
+      "disallowMultiplePerBlockScope": true
+    }
+
+  }
 ```
