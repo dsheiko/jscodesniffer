@@ -28,46 +28,46 @@ JS_CodeSniffer relies on node.js. If you don't have node.js installed, just foll
 https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
 
 Make sure all the required dependencies installed
-```
+```bash
 npm i
 ```
 Make sure the binary is executable
-```
+```bash
 chmod +x jscs
 ```
 You can also create a symlink to make it globally available
-```
+```bash
 ln -s jscs /usr/local/bin/jscs
 ```
 
 ## Using JSCodeSniffer in the command line
 
 Simply get detailed report on the file coding style according to Idiomatic Style Manifesto
-```
+```bash
 ./jscs source-code.js
 ```
 
 ![JS CodeSniffer Full Report Example](https://raw.github.com/dsheiko/jscodesniffer/master/doc/sample1.jpg "JS CodeSniffer Full Report Example")
 
 Get detailed report on the coding style for all *.js/*.json files of the 'lib' folder according to jQuery Coding Style Guide
-```
+```bash
 ./jscs lib --standard=Jquery
 ```
 
 Get summary report
-```
+```bash
 ./jscs lib --report-summary
 ```
 ![JS CodeSniffer Summary Report Example](https://raw.github.com/dsheiko/jscodesniffer/master/doc/sample2.jpg "JS CodeSniffer Summary Report Example")
 
 Get XML report (which allows you to parse the output easily and use the results in your own scripts)
-```
+```bash
 ./jscs lib --report=xml
 ```
 
 Setting up [Apache Ant](http://ant.apache.org/) build script reporting to [Jenkins](http://jenkins-ci.org) Checkstyle plugin.
 NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will find created by phpcs checkstyle.xml and extend its body instead of overriding the report.
-```
+```xml
 <target name="jscs-ci"
          description="Find coding standard violations using JS_CodeSniffer and print human readable output.">
   <exec executable="jscs">
@@ -86,7 +86,7 @@ NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will fi
 ## Setting up [Grunt](http://gruntjs.com/) task
 
 *Gruntfile.js*
-```
+```javascript
 grunt.loadNpmTasks('grunt-jscs');
 grunt.initConfig({
      // Validate against jQuery coding standard
@@ -99,7 +99,7 @@ grunt.initConfig({
   });
 ```
 *package.json*
-```
+```javascript
 "devDependencies": {
     //..
     "grunt-jscs": ">0.0.1"
@@ -109,7 +109,7 @@ grunt.initConfig({
 ## Environments
 
 Standard to sniff against can be enforced on the file by following instructions directly in the code
-```
+```javascript
 /* @jscs standard:Jquery */
 ```
 
@@ -117,18 +117,18 @@ Standard to sniff against can be enforced on the file by following instructions 
 
 A pre-commit hook is a feature available in the Subversion version control system that allows code to be validated before it is committed to the repository.
 Edit scripts/jscs-svn-pre-commit and replace JSCS value with your own path to JS CodeSniffer
-```
+```bash
 JSCS = "/your-path/jscodesniffer"
 ```
 
 Make a symlink of scripts/jscs-svn-pre-commit in your repository hooks folder. E.g.
-```
+```bash
 ln -s /<full path>/scripts/jscs-svn-pre-commit /repositories/<project>/hooks/pre-commit
 ```
 
 ## Using the git pre-commit hook
 Make a symlink of scripts/jscs-git-pre-commit in your repository .git/hooks folder. E.g.
-```
+```bash
 ln -s /<full path>/scripts/jscs-git-pre-commit /<project>/.git/hooks/pre-commit
 ```
 
