@@ -20,7 +20,7 @@ describe('VariableDeclarationPerScopeConventions', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validate( { "disallowMultiplePerBlockScope": 1 } );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
     });
     /**

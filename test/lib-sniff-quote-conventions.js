@@ -21,13 +21,13 @@ describe('QuoteConventions', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "allowDoubleQuotes": 1, "allowSingleQuotes": true }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
       it('must throw exception when invalid rule.allowSingleQuotes given', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "allowDoubleQuotes": true, "allowSingleQuotes": 1 }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
     });
     /**

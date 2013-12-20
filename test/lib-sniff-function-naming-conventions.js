@@ -22,7 +22,7 @@ describe('FunctionNamingConventions', function () {
             };
         (function(){
           sniff.validateRule( rule );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
 
       it('must throw exception when invalid type of allowRepeating rule property given', function () {
@@ -33,7 +33,7 @@ describe('FunctionNamingConventions', function () {
             };
         (function(){
           sniff.validateRule( rule );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
 
        it('must throw exception when invalid type of allowNumbers rule property given', function () {
@@ -44,7 +44,7 @@ describe('FunctionNamingConventions', function () {
             };
         (function(){
           sniff.validateRule( rule );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
 
   });

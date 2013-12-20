@@ -37,7 +37,7 @@ describe('UnaryExpressionIdentifierSpacing', function () {
       sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
       (function(){
         sniff.run( { "allowTrailingWhitespaces": true }, null );
-      }).should.throw();
+      }).should[ "throw" ]();
     });
 
     it('must not trigger violation on (!a;) when no unary exp. preceding spaces allowed', function () {

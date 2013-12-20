@@ -1,8 +1,9 @@
 1. Write a decent documentation, probably using Bootstrap 3.0 doc template
-2. Formalize ErrorCodes, probably following the pattern <ruleseName>.<ruleName>. References: phpcs 
+2. Formalize ErrorCodes, probably following the pattern <ruleseName>.<ruleName>. References: phpcs
 3. Add Idiomatic JS and Crockford's styles http://javascript.crockford.com/code.html
 4. Check with Require JS
-5. Beautify tests following the pattern 
+5. Add missing tests for Sniffer, SyntaxAnalizer and other's contract validation
+6. Beautify tests following the pattern
 describe("method",..
-it ("must..." 
+it ("must..."
 it ("must..."

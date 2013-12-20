@@ -26,7 +26,7 @@ describe('VariableNamingConventions', function () {
             };
         (function(){
           sniff.validateRule( rule );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
 
       it('must throw exception when invalid type of allowRepeating rule property given', function () {
@@ -37,7 +37,7 @@ describe('VariableNamingConventions', function () {
             };
         (function(){
           sniff.validateRule( rule );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
 
       it('must throw exception when invalid type of allowNumbers rule property given', function () {
@@ -48,7 +48,7 @@ describe('VariableNamingConventions', function () {
             };
         (function(){
           sniff.validateRule( rule );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
   });
 
@@ -208,7 +208,7 @@ describe('VariableNamingConventions', function () {
           };
 
       pNode = fixture.getJson( "NamingConventions/case11.json" ).body[ 0 ].expression;
-      sniff.run( rule, pNode.arguments[ 0 ], pNode );
+      sniff.run( rule, pNode[ "arguments" ][ 0 ], pNode );
       mediator.getMessage( "VariableNamingConventions" ).should.be.ok;
     });
 

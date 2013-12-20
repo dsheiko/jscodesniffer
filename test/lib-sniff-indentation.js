@@ -20,13 +20,13 @@ describe('Indentation', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validate( { "allowOnlyTabs": 1 } );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
       it('must throw exception when invalid rule.allowOnlySpaces given', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validate( { "allowOnlySpaces": 1 } );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
     });
     /**

@@ -20,7 +20,7 @@ describe('CommaPunctuatorSpacing', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validate( { "disallowPrecedingSpaces": 1 } );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
     });
     /**

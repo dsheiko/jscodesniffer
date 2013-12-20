@@ -5,7 +5,7 @@ var should = require('should'),
         rel = /^\s+/g,
         rer = /\s+$/g;
       return out.replace( re, " " ).replace( rel, "" ).replace( rer, "" );
-    };;
+    };
 
 
 describe('Formatter/Xml.js', function () {

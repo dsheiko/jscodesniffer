@@ -18,7 +18,7 @@ describe('Dictionary', function () {
         it('must throw an exception if invalid key provided', function () {
           (function(){
             dic.getMsg( "invalid-key" );
-          }).should.throw();
+          }).should[ "throw" ]();
         });
       });
 

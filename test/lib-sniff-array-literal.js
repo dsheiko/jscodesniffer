@@ -21,13 +21,13 @@ describe('ArrayLiteralSpacing', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "allowElementPrecedingWhitespaces": "", "allowElementTrailingWhitespaces": 1 }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
       it('must throw exception when rule.allowElementTrailingWhitespaces  is not a number', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "allowElementPrecedingWhitespaces": 1, "allowElementTrailingWhitespaces": false }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
     });
     /**

@@ -20,7 +20,7 @@ describe('LineSpacing', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validate( { "allowLineTrailingSpaces": 1 } );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
     });
     /**

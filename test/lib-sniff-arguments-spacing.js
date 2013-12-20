@@ -20,13 +20,13 @@ describe('ArgumentsSpacing', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { allowArgPrecedingWhitespaces: true, allowArgTrailingWhitespaces: 1 } );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
       it('must throw exception when rule.allowArgTrailingWhitespaces is not a number', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { allowArgPrecedingWhitespaces: 1, allowArgTrailingWhitespaces: true } );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
        it('must throw exception when rule.exceptions is not valid', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
@@ -40,7 +40,7 @@ describe('ArgumentsSpacing', function () {
               }
             }
           });
-        }).should.throw();
+        }).should[ "throw" ]();
       });
     });
     /**

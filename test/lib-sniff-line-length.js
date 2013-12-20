@@ -20,13 +20,13 @@ describe('LineLength', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validate( { "allowMaxLength": false } );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
       it('must throw exception when invalid rule.allowMinLength given', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validate( { "allowMinLength": false } );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
     });
     /**

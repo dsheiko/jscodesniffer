@@ -9,7 +9,7 @@ describe('Reporter.js', function () {
        it('interpretateMarkup must translate markup', function () {
          reporter = new Reporter();
          out = reporter.interpretateMarkup( "[color:light red]-[/color]", true );
-         out.should.eql( "[1;31m-[0m" );
+         out.should.eql( "\u001b[1;31m-\u001b[0m" );
          out = reporter.interpretateMarkup( "[color:light red]-[/color]", false );
          out.should.eql( "-" );
        });
@@ -47,7 +47,7 @@ describe('Reporter.js', function () {
            footer: function() {
              return "+";
            }
-         }
+         };
          reporter = new Reporter();
          reporter.print( formatter, false ).should.eql( "+-+" );
          reporter.print( formatter, false, "*" ).should.eql( "+*-+" );

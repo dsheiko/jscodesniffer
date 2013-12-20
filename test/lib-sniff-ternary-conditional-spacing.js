@@ -24,7 +24,7 @@ describe('TernaryConditionalPunctuatorsSpacing', function () {
             "allowConsequentTrailingWhitespaces": 1,
             "allowAlternatePrecedingWhitespaces": 1
           }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
       it('must throw exception when invalid rule.allowConsequentPrecedingWhitespaces given', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
@@ -35,7 +35,7 @@ describe('TernaryConditionalPunctuatorsSpacing', function () {
             "allowConsequentTrailingWhitespaces": 1,
             "allowAlternatePrecedingWhitespaces": 1
           }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
       it('must throw exception when invalid rule.allowConsequentTrailingWhitespaces given', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
@@ -46,7 +46,7 @@ describe('TernaryConditionalPunctuatorsSpacing', function () {
             "allowConsequentTrailingWhitespaces": "",
             "allowAlternatePrecedingWhitespaces": 1
           }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
       it('must throw exception when invalid rule.allowAlternatePrecedingWhitespaces given', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
@@ -57,7 +57,7 @@ describe('TernaryConditionalPunctuatorsSpacing', function () {
             "allowConsequentTrailingWhitespaces": 1,
             "allowAlternatePrecedingWhitespaces": null
           }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
     });
     /**

@@ -7,7 +7,7 @@ describe('Utils.js', function () {
     describe('(methods)', function () {
 
        it('color must colorize a given string', function () {
-         utils.color( "red", "-" ).should.eql( "[0;31m-[0m" );
+         utils.color( "red", "-" ).should.eql( "\u001b[0;31m-\u001b[0m" );
        });
        it('sprintf - case 1', function () {
          utils.sprintf( "..%s..", "A1", "A2" ).should.eql( "..A1.." );

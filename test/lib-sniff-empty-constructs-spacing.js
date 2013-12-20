@@ -20,13 +20,13 @@ describe('EmptyConstructsSpacing', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "for": [], "allowWhitespaces": 0  }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
       it('must throw exception when invalid rule.for given', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "for": 1, "allowWhitespaces": true  }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
     });
     /**

@@ -19,28 +19,28 @@ describe('ObjectLiteralSpacing', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "allowKeyPrecedingWhitespaces": true }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
 
       it('must throw exception when rule.allowKeyTrailingWhitespaces  is not a number', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "allowKeyTrailingWhitespaces": true }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
 
       it('must throw exception when rule.allowValuePrecedingWhitespaces is not a number', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "allowValuePrecedingWhitespaces": true }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
 
       it('must throw exception when rule.allowValueTrailingWhitespaces is not a number', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "allowValueTrailingWhitespaces": true }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
     });
     /**

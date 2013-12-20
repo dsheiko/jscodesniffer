@@ -20,13 +20,13 @@ describe('OperatorSpacing', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validate( { "allowOperatorPrecedingWhitespaces": true, "allowOperatorTrailingWhitespaces" : 1 } );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
       it('must throw exception when invalid rule.allowOperatorTrailingWhitespaces given', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validate( { "allowOperatorPrecedingWhitespaces": 1, "allowOperatorTrailingWhitespaces" : true } );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
     });
     /**

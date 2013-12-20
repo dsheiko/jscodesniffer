@@ -24,19 +24,19 @@ describe('CompoundStatementConventions', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "for": true, "requireBraces": true, "requireMultipleLines": true }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
       it('must throw exception when invalid rule.requireBraces given', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "for": [], "requireBraces": 1, "requireMultipleLines": true }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
       it('must throw exception when invalid rule.requireMultipleLines given', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "for": [], "requireBraces": true, "requireMultipleLines": 1 }, null );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
     });
 

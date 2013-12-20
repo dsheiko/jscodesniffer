@@ -20,13 +20,13 @@ describe('ParametersSpacing', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "allowParamPrecedingWhitespaces": true, "allowParamTrailingWhitespaces": 1 } );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
       it('must throw exception when rule.allowParamTrailingWhitespaces is not a number', function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "allowParamPrecedingWhitespaces": 1, "allowParamTrailingWhitespaces": true} );
-        }).should.throw();
+        }).should[ "throw" ]();
       });
     });
     /**
