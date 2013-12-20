@@ -15,22 +15,22 @@ if ( typeof module === 'object' && typeof define !== 'function' ) {
 }
 define( function ( require, exports, module ) {
   /**
-   * Rules based on contribute.jquery.org/style-guide/js/
+   * Rules based on https://github.com/rwaldron/idiomatic.js/
    */
   return {
   /*
-    Indentation with tabs.
+    Never mix spaces and tabs.
   */
     "Indentation": {
       "allowOnlyTabs": true,
-      "allowOnlySpaces": false
+      "allowOnlySpaces": true
     },
   /*
     No whitespace at the end of line or on blank lines.
   */
-    "LineSpacing": {
-      "allowLineTrailingSpaces": false
-    },
+  "LineSpacing": {
+    "allowLineTrailingSpaces": false
+  },
   /*
     Lines should be no longer than 80 characters
    */
@@ -47,7 +47,8 @@ define( function ( require, exports, module ) {
       "disallowPrecedingSpaces": false
     },
     /*
-     if/else/for/while/try always have braces and always go on multiple lines.
+     if/else/for/while/try always have spaces, braces and span multiple lines
+     this encourages readability
      */
     "CompoundStatementConventions": {
       "for": [
