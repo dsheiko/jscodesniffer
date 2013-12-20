@@ -75,7 +75,7 @@ var MIN_REPORT_WIDTH = 32,
         dictionary = new Dictionary();
 
         rulesetOverrides = cli.readRealtimeConfig( process.cwd() );
-
+        
         cli.applyToEveryFileInPath( where , function( pathArg, data ) {
             logger = sniffer.getTestResults( data, options, rulesetOverrides );
             reporter.add( pathArg, dictionary.translateBulk( logger.getMessages() ), options.standard );
@@ -97,9 +97,9 @@ var MIN_REPORT_WIDTH = 32,
           process.exit( 1 );
         }
       };
-
-try {
- main();
-} catch ( e ) {
-  console.error( e );
-}
+main();
+//try {
+// main();
+//} catch ( e ) {
+//  console.error( e );
+//}

@@ -19,7 +19,7 @@ describe( "SyntaxAnalizer", function () {
         }
       });
       out.shift().type.should.eql( "Program" );
-      out.pop().type.should.eql( "Punctuator" );
+      out.pop().type.should.eql( "BlockStatement" );
       expectedNode.type.should.eql( "FunctionExpression" );
     });
   });

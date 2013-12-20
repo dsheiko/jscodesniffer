@@ -41,10 +41,10 @@ describe('Formatter/Full.js', function () {
 
       it('report must render intended output', function () {
        normalize( formatter.report( "sample.js", messages ) ).should.eql( '[color:light red]FILE: sample.js ' +
-          'violates undefined standard [/color] -------------------------------------------------------------- ' +
-          'FOUND 1 ERROR(S) +------------------------------------------------------------- LINE | COLUMN | ' +
-          'MESSAGE +------------------------------------------------------------- 1 | 0 | ' +
-          'message --------------------------------------------------------------' );
+        'violates undefined standard [/color] -------------------------------------------------------------- ' +
+        'FOUND 1 ERROR(S) +------------------------------------------------------------- LINE | COLUMN | MESSAGE ' +
+        '+------------------------------------------------------------- 1 | 0 | [color:dark gray]sniff:[/color]' +
+        ' message --------------------------------------------------------------' );
       });
 
     });

@@ -7,3 +7,5 @@
 describe("method",..
 it ("must..."
 it ("must..."
+7. Make online validator
+8. Make inline documentation compatible to JSDoc 3
