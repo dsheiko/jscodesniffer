@@ -13,7 +13,7 @@ if ( typeof module === "object" && typeof define !== "function" ) {
         module.exports = factory( require, exports, module );
     };
 }
-define( function ( require, exports, module ) {
+define( function () {
   /**
     * Rules based on contribute.jquery.org/style-guide/js/
     */
