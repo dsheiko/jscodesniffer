@@ -1,7 +1,8 @@
-var should = require('should'),
-    fixture = require('./inc/fixture'),
-    SyntaxAnalizer = require('../lib/SyntaxAnalizer');
+/*jshint -W068 */
+var fixture = require("./inc/fixture"),
+    SyntaxAnalizer = require("../lib/SyntaxAnalizer");
 
+require("should");
 
 describe( "SyntaxAnalizer", function () {
 
@@ -10,7 +11,7 @@ describe( "SyntaxAnalizer", function () {
     var analizer = new SyntaxAnalizer();
     it( "must iterate through the entire tree", function () {
       var out = [],
-          expectedNode = null;
+          expectedNode = null,
           tree = fixture.getJson( "ParametersSpacing/case1.json" );
       analizer.traverseSyntaxTree( tree, function( node, pNode ){
         out.push( node );

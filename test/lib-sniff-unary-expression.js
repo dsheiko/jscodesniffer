@@ -1,13 +1,12 @@
-var should = require('should'),
-    fixture = require('./inc/fixture'),
-    locEntity = require('./inc/LocEntity'),
-    MediatorMock = require('./inc/MediatorMock'),
-    SourceCodeStub = require('./inc/SourceCodeStub'),
-    sniffClass = require('../lib/Sniff/SyntaxTree/UnaryExpressionIdentifierSpacing');
+/*jshint -W068 */
+var fixture = require("./inc/fixture"),
+    MediatorMock = require("./inc/MediatorMock"),
+    SourceCodeStub = require("./inc/SourceCodeStub"),
+    sniffClass = require("../lib/Sniff/SyntaxTree/UnaryExpressionIdentifierSpacing");
 
 
-
-describe('UnaryExpressionIdentifierSpacing', function () {
+require("should");
+describe( "UnaryExpressionIdentifierSpacing", function () {
   var pNode = null,
       mediator,
       sniff,
@@ -16,9 +15,9 @@ describe('UnaryExpressionIdentifierSpacing', function () {
     beforeEach(function(){
       mediator = new MediatorMock();
       msg = false;
-   });
+    });
 
-   it('must trigger violation on (! a;) when no unary exp. preceding spaces allowed', function () {
+    it("must trigger violation on (! a;) when no unary exp. preceding spaces allowed", function () {
       var rule =  {
         "allowTrailingWhitespaces": 0
       };
@@ -33,14 +32,14 @@ describe('UnaryExpressionIdentifierSpacing', function () {
       msg.payload.expected.should.eql( 0 );
     });
 
-    it('must throw exception when invalid rule.allowTrailingWhitespaces given', function () {
+    it("must throw exception when invalid rule.allowTrailingWhitespaces given", function () {
       sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
       (function(){
         sniff.run( { "allowTrailingWhitespaces": true }, null );
       }).should[ "throw" ]();
     });
 
-    it('must not trigger violation on (!a;) when no unary exp. preceding spaces allowed', function () {
+    it("must not trigger violation on (!a;) when no unary exp. preceding spaces allowed", function () {
       var rule =  {
         "allowTrailingWhitespaces": 0
       };

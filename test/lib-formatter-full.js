@@ -1,5 +1,5 @@
-var should = require('should'),
-    Formatter = require('../lib/Formatter/Full'),
+/*jshint -W068 */
+var Formatter = require("../lib/Formatter/Full"),
 
     normalize = function( out ) {
       var re = /\s+/g,
@@ -8,12 +8,12 @@ var should = require('should'),
       return out.replace( re, " " ).replace( rel, "" ).replace( rer, "" );
     };
 
+require("should");
+describe( "Formatter/Full.js", function () {
 
-describe('Formatter/Full.js', function () {
-
-    describe('(methods)', function () {
-       var formatter,
-       messages = [{
+    describe( "(methods)", function () {
+        var formatter,
+        messages = [{
         errorCode: "errorCode",
         message: "message",
         sniff: "sniff",
@@ -32,19 +32,19 @@ describe('Formatter/Full.js', function () {
           expected: 0,
           actual: 1
         }
-       }];
+        }];
 
       beforeEach(function(){
         formatter = new Formatter({ version: "1", reportWidth: 62 });
       });
 
 
-      it('report must render intended output', function () {
-       normalize( formatter.report( "sample.js", messages ) ).should.eql( '[color:light red]FILE: sample.js ' +
-        'violates undefined standard [/color] -------------------------------------------------------------- ' +
-        'FOUND 1 ERROR(S) +------------------------------------------------------------- LINE | COLUMN | MESSAGE ' +
-        '+------------------------------------------------------------- 1 | 0 | [color:dark gray]sniff:[/color]' +
-        ' message --------------------------------------------------------------' );
+      it("report must render intended output", function () {
+        normalize( formatter.report( "sample.js", messages ) ).should.eql( "[color:light red]FILE: sample.js " +
+        "violates undefined standard [/color] -------------------------------------------------------------- " +
+        "FOUND 1 ERROR(S) +------------------------------------------------------------- LINE | COLUMN | MESSAGE " +
+        "+------------------------------------------------------------- 1 | 0 | [color:dark gray]sniff:[/color]" +
+        " message --------------------------------------------------------------" );
       });
 
     });

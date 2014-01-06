@@ -1,7 +1,7 @@
-var should = require('should'),
-    SourceCode = require('../lib/SourceCode');
+/*jshint -W068 */
+var SourceCode = require("../lib/SourceCode");
 
-
+require("should");
 describe( "SourceCode", function () {
 
 

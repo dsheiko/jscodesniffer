@@ -1,29 +1,27 @@
-var should = require('should'),
-    fixture = require('./inc/fixture'),
-    locEntity = require('./inc/LocEntity'),
-    MediatorMock = require('./inc/MediatorMock'),
-    SourceCodeStub = require('./inc/SourceCodeStub'),
-    sniffClass = require('../lib/Sniff/Token/QuoteConventions');
+/*jshint -W068 */
+var fixture = require("./inc/fixture"),
+    MediatorMock = require("./inc/MediatorMock"),
+    SourceCodeStub = require("./inc/SourceCodeStub"),
+    sniffClass = require("../lib/Sniff/Token/QuoteConventions");
 
-
-describe('QuoteConventions', function () {
-  describe('(Contract)', function () {
-    var pNode = null,
-        mediator,
+require("should");
+describe( "QuoteConventions", function () {
+  describe( "(Contract)", function () {
+    var mediator,
         sniff,
         msg;
 
       beforeEach(function(){
         mediator = new MediatorMock();
         msg = false;
-     });
-     it('must throw exception when invalid rule.allowDoubleQuotes given', function () {
+      });
+      it("must throw exception when invalid rule.allowDoubleQuotes given", function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "allowDoubleQuotes": 1, "allowSingleQuotes": true }, null );
         }).should[ "throw" ]();
       });
-      it('must throw exception when invalid rule.allowSingleQuotes given', function () {
+      it("must throw exception when invalid rule.allowSingleQuotes given", function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "allowDoubleQuotes": true, "allowSingleQuotes": 1 }, null );
@@ -31,9 +29,9 @@ describe('QuoteConventions', function () {
       });
     });
     /**
-     * testing allowSingleQuotes = false, allowDoubleQuotes = true
-     */
-    describe("with allowSingleQuotes = false, allowDoubleQuotes = true", function () {
+      * testing allowSingleQuotes = false, allowDoubleQuotes = true
+      */
+    describe( "with allowSingleQuotes = false, allowDoubleQuotes = true", function () {
       var token = null,
           mediator,
           msg,
@@ -44,33 +42,33 @@ describe('QuoteConventions', function () {
       beforeEach(function(){
         mediator = new MediatorMock();
         msg = false;
-     });
+      });
 
       it("must not trigger violation on (var a = \"string\";)", function () {
-         sniff = new sniffClass( new SourceCodeStub( fixture.getText( "QuoteConventions/" + caseId + ".ok.js" )
-           ), mediator );
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "QuoteConventions/" + caseId + ".ok.js" )
+            ), mediator );
 
-         token = fixture.getJson( "QuoteConventions/" + caseId + ".ok.json" );
-         sniff.run( rule, token );
-         mediator.getMessages().should.not.be.ok;
-       });
+          token = fixture.getJson( "QuoteConventions/" + caseId + ".ok.json" );
+          sniff.run( rule, token );
+          mediator.getMessages().should.not.be.ok;
+        });
 
-       it("must trigger violation on (var a = 'string';)", function () {
-         sniff = new sniffClass( new SourceCodeStub( fixture.getText( "QuoteConventions/" + caseId + ".fail.js" )
-           ), mediator );
+        it("must trigger violation on (var a = 'string';)", function () {
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "QuoteConventions/" + caseId + ".fail.js" )
+            ), mediator );
 
-         token = fixture.getJson( "QuoteConventions/" + caseId + ".fail.json" );
-         sniff.run( rule, token );
-         msg = mediator.getMessage( "QuoteConventionsSingleQuotesNotAllowed" );
-         msg.should.be.ok;
-       });
+          token = fixture.getJson( "QuoteConventions/" + caseId + ".fail.json" );
+          sniff.run( rule, token );
+          msg = mediator.getMessage( "QuoteConventionsSingleQuotesNotAllowed" );
+          msg.should.be.ok;
+        });
 
     });
 
-     /**
-     * testing allowSingleQuotes = true, allowDoubleQuotes = false
-     */
-    describe("with allowSingleQuotes = true, allowDoubleQuotes = false", function () {
+      /**
+      * testing allowSingleQuotes = true, allowDoubleQuotes = false
+      */
+    describe( "with allowSingleQuotes = true, allowDoubleQuotes = false", function () {
       var token = null,
           mediator,
           msg,
@@ -81,27 +79,27 @@ describe('QuoteConventions', function () {
       beforeEach(function(){
         mediator = new MediatorMock();
         msg = false;
-     });
+      });
 
       it("must not trigger violation on (var a = \"string\";)", function () {
-         sniff = new sniffClass( new SourceCodeStub( fixture.getText( "QuoteConventions/" + caseId + ".ok.js" )
-           ), mediator );
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "QuoteConventions/" + caseId + ".ok.js" )
+            ), mediator );
 
-         token = fixture.getJson( "QuoteConventions/" + caseId + ".ok.json" );
-         sniff.run( rule, token );
-         msg = mediator.getMessage( "QuoteConventionsDoubleQuotesNotAllowed" );
-         msg.should.be.ok;
+          token = fixture.getJson( "QuoteConventions/" + caseId + ".ok.json" );
+          sniff.run( rule, token );
+          msg = mediator.getMessage( "QuoteConventionsDoubleQuotesNotAllowed" );
+          msg.should.be.ok;
 
-       });
+        });
 
-       it("must trigger violation on (var a = 'string';)", function () {
-         sniff = new sniffClass( new SourceCodeStub( fixture.getText( "QuoteConventions/" + caseId + ".fail.js" )
-           ), mediator );
+        it("must trigger violation on (var a = 'string';)", function () {
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "QuoteConventions/" + caseId + ".fail.js" )
+            ), mediator );
 
-         token = fixture.getJson( "QuoteConventions/" + caseId + ".fail.json" );
-         sniff.run( rule, token );
-         mediator.getMessages().should.not.be.ok;
-       });
+          token = fixture.getJson( "QuoteConventions/" + caseId + ".fail.json" );
+          sniff.run( rule, token );
+          mediator.getMessages().should.not.be.ok;
+        });
 
     });
 

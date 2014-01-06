@@ -1,28 +1,26 @@
-var should = require('should'),
-    fixture = require('./inc/fixture'),
-    locEntity = require('./inc/LocEntity'),
-    MediatorMock = require('./inc/MediatorMock'),
-    SourceCodeStub = require('./inc/SourceCodeStub'),
-    sniffClass = require('../lib/Sniff/SyntaxTree/EmptyConstructsSpacing');
+/*jshint -W068 */
+var fixture = require("./inc/fixture"),
+    MediatorMock = require("./inc/MediatorMock"),
+    SourceCodeStub = require("./inc/SourceCodeStub"),
+    sniffClass = require("../lib/Sniff/SyntaxTree/EmptyConstructsSpacing");
 
-
-describe('EmptyConstructsSpacing', function () {
-  describe('(Contract)', function () {
-    var pNode = null,
-        mediator,
+require("should");
+describe( "EmptyConstructsSpacing", function () {
+  describe( "(Contract)", function () {
+    var mediator,
         sniff;
 
       beforeEach(function(){
         mediator = new MediatorMock();
 
-     });
-     it('must throw exception when invalid rule.allowWhitespaces given', function () {
+      });
+      it("must throw exception when invalid rule.allowWhitespaces given", function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "for": [], "allowWhitespaces": 0  }, null );
         }).should[ "throw" ]();
       });
-      it('must throw exception when invalid rule.for given', function () {
+      it("must throw exception when invalid rule.for given", function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
           sniff.validateRule( { "for": 1, "allowWhitespaces": true  }, null );
@@ -30,9 +28,9 @@ describe('EmptyConstructsSpacing', function () {
       });
     });
     /**
-     * testing ArrayExpression
-     */
-    describe('with ArrayExpression', function () {
+      * testing ArrayExpression
+      */
+    describe( "with ArrayExpression", function () {
       var pNode = null,
           mediator,
 
@@ -43,40 +41,40 @@ describe('EmptyConstructsSpacing', function () {
       beforeEach(function(){
         mediator = new MediatorMock();
 
-     });
+      });
 
-      it('must not trigger violation on (a = []) when no spaces allowed', function () {
-         var rule = {
-           "for": [ statement ],
-           "allowWhitespaces": false
-         };
-         sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".ok.js" )
-           ), mediator );
+      it("must not trigger violation on (a = []) when no spaces allowed", function () {
+          var rule = {
+            "for": [ statement ],
+            "allowWhitespaces": false
+          };
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".ok.js" )
+            ), mediator );
 
-         pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".ok.json" ).body[ 0 ].expression.right;
-         sniff.run( rule, pNode );
-         mediator.getMessages().should.not.be.ok;
+          pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".ok.json" ).body[ 0 ].expression.right;
+          sniff.run( rule, pNode );
+          mediator.getMessages().should.not.be.ok;
 
-       });
-       it('must trigger violation on (a = [ ]) when no spaces allowed', function () {
-         var rule = {
-           "for": [ statement ],
-           "allowWhitespaces": false
-         };
-         sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".fail.js" )
-           ), mediator );
+        });
+        it("must trigger violation on (a = [ ]) when no spaces allowed", function () {
+          var rule = {
+            "for": [ statement ],
+            "allowWhitespaces": false
+          };
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".fail.js" )
+            ), mediator );
 
-         pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".fail.json" ).body[ 0 ].expression.right;
-         sniff.run( rule, pNode );
-         mediator.getMessage( "EmptyConstructsSpacing" ).should.be.ok;
-       });
+          pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".fail.json" ).body[ 0 ].expression.right;
+          sniff.run( rule, pNode );
+          mediator.getMessage( "EmptyConstructsSpacing" ).should.be.ok;
+        });
 
     });
 
     /**
-     * testing ObjectExpression
-     */
-    describe('with ObjectExpression', function () {
+      * testing ObjectExpression
+      */
+    describe( "with ObjectExpression", function () {
       var pNode = null,
           mediator,
 
@@ -87,40 +85,40 @@ describe('EmptyConstructsSpacing', function () {
       beforeEach(function(){
         mediator = new MediatorMock();
 
-     });
+      });
 
-      it('must not trigger violation on (a = {}) when no spaces allowed', function () {
-         var rule = {
-           "for": [ statement ],
-           "allowWhitespaces": false
-         };
-         sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".ok.js" )
-           ), mediator );
+      it("must not trigger violation on (a = {}) when no spaces allowed", function () {
+          var rule = {
+            "for": [ statement ],
+            "allowWhitespaces": false
+          };
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".ok.js" )
+            ), mediator );
 
-         pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".ok.json" ).body[ 0 ].expression.right;
-         sniff.run( rule, pNode );
-         mediator.getMessages().should.not.be.ok;
+          pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".ok.json" ).body[ 0 ].expression.right;
+          sniff.run( rule, pNode );
+          mediator.getMessages().should.not.be.ok;
 
-       });
-       it('must trigger violation on (a = { }) when no spaces allowed', function () {
-         var rule = {
-           "for": [ statement ],
-           "allowWhitespaces": false
-         };
-         sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".fail.js" )
-           ), mediator );
+        });
+        it("must trigger violation on (a = { }) when no spaces allowed", function () {
+          var rule = {
+            "for": [ statement ],
+            "allowWhitespaces": false
+          };
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".fail.js" )
+            ), mediator );
 
-         pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".fail.json" ).body[ 0 ].expression.right;
-         sniff.run( rule, pNode );
-         mediator.getMessage( "EmptyConstructsSpacing" ).should.be.ok;
-       });
+          pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".fail.json" ).body[ 0 ].expression.right;
+          sniff.run( rule, pNode );
+          mediator.getMessage( "EmptyConstructsSpacing" ).should.be.ok;
+        });
 
     });
 
     /**
-     * testing BlockStatement
-     */
-    describe('with BlockStatement', function () {
+      * testing BlockStatement
+      */
+    describe( "with BlockStatement", function () {
       var pNode = null,
           mediator,
 
@@ -131,40 +129,40 @@ describe('EmptyConstructsSpacing', function () {
       beforeEach(function(){
         mediator = new MediatorMock();
 
-     });
+      });
 
-      it('must not trigger violation on ({}) when no spaces allowed', function () {
-         var rule = {
-           "for": [ statement ],
-           "allowWhitespaces": false
-         };
-         sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".ok.js" )
-           ), mediator );
+      it("must not trigger violation on ({}) when no spaces allowed", function () {
+          var rule = {
+            "for": [ statement ],
+            "allowWhitespaces": false
+          };
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".ok.js" )
+            ), mediator );
 
-         pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".ok.json" ).body[ 0 ];
-         sniff.run( rule, pNode );
-         mediator.getMessages().should.not.be.ok;
+          pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".ok.json" ).body[ 0 ];
+          sniff.run( rule, pNode );
+          mediator.getMessages().should.not.be.ok;
 
-       });
-       it('must trigger violation on ({ }) when no spaces allowed', function () {
-         var rule = {
-           "for": [ statement ],
-           "allowWhitespaces": false
-         };
-         sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".fail.js" )
-           ), mediator );
+        });
+        it("must trigger violation on ({ }) when no spaces allowed", function () {
+          var rule = {
+            "for": [ statement ],
+            "allowWhitespaces": false
+          };
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".fail.js" )
+            ), mediator );
 
-         pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".fail.json" ).body[ 0 ];
-         sniff.run( rule, pNode );
-         mediator.getMessage( "EmptyConstructsSpacing" ).should.be.ok;
-       });
+          pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".fail.json" ).body[ 0 ];
+          sniff.run( rule, pNode );
+          mediator.getMessage( "EmptyConstructsSpacing" ).should.be.ok;
+        });
 
     });
 
     /**
-     * testing CallExpression
-     */
-    describe('with CallExpression', function () {
+      * testing CallExpression
+      */
+    describe( "with CallExpression", function () {
       var pNode = null,
           mediator,
 
@@ -175,33 +173,33 @@ describe('EmptyConstructsSpacing', function () {
       beforeEach(function(){
         mediator = new MediatorMock();
 
-     });
+      });
 
-      it('must not trigger violation on (a = a()) when no spaces allowed', function () {
-         var rule = {
-           "for": [ statement ],
-           "allowWhitespaces": false
-         };
-         sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".ok.js" )
-           ), mediator );
+      it("must not trigger violation on (a = a()) when no spaces allowed", function () {
+          var rule = {
+            "for": [ statement ],
+            "allowWhitespaces": false
+          };
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".ok.js" )
+            ), mediator );
 
-         pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".ok.json" ).body[ 0 ].expression.right;
-         sniff.run( rule, pNode );
-         mediator.getMessages().should.not.be.ok;
+          pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".ok.json" ).body[ 0 ].expression.right;
+          sniff.run( rule, pNode );
+          mediator.getMessages().should.not.be.ok;
 
-       });
-       it('must trigger violation on (a = a( )) when no spaces allowed', function () {
-         var rule = {
-           "for": [ statement ],
-           "allowWhitespaces": false
-         };
-         sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".fail.js" )
-           ), mediator );
+        });
+        it("must trigger violation on (a = a( )) when no spaces allowed", function () {
+          var rule = {
+            "for": [ statement ],
+            "allowWhitespaces": false
+          };
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "EmptyConstructsSpacing/" + caseId + ".fail.js" )
+            ), mediator );
 
-         pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".fail.json" ).body[ 0 ].expression.right;
-         sniff.run( rule, pNode );
-         mediator.getMessage( "EmptyConstructsSpacing" ).should.be.ok;
-       });
+          pNode = fixture.getJson( "EmptyConstructsSpacing/" + caseId + ".fail.json" ).body[ 0 ].expression.right;
+          sniff.run( rule, pNode );
+          mediator.getMessage( "EmptyConstructsSpacing" ).should.be.ok;
+        });
 
     });
 

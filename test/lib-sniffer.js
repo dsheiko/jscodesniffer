@@ -1,8 +1,8 @@
-var should = require('should'),
-    fixture = require('./inc/fixture'),
-    Sniffer = require('../lib/Sniffer');
+/*jshint -W068 */
+var fixture = require("./inc/fixture"),
+    Sniffer = require("../lib/Sniffer");
 
-
+require("should");
 describe( "Sniffer", function () {
 
   describe( "findJscsConfigInComments", function () {

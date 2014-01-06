@@ -7,7 +7,7 @@ module.exports = function( tokens ) {
       offset = 0,
       limit = tokens.length - 1;
   return {
-     /**
+      /**
       * Iterator interface
       */
       valid: function(){

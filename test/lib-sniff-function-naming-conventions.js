@@ -1,20 +1,21 @@
-var should = require('should'),
-    fixture = require('./inc/fixture'),
-    locEntity = require('./inc/LocEntity'),
-    sniffClass = require('../lib/Sniff/SyntaxTree/FunctionNamingConventions'),
-    MediatorMock = require('./inc/MediatorMock');
+/*jshint -W068 */
+var fixture = require("./inc/fixture"),
+    locEntity = require("./inc/LocEntity"),
+    sniffClass = require("../lib/Sniff/SyntaxTree/FunctionNamingConventions"),
+    MediatorMock = require("./inc/MediatorMock");
 
-describe('FunctionNamingConventions', function () {
+require("should");
+describe( "FunctionNamingConventions", function () {
 
-  describe('(contract)', function () {
+  describe( "(contract)", function () {
     var sniff,
         mediator;
       beforeEach(function(){
         mediator = new MediatorMock();
         sniff = new sniffClass( null, mediator );
-     });
+      });
 
-  it('must throw exception when invalid type of allowCase rule property given', function () {
+  it("must throw exception when invalid type of allowCase rule property given", function () {
         var rule =  {
               "allowCase": 0,
               "allowRepeating": true,
@@ -25,7 +26,7 @@ describe('FunctionNamingConventions', function () {
         }).should[ "throw" ]();
       });
 
-      it('must throw exception when invalid type of allowRepeating rule property given', function () {
+      it("must throw exception when invalid type of allowRepeating rule property given", function () {
         var rule =  {
               "allowCase": [],
               "allowRepeating": 0,
@@ -36,7 +37,7 @@ describe('FunctionNamingConventions', function () {
         }).should[ "throw" ]();
       });
 
-       it('must throw exception when invalid type of allowNumbers rule property given', function () {
+        it("must throw exception when invalid type of allowNumbers rule property given", function () {
         var rule =  {
               "allowCase": [],
               "allowRepeating": true,
@@ -49,7 +50,7 @@ describe('FunctionNamingConventions', function () {
 
   });
 
-  describe('(cases)', function () {
+  describe( "(cases)", function () {
     var pNode = null,
         sniff,
         mediator;
@@ -57,9 +58,9 @@ describe('FunctionNamingConventions', function () {
       beforeEach(function(){
         mediator = new MediatorMock();
         sniff = new sniffClass( null, mediator );
-     });
+      });
 
-     it('must trigger violation when camelcase expected, but pascal case found (function Invalid() {})', function () {
+      it("must trigger violation when camelcase expected, but pascal case found (function Invalid() {})", function () {
         var rule =  {
               "allowCase": ["camel"],
               "allowRepeating": true,
@@ -73,7 +74,7 @@ describe('FunctionNamingConventions', function () {
         msg.loc.should.eql( new locEntity.Context( 1, 9, 1, 16 ) );
       });
 
-      it('must trigger violation when pascalcase expected, but camel case found (function inValid() {})', function () {
+      it("must trigger violation when pascalcase expected, but camel case found (function inValid() {})", function () {
         var rule =  {
               "allowCase": ["pascal"],
               "allowRepeating": true,
@@ -85,7 +86,7 @@ describe('FunctionNamingConventions', function () {
         mediator.getMessage( "FunctionNamingConventions" ).should.be.ok;
       });
 
-      it('must not trigger violation when numbers allowed expected and found (function inValid123() {})', function () {
+      it("must not trigger violation when numbers allowed expected and found (function inValid123() {})", function () {
         var rule =  {
               "allowCase": ["camel"],
               "allowRepeating": true,
@@ -98,7 +99,7 @@ describe('FunctionNamingConventions', function () {
       });
 
 
-      it('must trigger violation when numbers not allowed expected,but found (function inValid123() {})', function () {
+      it("must trigger violation when numbers not allowed expected,but found (function inValid123() {})", function () {
         var rule =  {
               "allowCase": ["camel"],
               "allowRepeating": true,
@@ -109,7 +110,7 @@ describe('FunctionNamingConventions', function () {
         mediator.getMessage( "FunctionNamingNumbersNotAllowed" ).should.be.ok;
       });
 
-      it('must trigger violation when pascalcase or camelcase expected, but a string to none compliant found (function in_valid() {})',
+      it("must trigger violation when pascalcase or camelcase expected, but a string to none compliant found (function in_valid() {})",
         function () {
         var rule =  {
               "allowCase": ["camel", "pascal"],
@@ -121,7 +122,7 @@ describe('FunctionNamingConventions', function () {
         mediator.getMessage( "FunctionNamingConventions" ).should.be.ok;
       });
 
-      it('must trigger violation when no repeating uppercase expected, but some found found (function inVAlid() {})',
+      it("must trigger violation when no repeating uppercase expected, but some found found (function inVAlid() {})",
         function () {
         var rule =  {
               "allowCase": ["camel", "pascal"],
@@ -133,7 +134,7 @@ describe('FunctionNamingConventions', function () {
         mediator.getMessage( "FunctionNamingRepeatingUppercase" ).should.be.ok;
       });
 
-      it('must trigger violation when camelcase expected, but pascal case found (var b, in_valid = function() {})', function () {
+      it("must trigger violation when camelcase expected, but pascal case found (var b, in_valid = function() {})", function () {
         var rule =  {
               "allowCase": ["camel"],
               "allowRepeating": true,
@@ -146,7 +147,7 @@ describe('FunctionNamingConventions', function () {
         msg.should.be.ok;
     });
 
-     it('must trigger violation when camelcase expected, but pascal case found (function in_valid() {})', function () {
+      it("must trigger violation when camelcase expected, but pascal case found (function in_valid() {})", function () {
       var rule =  {
             "allowCase": ["camel"],
             "allowRepeating": true,
@@ -159,7 +160,7 @@ describe('FunctionNamingConventions', function () {
       msg.should.be.ok;
     });
 
-    it('must trigger violation when camelcase expected, but pascal case found (var b, in_valid = function() {})', function () {
+    it("must trigger violation when camelcase expected, but pascal case found (var b, in_valid = function() {})", function () {
       var rule =  {
             "allowCase": ["camel"],
             "allowRepeating": true,
@@ -172,7 +173,7 @@ describe('FunctionNamingConventions', function () {
       msg.should.be.ok;
     });
 
-    it('must not trigger violation (var inVAlid = 1)', function () {
+    it("must not trigger violation (var inVAlid = 1)", function () {
       var rule =  {
             "allowCase": ["camel"],
             "allowRepeating": false,

@@ -1,8 +1,8 @@
-var should = require('should'),
-    Logger = require('../lib/Logger');
+/*jshint -W068 */
+var Logger = require("../lib/Logger");
 
-
-describe('Logger', function () {
+require("should");
+describe( "Logger", function () {
 
       var logger;
 
@@ -10,15 +10,15 @@ describe('Logger', function () {
         logger = new Logger();
       });
 
-      describe('log', function () {
-        it('must store given state', function () {
+      describe( "log", function () {
+        it("must store given state", function () {
           logger.log( "sniff", "errorCode", "range", "loc", "payload" );
           logger.getMessages()[ 0 ].should.eql({
-            sniff: 'sniff',
-            errorCode: 'errorCode',
-            range: 'range',
-            loc: 'loc',
-            payload: 'payload'
+            sniff: "sniff",
+            errorCode: "errorCode",
+            range: "range",
+            loc: "loc",
+            payload: "payload"
           });
         });
 

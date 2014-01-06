@@ -1,8 +1,8 @@
-var should = require('should'),
-    Mediator = require('../lib/Mediator');
+/*jshint -W068 */
+var Mediator = require("../lib/Mediator");
 
-
-describe('Mediator', function () {
+require("should");
+describe( "Mediator", function () {
 
       var mediator;
 
@@ -10,8 +10,8 @@ describe('Mediator', function () {
         mediator = new Mediator();
       });
 
-      describe('subscribe/publish', function () {
-        it('must implement pub/sub pattern', function () {
+      describe( "subscribe/publish", function () {
+        it("must implement pub/sub pattern", function () {
           var out = null;
           mediator.subscribe( "ch1", function( a1, a2, a3 ){
             out = [ a1, a2, a3 ];
