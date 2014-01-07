@@ -142,7 +142,6 @@ are tested by JSHint and therefore not provided with sniffs
 ```javascript
 {
   /*
-    Ruleset: Indentation
     defines what characters allowed for line indentation
   */
     "Indentation": {
@@ -150,14 +149,12 @@ are tested by JSHint and therefore not provided with sniffs
       "allowOnlySpaces": true
     },
   /*
-    Ruleset: LineSpacing
     defines if trailing spaces allowed for lines
   */
     "LineSpacing": {
       "allowLineTrailingSpaces": false
     },
   /*
-    Ruleset: LineLength
     defines allowed range for line length
   */
     "LineLength": {
@@ -165,7 +162,6 @@ are tested by JSHint and therefore not provided with sniffs
       "allowMinLength": 0
     },
   /*
-    Ruleset: CommaPunctuatorSpacing
     defines spacing conventions for comma punctuator
     Example:
     // good
@@ -177,7 +173,6 @@ are tested by JSHint and therefore not provided with sniffs
       "disallowPrecedingSpaces": false
     },
 /*
-    Ruleset: SemicolonPunctuatorSpacing
     defines spacing conventions for semicolon punctuator
     Example:
     // good
@@ -190,16 +185,13 @@ are tested by JSHint and therefore not provided with sniffs
     },
 
   /*
-    Ruleset: CompoundStatementConventions
     defines scoping rules for compound statements
 
     Example:
-
     // good
     if ( true ) {
       var foo = "bar";
     }
-
     // bad
     if ( true ) var foo = "bar";
 
@@ -218,17 +210,36 @@ are tested by JSHint and therefore not provided with sniffs
       "requireBraces": true,
       "requireMultipleLines": true
     },
+		/*
+		defines spacing conventions for unary expressions
+
+		Example:
+    !!100 // good
+    !! 100 // bad
+		*/
     "UnaryExpressionIdentifierSpacing": {
       "allowTrailingWhitespaces" : 0
     },
+		/*
+		defines spacing conventions for ternary conditionals
 
+		Example:
+    foo = true ? 1 : 0; // good
+    foo = true ?1:0; // bad
+		*/
     "TernaryConditionalPunctuatorsSpacing": {
       "allowTestTrailingWhitespaces": 1,
       "allowConsequentPrecedingWhitespaces": 1,
       "allowConsequentTrailingWhitespaces": 1,
       "allowAlternatePrecedingWhitespaces": 1
     },
+		/*
+		defines spacing conventions for empty constructs
 
+		Example:
+    obj = {}; // good
+    obj = {  }; // bad
+		*/
     "EmptyConstructsSpacing": {
       "for": [
         "ObjectExpression",
@@ -237,33 +248,73 @@ are tested by JSHint and therefore not provided with sniffs
       ],
       "allowWhitespaces": false
     },
+	 /*
+		defines spacing conventions for object literals
+
+		Example:
+    obj = { prop: 1 }; // good
+    obj = { prop:1 };// bad
+		*/
     "ObjectLiteralSpacing": {
       "allowKeyPrecedingWhitespaces": 1,
       "allowKeyTrailingWhitespaces": 0,
       "allowValuePrecedingWhitespaces": 1,
       "allowValueTrailingWhitespaces": 1
     },
+	 /*
+		defines spacing conventions for array literals
+
+		Example:
+    arr = [ 1, 2 ]; // good
+    arr = [1,2]; // bad
+		*/
     "ArrayLiteralSpacing": {
       "allowElementPrecedingWhitespaces": 1,
       "allowElementTrailingWhitespaces": 1
     },
+	 /*
+		defines type of quotes to use across the code-base
 
+		Example:
+    foo = "text"; // good
+    foo = 'text'; // bad
+		*/
     "QuoteConventions": {
       "allowDoubleQuotes": true,
       "allowSingleQuotes": false
     },
+		/*
+		defines naming conventions for variables
+		Note: variable of all uppercase (including $_0-9) are considered as constants and ignored by the sniffer
 
+		Example:
+    var camelCase; // good
+    var not_camel_case; // bad
+		*/
     "VariableNamingConventions": {
       "allowCase": ["camel"],
       "allowRepeating": true,
       "allowNumbers": true
     },
+	 /*
+		defines naming conventions for functions
+
+		Example:
+    var PascalCase; // good
+    var not_camel_or_pascal_case; // bad
+		*/
     "FunctionNamingConventions": {
       "allowCase": ["camel", "pascal"],
       "allowRepeating": true,
       "allowNumbers": true
     },
+	 /*
+		defines spacing conventions for arguments
 
+		Example:
+    fn( 1, 2 ); // good
+    fn(1,2); // bad
+		*/
     "ArgumentsSpacing": {
       "allowArgPrecedingWhitespaces": 1,
       "allowArgTrailingWhitespaces": 1,
@@ -283,24 +334,64 @@ are tested by JSHint and therefore not provided with sniffs
         }
       }
     },
+	/*
+		defines spacing conventions for parameters
+
+		Example:
+    function fn( foo, bar ){}; // good
+    function fn(foo,bar){}; // bad
+		*/
     "ParametersSpacing": {
       "allowParamPrecedingWhitespaces": 1,
       "allowParamTrailingWhitespaces": 1
     },
+	/*
+		defines how methods can be placed when a chain of method calls is too long to fit on one line
 
+		Example:
+    // good
+		elements
+		.addClass( "foo" )
+		.children();
+
+		// bad
+		elements.addClass( "foo" )
+		.children();
+		*/
     "ChainedMethodCallsSpacing" : {
       "allowTrailingObjectWhitespaces": 0,
       "allowPrecedingPropertyWhitespaces": 0,
 			"allowOnePerLineWhenMultilineCaller": true
     },
+		/*
+		defines spacing conventions for operators (including declarator)
 
+		Example:
+    foo = 1 + 1; // good
+    foo = 1+1; // bad
+		*/
     "OperatorSpacing" : {
       "allowOperatorPrecedingWhitespaces": 1,
       "allowOperatorTrailingWhitespaces": 1
     },
+		/*
+		defines conventions for variable declarations
 
+		Example:
+    // good
+		(function(){
+			var foo, bar;
+		})();
+
+		// bad
+		(function(){
+			var foo;
+			var bar;
+		})();
+		*/
     "VariableDeclarationPerScopeConventions" : {
-      "disallowMultiplePerBlockScope": true
+      "disallowMultiplePerBlockScope": true,
+			"requireInTheBeginning": true
     }
 
   }
