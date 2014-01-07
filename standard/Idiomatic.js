@@ -13,7 +13,7 @@ if ( typeof module === "object" && typeof define !== "function" ) {
         module.exports = factory( require, exports, module );
     };
 }
-define( function ( require, exports, module ) {
+define( function () {
   /**
     * Rules based on https://github.com/rwaldron/idiomatic.js/
     */
@@ -178,7 +178,7 @@ define( function ( require, exports, module ) {
     },
     /*
       6.A.3.3
-      Naming constructors, prototypes, etc.
+     Naming constructors, prototypes, etc.
      */
     "FunctionNamingConventions": {
       "allowCase": ["camel", "pascal"],
