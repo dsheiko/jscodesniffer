@@ -88,6 +88,34 @@ describe( "VariableDeclarationPerScopeConventions", function () {
           mediator.getMessages().should.not.be.ok;
         });
 
+
+        it("must not trigger violation when in the beginning of the scope", function () {
+        var caseId = "case6", pNode;
+
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "VariableDeclarationPerScopeConventions/" + caseId + ".js" )
+            ), mediator );
+
+          pNode = fixture.getJson( "VariableDeclarationPerScopeConventions/" + caseId + ".json" ).body[ 0 ].expression;
+
+          sniff.run( { "disallowMultiplePerBlockScope": true, "requireInTheBeginning": true }, pNode );
+
+          mediator.getMessages().should.not.be.ok;
+        });
+
+        it("must trigger violation when not in the beginning of the scope", function () {
+        var caseId = "case7", pNode;
+
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "VariableDeclarationPerScopeConventions/" + caseId + ".js" )
+            ), mediator );
+
+          pNode = fixture.getJson( "VariableDeclarationPerScopeConventions/" + caseId + ".json" ).body[ 0 ].expression;
+
+          sniff.run( { "disallowMultiplePerBlockScope": true, "requireInTheBeginning": true }, pNode );
+
+          msg = mediator.getMessage( "RequireVarDeclarationInTheBeginning" );
+          msg.should.be.ok;
+        });
+
     });
 
 });
