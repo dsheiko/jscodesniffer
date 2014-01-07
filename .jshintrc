@@ -10,7 +10,8 @@
 		"beforeEach": false,
 		"afterEach": false,
 		"module": false,
-		"__dirname": false
+		"__dirname": false,
+		"console": true
   },
   "boss": true,
   "curly": true,
