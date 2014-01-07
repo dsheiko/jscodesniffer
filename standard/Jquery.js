@@ -41,10 +41,10 @@ define( function () {
     Any , and ; must not have preceding space.
     */
     "CommaPunctuatorSpacing": {
-      "disallowPrecedingSpaces": false
+      "disallowPrecedingSpaces": true
     },
     "SemicolonPunctuatorSpacing": {
-      "disallowPrecedingSpaces": false
+      "disallowPrecedingSpaces": true
     },
     /*
       if/else/for/while/try always have braces and always go on multiple lines.
@@ -85,11 +85,15 @@ define( function () {
       "for": [
         "ObjectExpression",
         "ArrayExpression",
-        "CallExpression"
+        "CallExpression",
+        "FunctionDeclaration",
+        "FunctionExpression"
       ],
       "allowWhitespaces": false
     },
-
+    /*
+     Any : after a property name in an object definition must not have preceding space
+     */
     "ObjectLiteralSpacing": {
       "allowKeyPrecedingWhitespaces": 1,
       "allowKeyTrailingWhitespaces": 0,
@@ -152,7 +156,8 @@ define( function () {
       */
     "ChainedMethodCallsSpacing" : {
       "allowTrailingObjectWhitespaces": 0,
-      "allowPrecedingPropertyWhitespaces": 0
+      "allowPrecedingPropertyWhitespaces": 0,
+      "allowOnePerLineWhenMultilineCaller": true
     },
 
     "OperatorSpacing" : {

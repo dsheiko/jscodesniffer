@@ -118,6 +118,9 @@ describe( "EmptyConstructsSpacing", function () {
     /**
       * testing BlockStatement
       */
+/*
+ *  @TODO: can contain inline comments
+ *  
     describe( "with BlockStatement", function () {
       var pNode = null,
           mediator,
@@ -158,7 +161,7 @@ describe( "EmptyConstructsSpacing", function () {
         });
 
     });
-
+*/
     /**
       * testing CallExpression
       */

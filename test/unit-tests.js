@@ -16,6 +16,7 @@ require( "./lib-sniff-ternary-conditional-spacing.js" );
 require( "./lib-sniff-unary-expression.js" );
 require( "./lib-sniff-var-dec-per-scope.js" );
 require( "./lib-sniff-variable-naming-conventions.js" );
+require( "./lib-sniff-chained-methods.js" );
 
 require( "./lib-reporter" );
 require( "./lib-cli" );

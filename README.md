@@ -136,9 +136,8 @@ ln -s /<full path>/scripts/jscs-git-pre-commit /<project>/.git/hooks/pre-commit
 Standard declaration are located in standard directory. You can store there in a file named after your custom standard name
 rule-sets that you want your code be validated against. To make the notation available for AMD/RequireJs, wrap the JSON into UMD ...
 
-
-### Indentation
-
+NOTE: Conventions 'Any ; used as a statement terminator must be at the end of the line' and 'Multi-line Statements is checked'
+are tested by JSHint and therefore not provided with sniffs
 
 ```javascript
 {
