@@ -169,7 +169,6 @@ describe( "Idiomatic standard", function () {
       beforeEach(function(){
         sniffer = new Sniffer();
       });
-      
       it("Functions with callbacks", function () {
         logger = sniffer.getTestResults( "foo(function() {});", OPTIONS );
         logger.getMessages().length.should.not.be.ok;

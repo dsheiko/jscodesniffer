@@ -192,6 +192,11 @@ object[ array[ i ] ] = someFn( i );\n\
         logger.getMessages().length.should.not.be.ok;
       });
 
+      it("Operator spacing", function () {
+        logger = sniffer.getTestResults( "( foo ) += ( bar )", OPTIONS );
+        logger.getMessages().length.should.not.be.ok;
+      });
+
     });
 
   describe( " ( Exceptions ) ", function () {

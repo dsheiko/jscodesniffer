@@ -4,7 +4,9 @@
 */
 var SourceCodeMock = function( text ) {
   return {
-
+    get:  function() {
+      return text;
+    },
     filter: function( char ) {
       return  new SourceCodeMock( text.replace( new RegExp( char, "g" ), "" ) );
     },
