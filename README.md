@@ -80,8 +80,31 @@ NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will fi
 ```
 
 ## Using JSCodeSniffer as RequireJS (AMD) module
-...
 
+1. Install the package or download and unpack it into you project folder
+```bash
+ npm i jscodesniffer
+```
+
+2. Use RequireJS to load required modules
+
+```javascript
+require( [ "<pkg-path>/lib/Sniffer", "<pkg-path>/lib/Dictionary/en", "<pkg-path>/lib/Dictionary" ], function( Sniffer, en, Dictionary ) {
+	var sniffer = new Sniffer(),
+		  dictionary = new Dictionary( en ),
+		  logger, messages;
+
+		// Get sniffer report
+		logger = sniffer.getTestResults( node.srcCode.value, { standard: "Jquery" } ),
+		// Translate messages
+		messages = dictionary.translateBulk( logger.getMessages(), true );
+		// Logger is a singleton, it must reset after validation is complete
+		logger.reset();
+		// Output report
+		console.log( messages );
+		}, false );
+});
+```
 
 ## Setting up [Grunt](http://gruntjs.com/) task
 
@@ -102,6 +125,7 @@ grunt.initConfig({
 ```javascript
 "devDependencies": {
     //..
+		"jscodesniffer": ">= 2.0.0",
     "grunt-jscs": ">0.0.1"
   }
 ```
@@ -137,7 +161,7 @@ Standard declaration are located in standard directory. You can store there in a
 rule-sets that you want your code be validated against. To make the notation available for AMD/RequireJs, wrap the JSON into UMD ...
 
 NOTE: Conventions 'Any ; used as a statement terminator must be at the end of the line' and 'Multi-line Statements is checked'
-are tested by JSHint and therefore not provided with sniffs
+are tested by JSHint and therefore not provided with sniffs (See [http://contribute.jquery.org/style-guide/js/#linting] for details).
 
 ```javascript
 {
