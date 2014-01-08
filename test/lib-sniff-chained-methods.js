@@ -1,11 +1,11 @@
 /*jshint -W068 */
-var fixture = require("./inc/fixture"),
-    MediatorMock = require("./inc/MediatorMock"),
-    SourceCodeStub = require("./inc/SourceCodeStub"),
-    sniffClass = require("../lib/Sniff/SyntaxTree/ChainedMethodCallsSpacing");
+var fixture = require( "./inc/fixture" ),
+    MediatorMock = require( "./inc/MediatorMock" ),
+    SourceCodeStub = require( "./inc/SourceCodeStub" ),
+    sniffClass = require( "../lib/Sniff/SyntaxTree/ChainedMethodCallsSpacing" );
 
 
-require("should");
+require( "should" );
 describe( "ChainedMethodCallsSpacing", function () {
   var pNode = null,
       mediator,

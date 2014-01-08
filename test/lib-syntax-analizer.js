@@ -1,8 +1,8 @@
 /*jshint -W068 */
-var fixture = require("./inc/fixture"),
-    SyntaxAnalizer = require("../lib/SyntaxAnalizer");
+var fixture = require( "./inc/fixture" ),
+    SyntaxAnalizer = require( "../lib/SyntaxAnalizer" );
 
-require("should");
+require( "should" );
 
 describe( "SyntaxAnalizer", function () {
 

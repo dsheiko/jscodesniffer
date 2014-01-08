@@ -1,7 +1,7 @@
 /*jshint -W068 */
-var Mediator = require("../lib/Mediator");
+var Mediator = require( "../lib/Mediator" );
 
-require("should");
+require( "should" );
 describe( "Mediator", function () {
 
       var mediator;

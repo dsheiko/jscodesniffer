@@ -1,10 +1,10 @@
 /*jshint -W068 */
-var fixture = require("./inc/fixture"),
-    MediatorMock = require("./inc/MediatorMock"),
-    SourceCodeStub = require("./inc/SourceCodeStub"),
-    sniffClass = require("../lib/Sniff/SyntaxTree/ParametersSpacing");
+var fixture = require( "./inc/fixture" ),
+    MediatorMock = require( "./inc/MediatorMock" ),
+    SourceCodeStub = require( "./inc/SourceCodeStub" ),
+    sniffClass = require( "../lib/Sniff/SyntaxTree/ParametersSpacing" );
 
-require("should");
+require( "should" );
 describe( "ParametersSpacing", function () {
   describe( "(Contract)", function () {
     var mediator,

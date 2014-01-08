@@ -1,10 +1,10 @@
 /*jshint -W068 */
-var fixture = require("./inc/fixture"),
-    MediatorMock = require("./inc/MediatorMock"),
-    SourceCodeStub = require("./inc/SourceCodeStub"),
-    sniffClass = require("../lib/Sniff/SyntaxTree/ArrayLiteralSpacing");
+var fixture = require( "./inc/fixture" ),
+    MediatorMock = require( "./inc/MediatorMock" ),
+    SourceCodeStub = require( "./inc/SourceCodeStub" ),
+    sniffClass = require( "../lib/Sniff/SyntaxTree/ArrayLiteralSpacing" );
 
-require("should");
+require( "should" );
 describe( "ArrayLiteralSpacing", function () {
   describe( "(Contract)", function () {
     var mediator,

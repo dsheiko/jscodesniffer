@@ -1,5 +1,5 @@
 /*jshint -W068 */
-var Formatter = require("../lib/Formatter/Xml"),
+var Formatter = require( "../lib/Formatter/Xml" ),
     normalize = function( out ) {
       var re = /\s+/g,
         rel = /^\s+/g,
@@ -7,7 +7,7 @@ var Formatter = require("../lib/Formatter/Xml"),
       return out.replace( re, " " ).replace( rel, "" ).replace( rer, "" );
     };
 
-require("should");
+require( "should" );
 describe( "Formatter/Xml.js", function () {
 
     describe( "(methods)", function () {

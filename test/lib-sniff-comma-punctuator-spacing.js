@@ -1,10 +1,10 @@
 /*jshint -W068 */
-var fixture = require("./inc/fixture"),
-    MediatorMock = require("./inc/MediatorMock"),
-    SourceCodeStub = require("./inc/SourceCodeStub"),
-    sniffClass = require("../lib/Sniff/Token/CommaPunctuatorSpacing");
+var fixture = require( "./inc/fixture" ),
+    MediatorMock = require( "./inc/MediatorMock" ),
+    SourceCodeStub = require( "./inc/SourceCodeStub" ),
+    sniffClass = require( "../lib/Sniff/Token/CommaPunctuatorSpacing" );
 
-require("should");
+require( "should" );
 describe( "CommaPunctuatorSpacing", function () {
   describe( "(Contract)", function () {
     var mediator,

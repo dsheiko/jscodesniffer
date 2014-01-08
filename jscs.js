@@ -98,6 +98,7 @@ var MIN_REPORT_WIDTH = 32,
         }
       };
 
+
 try {
  main();
 } catch ( e ) {

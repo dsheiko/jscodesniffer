@@ -1,7 +1,7 @@
 /*jshint -W068 */
-var Cli = require("../lib/Cli");
+var Cli = require( "../lib/Cli" );
 
-require("should");
+require( "should" );
 
 
 describe( "Cli.js", function () {

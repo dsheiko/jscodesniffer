@@ -1,11 +1,11 @@
 /*jshint -W068 */
-var fixture = require("./inc/fixture"),
-    MediatorMock = require("./inc/MediatorMock"),
-    SourceCodeStub = require("./inc/SourceCodeStub"),
-    sniffClass = require("../lib/Sniff/SyntaxTree/UnaryExpressionIdentifierSpacing");
+var fixture = require( "./inc/fixture" ),
+    MediatorMock = require( "./inc/MediatorMock" ),
+    SourceCodeStub = require( "./inc/SourceCodeStub" ),
+    sniffClass = require( "../lib/Sniff/SyntaxTree/UnaryExpressionIdentifierSpacing" );
 
 
-require("should");
+require( "should" );
 describe( "UnaryExpressionIdentifierSpacing", function () {
   var pNode = null,
       mediator,

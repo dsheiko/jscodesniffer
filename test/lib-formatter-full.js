@@ -1,5 +1,5 @@
 /*jshint -W068 */
-var Formatter = require("../lib/Formatter/Full"),
+var Formatter = require( "../lib/Formatter/Full" ),
 
     normalize = function( out ) {
       var re = /\s+/g,
@@ -8,7 +8,7 @@ var Formatter = require("../lib/Formatter/Full"),
       return out.replace( re, " " ).replace( rel, "" ).replace( rer, "" );
     };
 
-require("should");
+require( "should" );
 describe( "Formatter/Full.js", function () {
 
     describe( "(methods)", function () {

@@ -1,7 +1,7 @@
 /*jshint -W068 */
-var Logger = require("../lib/Logger");
+var Logger = require( "../lib/Logger" );
 
-require("should");
+require( "should" );
 describe( "Logger", function () {
 
       var logger;

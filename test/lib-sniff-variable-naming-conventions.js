@@ -1,10 +1,10 @@
 /*jshint -W068 */
-var fixture = require("./inc/fixture"),
-    locEntity = require("./inc/LocEntity"),
-    sniffClass = require("../lib/Sniff/SyntaxTree/VariableNamingConventions"),
-    mediatorMock = require("./inc/MediatorMock");
+var fixture = require( "./inc/fixture" ),
+    locEntity = require( "./inc/LocEntity" ),
+    sniffClass = require( "../lib/Sniff/SyntaxTree/VariableNamingConventions" ),
+    mediatorMock = require( "./inc/MediatorMock" );
 
-require("should");
+require( "should" );
 describe( "VariableNamingConventions", function () {
   describe( "(contract)", function () {
     var sniff,

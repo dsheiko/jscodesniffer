@@ -1,7 +1,7 @@
 /*jshint -W068 */
-var Dictionary = require("../lib/Dictionary");
+var Dictionary = require( "../lib/Dictionary" );
 
-require("should");
+require( "should" );
 
 describe( "Dictionary", function () {
 
@@ -31,8 +31,8 @@ describe( "Dictionary", function () {
           dic.numToString( 1 ).should.eql( "one" );
         });
         it("must return \"multiple\" for >=2", function () {
-          dic.numToString( 2 ).should.eql( "multiple" );
-          dic.numToString( 200 ).should.eql( "multiple" );
+          dic.numToString( 2 ).should.eql( 2 );
+          dic.numToString( 200 ).should.eql( 200 );
         });
         it("must return unchanged string if one given", function () {
           dic.numToString( "string" ).should.eql( "string" );

@@ -1,5 +1,5 @@
-var fs = require("fs"),
-    path = require("path");
+var fs = require( "fs" ),
+    path = require( "path" );
     module.exports = (function(){
       var fixturePath = path.resolve(__dirname, "..", "fixtures");
       return {

@@ -1,8 +1,8 @@
 /*jshint -W068 */
 /*jshint multistr: true */
-var Sniffer = require("../lib/Sniffer");
+var Sniffer = require( "../lib/Sniffer" );
 
-require("should");
+require( "should" );
 
 Array.prototype.hasErrorCode = function( errCode ) {
   return !!this.filter(function( msg ){

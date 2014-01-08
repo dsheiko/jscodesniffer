@@ -13,7 +13,7 @@ if ( typeof module === "object" && typeof define !== "function" ) {
         module.exports = factory( require, exports, module );
     };
 }
-define( function () {
+define(function() {
   /**
     * Rules based on https://github.com/rwaldron/idiomatic.js/
     */
@@ -111,11 +111,11 @@ define( function () {
           "allowArgTrailingWhitespaces": 0
         },
         "firstArg": {
-          "for": [ "FunctionExpression" ],
+          "for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
           "allowArgPrecedingWhitespaces": 0
         },
         "lastArg": {
-          "for": [ "FunctionExpression" ],
+          "for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
           "allowArgTrailingWhitespaces": 0
         }
       }

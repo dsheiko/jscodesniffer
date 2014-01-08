@@ -1,5 +1,5 @@
 /*jshint -W068 */
-var Formatter = require("../lib/Formatter/Checkstyle"),
+var Formatter = require( "../lib/Formatter/Checkstyle" ),
 
     normalize = function( out ) {
       var re = /\s+/g,
@@ -8,7 +8,7 @@ var Formatter = require("../lib/Formatter/Checkstyle"),
       return out.replace( re, " " ).replace( rel, "" ).replace( rer, "" );
     };
 
-require("should");
+require( "should" );
 
 describe( "Formatter/Checkstyle.js", function () {
 

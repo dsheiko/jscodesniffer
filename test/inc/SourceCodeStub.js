@@ -28,6 +28,18 @@ var SourceCodeMock = function( text ) {
     debug: function() {
       var re = /\s/g;
       return text.replace( re, "_" );
+    },
+    fill: function( lPos, rPos, rChar ) {
+      var reWs = /\s/g,
+          reAny = /./g;
+      rChar = rChar || " ";
+      return new SourceCodeMock(
+        text.substr( 0, lPos ) +
+        text
+          .substr( lPos, rPos - lPos )
+          .replace( reWs, rChar )
+          .replace( reAny, rChar ) +
+        text.substr( rPos ) );
     }
   };
 };

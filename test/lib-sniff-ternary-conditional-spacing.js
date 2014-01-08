@@ -1,10 +1,10 @@
 /*jshint -W068 */
-var fixture = require("./inc/fixture"),
-    MediatorMock = require("./inc/MediatorMock"),
-    SourceCodeStub = require("./inc/SourceCodeStub"),
-    sniffClass = require("../lib/Sniff/SyntaxTree/TernaryConditionalPunctuatorsSpacing");
+var fixture = require( "./inc/fixture" ),
+    MediatorMock = require( "./inc/MediatorMock" ),
+    SourceCodeStub = require( "./inc/SourceCodeStub" ),
+    sniffClass = require( "../lib/Sniff/SyntaxTree/TernaryConditionalPunctuatorsSpacing" );
 
-require("should");
+require( "should" );
 describe( "TernaryConditionalPunctuatorsSpacing", function () {
   describe( "(Contract)", function () {
     var mediator,

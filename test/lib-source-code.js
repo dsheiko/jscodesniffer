@@ -1,7 +1,7 @@
 /*jshint -W068 */
-var SourceCode = require("../lib/SourceCode");
+var SourceCode = require( "../lib/SourceCode" );
 
-require("should");
+require( "should" );
 describe( "SourceCode", function () {
 
 

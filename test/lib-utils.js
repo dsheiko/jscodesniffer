@@ -1,6 +1,6 @@
 /*jshint -W068 */
-var utils = require("../lib/Utils");
-require("should");
+var utils = require( "../lib/Utils" );
+require( "should" );
 
 
 describe( "Utils.js", function () {

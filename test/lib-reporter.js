@@ -1,7 +1,7 @@
 /*jshint -W068 */
-var Reporter = require("../lib/Reporter");
+var Reporter = require( "../lib/Reporter" );
 
-require("should");
+require( "should" );
 describe( "Reporter.js", function () {
 
     describe( "(methods)", function () {

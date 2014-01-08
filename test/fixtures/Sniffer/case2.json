@@ -1,0 +1,53 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "foo",
+                        "range": [
+                            112,
+                            115
+                        ]
+                    },
+                    "init": {
+                        "type": "Literal",
+                        "value": 1,
+                        "raw": "1",
+                        "range": [
+                            118,
+                            119
+                        ]
+                    },
+                    "range": [
+                        112,
+                        119
+                    ]
+                }
+            ],
+            "kind": "var",
+            "range": [
+                108,
+                120
+            ]
+        }
+    ],
+    "range": [
+        108,
+        120
+    ],
+    "comments": [
+        {
+            "type": "Block",
+            "value": "\n* @package jscodesniffer\n* @author sheiko\n* @license MIT\n* jscs standard:Jquery\n* jshint unused:false\n",
+            "range": [
+                0,
+                107
+            ]
+        }
+    ]
+}
