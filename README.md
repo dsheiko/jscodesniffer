@@ -65,20 +65,6 @@ Get XML report (which allows you to parse the output easily and use the results 
 ./jscs lib --report=xml
 ```
 
-Setting up [Apache Ant](http://ant.apache.org/) build script reporting to [Jenkins](http://jenkins-ci.org) Checkstyle plugin.
-NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will find created by phpcs checkstyle.xml and extend its body instead of overriding the report.
-```xml
-<target name="jscs-ci"
-         description="Find coding standard violations using JS_CodeSniffer and print human readable output.">
-  <exec executable="jscs">
-   <arg value="--standard=Jquery" />
-   <arg value="--report=checkstyle" />
-   <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
-   <arg path="${basedir}/src" />
-  </exec>
- </target>
-```
-
 ## Using JSCodeSniffer as RequireJS (AMD) module
 
 1. Install the package or download and unpack it into you project folder
@@ -90,45 +76,21 @@ NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will fi
 
 ```javascript
 require( [ "<pkg-path>/lib/Sniffer", "<pkg-path>/lib/Dictionary/en", "<pkg-path>/lib/Dictionary" ], function( Sniffer, en, Dictionary ) {
-	var sniffer = new Sniffer(),
-		  dictionary = new Dictionary( en ),
-		  logger, messages;
+  var sniffer = new Sniffer(),
+      dictionary = new Dictionary( en ),
+      logger, messages;
 
-		// Get sniffer report
-		logger = sniffer.getTestResults( node.srcCode.value, { standard: "Jquery" } ),
-		// Translate messages
-		messages = dictionary.translateBulk( logger.getMessages(), true );
-		// Logger is a singleton, it must reset after validation is complete
-		logger.reset();
-		// Output report
-		console.log( messages );
-		}, false );
+    // Get sniffer report
+    logger = sniffer.getTestResults( node.srcCode.value, { standard: "Jquery" } ),
+    // Translate messages
+    messages = dictionary.translateBulk( logger.getMessages(), true );
+    // Logger is a singleton, it must reset after validation is complete
+    logger.reset();
+    // Output report
+    console.log( messages );
 });
 ```
 
-## Setting up [Grunt](http://gruntjs.com/) task
-
-*Gruntfile.js*
-```javascript
-grunt.loadNpmTasks('grunt-jscs');
-grunt.initConfig({
-     // Validate against jQuery coding standard
-     jscs: {
-        options: {
-            "standard": "Jquery"
-        },
-        all: ["js-folder"]
-     }
-  });
-```
-*package.json*
-```javascript
-"devDependencies": {
-    //..
-		"jscodesniffer": ">= 2.0.0",
-    "grunt-jscs": ">0.0.1"
-  }
-```
 
 ## Environments
 
@@ -137,28 +99,12 @@ Standard to sniff against can be enforced on the file by following instructions 
 /* @jscs standard:Jquery */
 ```
 
-## Using the Subversion pre-commit hook
 
-A pre-commit hook is a feature available in the Subversion version control system that allows code to be validated before it is committed to the repository.
-Edit scripts/jscs-svn-pre-commit and replace JSCS value with your own path to JS CodeSniffer
-```bash
-JSCS = "/your-path/jscodesniffer"
-```
-
-Make a symlink of scripts/jscs-svn-pre-commit in your repository hooks folder. E.g.
-```bash
-ln -s /<full path>/scripts/jscs-svn-pre-commit /repositories/<project>/hooks/pre-commit
-```
-
-## Using the git pre-commit hook
-Make a symlink of scripts/jscs-git-pre-commit in your repository .git/hooks folder. E.g.
-```bash
-ln -s /<full path>/scripts/jscs-git-pre-commit /<project>/.git/hooks/pre-commit
-```
 
 ## Declaring coding style
-Standard declaration are located in standard directory. You can store there in a file named after your custom standard name
-rule-sets that you want your code be validated against. To make the notation available for AMD/RequireJs, wrap the JSON into UMD ...
+Standard declaration are located in `standard` directory. You can store there in a file named after your custom standard name
+the rule-sets that you want your code be validated against. To make the defenition available for AMD/RequireJs, the JSON notation is supposed
+to be wrapped as a UMD module.
 
 NOTE: Conventions 'Any ; used as a statement terminator must be at the end of the line' and 'Multi-line Statements is checked'
 are tested by JSHint and therefore not provided with sniffs (See [http://contribute.jquery.org/style-guide/js/#linting] for details).
@@ -234,36 +180,36 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       "requireBraces": true,
       "requireMultipleLines": true
     },
-		/*
-		defines spacing conventions for unary expressions
+    /*
+    defines spacing conventions for unary expressions
 
-		Example:
+    Example:
     !!100 // good
     !! 100 // bad
-		*/
+    */
     "UnaryExpressionIdentifierSpacing": {
       "allowTrailingWhitespaces" : 0
     },
-		/*
-		defines spacing conventions for ternary conditionals
+    /*
+    defines spacing conventions for ternary conditionals
 
-		Example:
+    Example:
     foo = true ? 1 : 0; // good
     foo = true ?1:0; // bad
-		*/
+    */
     "TernaryConditionalPunctuatorsSpacing": {
       "allowTestTrailingWhitespaces": 1,
       "allowConsequentPrecedingWhitespaces": 1,
       "allowConsequentTrailingWhitespaces": 1,
       "allowAlternatePrecedingWhitespaces": 1
     },
-		/*
-		defines spacing conventions for empty constructs
+    /*
+    defines spacing conventions for empty constructs
 
-		Example:
+    Example:
     obj = {}; // good
     obj = {  }; // bad
-		*/
+    */
     "EmptyConstructsSpacing": {
       "for": [
         "ObjectExpression",
@@ -272,73 +218,73 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       ],
       "allowWhitespaces": false
     },
-	 /*
-		defines spacing conventions for object literals
+   /*
+    defines spacing conventions for object literals
 
-		Example:
+    Example:
     obj = { prop: 1 }; // good
     obj = { prop:1 };// bad
-		*/
+    */
     "ObjectLiteralSpacing": {
       "allowKeyPrecedingWhitespaces": 1,
       "allowKeyTrailingWhitespaces": 0,
       "allowValuePrecedingWhitespaces": 1,
       "allowValueTrailingWhitespaces": 1
     },
-	 /*
-		defines spacing conventions for array literals
+   /*
+    defines spacing conventions for array literals
 
-		Example:
+    Example:
     arr = [ 1, 2 ]; // good
     arr = [1,2]; // bad
-		*/
+    */
     "ArrayLiteralSpacing": {
       "allowElementPrecedingWhitespaces": 1,
       "allowElementTrailingWhitespaces": 1
     },
-	 /*
-		defines type of quotes to use across the code-base
+   /*
+    defines type of quotes to use across the code-base
 
-		Example:
+    Example:
     foo = "text"; // good
     foo = 'text'; // bad
-		*/
+    */
     "QuoteConventions": {
       "allowDoubleQuotes": true,
       "allowSingleQuotes": false
     },
-		/*
-		defines naming conventions for variables
-		Note: variable of all uppercase (including $_0-9) are considered as constants and ignored by the sniffer
+    /*
+    defines naming conventions for variables
+    Note: variable of all uppercase (including $_0-9) are considered as constants and ignored by the sniffer
 
-		Example:
+    Example:
     var camelCase; // good
     var not_camel_case; // bad
-		*/
+    */
     "VariableNamingConventions": {
       "allowCase": ["camel"],
       "allowRepeating": true,
       "allowNumbers": true
     },
-	 /*
-		defines naming conventions for functions
+   /*
+    defines naming conventions for functions
 
-		Example:
+    Example:
     var PascalCase; // good
     var not_camel_or_pascal_case; // bad
-		*/
+    */
     "FunctionNamingConventions": {
       "allowCase": ["camel", "pascal"],
       "allowRepeating": true,
       "allowNumbers": true
     },
-	 /*
-		defines spacing conventions for arguments
+   /*
+    defines spacing conventions for arguments
 
-		Example:
+    Example:
     fn( 1, 2 ); // good
     fn(1,2); // bad
-		*/
+    */
     "ArgumentsSpacing": {
       "allowArgPrecedingWhitespaces": 1,
       "allowArgTrailingWhitespaces": 1,
@@ -358,65 +304,124 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
         }
       }
     },
-	/*
-		defines spacing conventions for parameters
+  /*
+    defines spacing conventions for parameters
 
-		Example:
+    Example:
     function fn( foo, bar ){}; // good
     function fn(foo,bar){}; // bad
-		*/
+    */
     "ParametersSpacing": {
       "allowParamPrecedingWhitespaces": 1,
       "allowParamTrailingWhitespaces": 1
     },
-	/*
-		defines how methods can be placed when a chain of method calls is too long to fit on one line
+  /*
+    defines how methods can be placed when a chain of method calls is too long to fit on one line
 
-		Example:
+    Example:
     // good
-		elements
-		.addClass( "foo" )
-		.children();
+    elements
+    .addClass( "foo" )
+    .children();
 
-		// bad
-		elements.addClass( "foo" )
-		.children();
-		*/
+    // bad
+    elements.addClass( "foo" )
+    .children();
+    */
     "ChainedMethodCallsSpacing" : {
       "allowTrailingObjectWhitespaces": 0,
       "allowPrecedingPropertyWhitespaces": 0,
-			"allowOnePerLineWhenMultilineCaller": true
+      "allowOnePerLineWhenMultilineCaller": true
     },
-		/*
-		defines spacing conventions for operators (including declarator)
+    /*
+    defines spacing conventions for operators (including declarator)
 
-		Example:
+    Example:
     foo = 1 + 1; // good
     foo = 1+1; // bad
-		*/
+    */
     "OperatorSpacing" : {
       "allowOperatorPrecedingWhitespaces": 1,
       "allowOperatorTrailingWhitespaces": 1
     },
-		/*
-		defines conventions for variable declarations
+    /*
+    defines conventions for variable declarations
 
-		Example:
+    Example:
     // good
-		(function(){
-			var foo, bar;
-		})();
+    (function(){
+      var foo, bar;
+    })();
 
-		// bad
-		(function(){
-			var foo;
-			var bar;
-		})();
-		*/
+    // bad
+    (function(){
+      var foo;
+      var bar;
+    })();
+    */
     "VariableDeclarationPerScopeConventions" : {
       "disallowMultiplePerBlockScope": true,
-			"requireInTheBeginning": true
+      "requireInTheBeginning": true
     }
 
   }
+```
+
+# JSCS and Continuous Integration
+
+## Setting up [Apache Ant](http://ant.apache.org/) build script reporting to [Jenkins](http://jenkins-ci.org) Checkstyle plugin.
+NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will find created by phpcs checkstyle.xml and extend its body instead of overriding the report.
+```xml
+<target name="jscs-ci"
+         description="Find coding standard violations using JS_CodeSniffer and print human readable output.">
+  <exec executable="jscs">
+   <arg value="--standard=Jquery" />
+   <arg value="--report=checkstyle" />
+   <arg value="--report-file=${basedir}/build/logs/checkstyle.xml" />
+   <arg path="${basedir}/src" />
+  </exec>
+ </target>
+```
+
+## Setting up [Grunt](http://gruntjs.com/) task
+
+*Gruntfile.js*
+```javascript
+grunt.loadNpmTasks('grunt-jscs');
+grunt.initConfig({
+     // Validate against jQuery coding standard
+     jscs: {
+        options: {
+            "standard": "Jquery"
+        },
+        all: ["js-folder"]
+     }
+  });
+```
+*package.json*
+```javascript
+"devDependencies": {
+    //..
+    "jscodesniffer": ">= 2.0.0",
+    "grunt-jscs": ">0.0.1"
+  }
+```
+
+## Using the Subversion pre-commit hook
+
+A pre-commit hook is a feature available in the Subversion version control system that allows code to be validated before it is committed to the repository.
+Edit scripts/jscs-svn-pre-commit and replace JSCS value with your own path to JS CodeSniffer
+```bash
+JSCS = "/your-path/jscodesniffer"
+```
+
+Make a symlink of scripts/jscs-svn-pre-commit in your repository hooks folder. E.g.
+```bash
+ln -s /<full path>/scripts/jscs-svn-pre-commit /repositories/<project>/hooks/pre-commit
+```
+
+## Using the git pre-commit hook
+Make a symlink of scripts/jscs-git-pre-commit in your repository .git/hooks folder. E.g.
+```bash
+ln -s /<full path>/scripts/jscs-git-pre-commit /<project>/.git/hooks/pre-commit
 ```
