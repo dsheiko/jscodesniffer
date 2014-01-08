@@ -19,8 +19,7 @@ One can define a custom coding style by using described below JSON notation or u
 * Custom standard can be easily configured by using JSON notation
 * Scripts can be associated to a coding style in block comments using @jscs tag
 * Relaxing options can be provided with real-time configuration (.jscsrc) per project
-
-
+* Thoroughly covered with automated tests: 200+ unit-tests, 70+ integration tests
 
 ## Setup
 
@@ -99,7 +98,20 @@ Standard to sniff against can be enforced on the file by following instructions 
 /* @jscs standard:Jquery */
 ```
 
+## Real-Time Configuration
 
+Adjusting options can be provided as manual standard in `.jscsrc` file placed in the root of your project.
+JSCodesniffer will search upward recursively until it finds any. It will extend the specified standard rule-sets
+with the defenitions provided in this real-time configuration file. `.jscsrc` syntax is pretty much the same as standard
+defenition file except it doesn't need to be UMD (just JSON). I you need disable particular rule-sets you can simply
+empty rule-set configurations:
+
+```bash
+{
+  "Indentation": false,
+  "QuoteConventions": false
+}
+```
 
 ## Declaring coding style
 Standard declaration are located in `standard` directory. You can store there in a file named after your custom standard name
@@ -367,7 +379,7 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
   }
 ```
 
-# JSCS and Continuous Integration
+# JSCodeSniffer and Continuous Integration
 
 ## Setting up [Apache Ant](http://ant.apache.org/) build script reporting to [Jenkins](http://jenkins-ci.org) Checkstyle plugin.
 NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will find created by phpcs checkstyle.xml and extend its body instead of overriding the report.
