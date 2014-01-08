@@ -95,6 +95,10 @@ require( [ "<pkg-path>/lib/Sniffer", "<pkg-path>/lib/Dictionary/en", "<pkg-path>
 
 Standard to sniff against can be enforced on the file by following instructions directly in the code
 ```javascript
+/* jscs standard:Jquery */
+```
+Old form introduced in version 1.x.x is also supported
+```javascript
 /* @jscs standard:Jquery */
 ```
 
