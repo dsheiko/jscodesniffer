@@ -33,7 +33,7 @@ var fs = require('fs'),
 
 dir = fs.readdirSync( fPath );
 if ( dir ) {
-  dir.forEach( function( file ){
+  dir.forEach(function( file ){
       var stat, re = /\.js$/gi;
       stat = fs.statSync( path.resolve( fPath, file ) );
       stat.isFile() && re.test( file ) && jsToJson( fPath, file );

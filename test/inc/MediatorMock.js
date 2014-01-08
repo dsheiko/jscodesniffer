@@ -14,7 +14,7 @@ module.exports = function() {
       return this.messages.length ? this.messages : false;
     },
     getMessage: function( errorCode ) {
-      var res = this.messages.filter( function( msg ) {
+      var res = this.messages.filter(function( msg ) {
         return msg.errorCode === errorCode;
       });
       return res.length ? res[ 0 ] : false;
