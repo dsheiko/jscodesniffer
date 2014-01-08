@@ -83,8 +83,6 @@ require( [ "<pkg-path>/lib/Sniffer", "<pkg-path>/lib/Dictionary/en", "<pkg-path>
     logger = sniffer.getTestResults( node.srcCode.value, { standard: "Jquery" } ),
     // Translate messages
     messages = dictionary.translateBulk( logger.getMessages(), true );
-    // Logger is a singleton, it must reset after validation is complete
-    logger.reset();
     // Output report
     console.log( messages );
 });

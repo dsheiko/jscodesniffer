@@ -24,9 +24,6 @@ describe( "Idiomatic standard", function () {
       beforeEach(function(){
         sniffer = new Sniffer();
       });
-      afterEach(function(){
-        logger.reset();
-      });
 
       it("'if' multiline with parens must pass", function () {
         var code = "if(condition) doSomething();";
@@ -53,9 +50,6 @@ describe( "Idiomatic standard", function () {
       var sniffer, logger = null;
       beforeEach(function(){
         sniffer = new Sniffer();
-      });
-      afterEach(function(){
-        logger.reset();
       });
 
       it("Literal notations", function () {
@@ -86,9 +80,6 @@ describe( "Idiomatic standard", function () {
         sniffer = new Sniffer();
       });
 
-      afterEach(function(){
-        logger.reset();
-      });
 
       it("bad", function () {
         logger = sniffer.getTestResults( "(function(){var foo = true; var bar = false;})", OPTIONS );
@@ -116,9 +107,6 @@ describe( "Idiomatic standard", function () {
       var sniffer, logger = null;
       beforeEach(function(){
         sniffer = new Sniffer();
-      });
-      afterEach(function(){
-        logger.reset();
       });
 
       it("Named Function Declaration", function () {
@@ -165,9 +153,6 @@ describe( "Idiomatic standard", function () {
       beforeEach(function(){
         sniffer = new Sniffer();
       });
-      afterEach(function(){
-        logger.reset();
-      });
 
       it("Constructor Declaration", function () {
         logger = sniffer.getTestResults( "function FooBar( options ) {\nthis.options = options;\n}", OPTIONS );
@@ -184,10 +169,7 @@ describe( "Idiomatic standard", function () {
       beforeEach(function(){
         sniffer = new Sniffer();
       });
-      afterEach(function(){
-        logger.reset();
-      });
-
+      
       it("Functions with callbacks", function () {
         logger = sniffer.getTestResults( "foo(function() {});", OPTIONS );
         logger.getMessages().length.should.not.be.ok;

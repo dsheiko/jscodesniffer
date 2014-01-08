@@ -28,11 +28,6 @@ describe( "jQuery standard", function () {
         sniffer = new Sniffer();
       });
 
-      afterEach(function(){
-        logger.reset();
-      });
-
-
       it("if(condition) doSomething();  must trigger errors", function () {
         logger = sniffer.getTestResults( "if(condition) doSomething();", OPTIONS );
         logger.getMessages().hasErrorCode("CompoundStatementRequireBraces").should.be.ok;
@@ -98,10 +93,6 @@ object[ array[ i ] ] = someFn( i );\n\
 
       beforeEach(function(){
         sniffer = new Sniffer();
-        });
-
-        afterEach(function(){
-          logger.reset();
         });
 
 
@@ -212,10 +203,6 @@ object[ array[ i ] ] = someFn( i );\n\
         sniffer = new Sniffer();
       });
 
-      afterEach(function(){
-        logger.reset();
-      });
-
         it("Function with a callback, object, or array as the sole argument", function () {
           logger = sniffer.getTestResults( "foo({\na: \"alpha\",\nb: \"beta\"\n});", OPTIONS );
           logger.getMessages().length.should.not.be.ok;
@@ -240,10 +227,6 @@ object[ array[ i ] ] = someFn( i );\n\
 
       beforeEach(function(){
         sniffer = new Sniffer();
-      });
-
-      afterEach(function(){
-        logger.reset();
       });
 
         it("there must be one call per line, with the first call on a separate line from the object the methods" +
@@ -278,9 +261,6 @@ object[ array[ i ] ] = someFn( i );\n\
         sniffer = new Sniffer();
       });
 
-      afterEach(function(){
-        logger.reset();
-      });
 
         it("Assignments in a declaration must be on their own line. Declarations that don't have an assignment must be listed together at the start of the declaration.", function () {
           logger = sniffer.getTestResults( "(function(){var foo = true; var bar = false;})", OPTIONS );
@@ -297,10 +277,6 @@ object[ array[ i ] ] = someFn( i );\n\
         sniffer = new Sniffer();
       });
 
-      afterEach(function(){
-        logger.reset();
-      });
-
         it("jQuery uses double quotes.", function () {
           logger = sniffer.getTestResults( "var a = 'text';", OPTIONS );
           logger.getMessages().hasErrorCode( "QuoteConventionsSingleQuotesNotAllowed" ).should.be.ok;
@@ -314,10 +290,6 @@ object[ array[ i ] ] = someFn( i );\n\
 
       beforeEach(function(){
         sniffer = new Sniffer();
-      });
-
-      afterEach(function(){
-        logger.reset();
       });
 
         it("Variables must go caMel style.", function () {
@@ -341,10 +313,6 @@ object[ array[ i ] ] = someFn( i );\n\
 
       beforeEach(function(){
         sniffer = new Sniffer();
-      });
-
-      afterEach(function(){
-        logger.reset();
       });
 
         it("Object literal must have 1 space preceding key", function () {
@@ -375,10 +343,6 @@ object[ array[ i ] ] = someFn( i );\n\
 
       beforeEach(function(){
         sniffer = new Sniffer();
-      });
-
-      afterEach(function(){
-        logger.reset();
       });
 
         it("Array literal must have 1 space preceding element", function () {

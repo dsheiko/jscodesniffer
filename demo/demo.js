@@ -16,8 +16,6 @@ document.addEventListener( "DOMContentLoaded", function() {
         logger = sniffer.getTestResults( node.srcCode.value, { standard: "Jquery" } ),
         // Translate messages
         messages = dictionary.translateBulk( logger.getMessages(), true );
-        // Logger is a singleton, it must reset after validation is complete
-        logger.reset();
         // Output report
         node.output.innerHTML = '';
         messages.forEach(function( msg ){
