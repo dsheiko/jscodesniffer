@@ -27,8 +27,8 @@ describe( " Custom checks ", function () {
         .filter( RE_COMMENT )\n\
         .length();";
     */
-   var code = "			actual = sourceCode\n\
-  .find( 1 );";
+   var code =
+"		find( ( a > b ? true : false ),2, 3 );";
     logger = sniffer.getTestResults( code, OPTIONS );
     console.log(logger.getMessages());
     //logger.getMessages().hasErrorCode("CompoundStatementRequireMultipleLines").should.be.ok;
