@@ -21,14 +21,11 @@ describe( " Custom checks ", function () {
   });
 
   it("-", function () {
-    /*var code = "			actual = sourceCode\n\
-        .extract( 1 )\n\
-        .filter( \"\\s+$\" )\n\.filter( \"[\\(\\)]\" )\n\
-        .filter( RE_COMMENT )\n\
-        .length();";
-    */
-   var code =
-"		find( ( a > b ? true : false ),2, 3 );";
+   var code = "var code = {\n\
+        //...\n\
+        //..\n\
+        //\n\
+        }";
     logger = sniffer.getTestResults( code, OPTIONS );
     console.log(logger.getMessages());
     //logger.getMessages().hasErrorCode("CompoundStatementRequireMultipleLines").should.be.ok;
