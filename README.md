@@ -9,15 +9,15 @@ One can define a custom coding style by using described below JSON notation or u
 
 ## Features
 * Tool is available as UMD (can be used with nodejs or as a RequireJS module)
-* Predefined popular coding styles (jQuery Coding Style Guide, Idiomatic Style Manifesto)
-* Reports in the style of phpcs
-* Solution ready for Continuous Integration
-    - Provided Git pre-commit hook script
-    - Provided SVN pre-commit hook script
-    - Provided Grunt task
-    - Provided Jenkins CheckStyle report
+* Predefined popular coding styles ([jQuery Coding Style Guide](http://contribute.jquery.org/style-guide/js/), [Idiomatic Style Manifesto](https://github.com/rwaldron/idiomatic.js/))
+* Reports in the style of [phpcs](https://github.com/squizlabs/PHP_CodeSniffer)
+* Solution ready for [Continuous Integration](#a-ci)
+    - Provided [Git pre-commit hook script](#a-git)
+    - Provided [SVN pre-commit hook script](#a-svn)
+    - Provided [Grunt task](#a-grunt)
+    - Provided [Jenkins CheckStyle report](#a-ant)
 * Custom standard can be easily configured by using JSON notation
-* Scripts can be associated to a coding style in block comments using @jscs tag
+* Scripts can be associated to a coding style in block comments using `jscs` tag
 * Relaxing options can be provided with real-time configuration (.jscsrc) per project
 * Thoroughly covered with automated tests: 200+ unit-tests, 70+ integration tests
 
@@ -381,9 +381,9 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
   }
 ```
 
-# JSCodeSniffer and Continuous Integration
+# <a name="a-ci"></a>JSCodeSniffer and Continuous Integration
 
-## Setting up [Apache Ant](http://ant.apache.org/) build script reporting to [Jenkins](http://jenkins-ci.org) Checkstyle plugin.
+## <a name="a-ant"></a>Setting up [Apache Ant](http://ant.apache.org/) build script reporting to [Jenkins](http://jenkins-ci.org) Checkstyle plugin.
 NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will find created by phpcs checkstyle.xml and extend its body instead of overriding the report.
 ```xml
 <target name="jscs-ci"
@@ -397,7 +397,7 @@ NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will fi
  </target>
 ```
 
-## Setting up [Grunt](http://gruntjs.com/) task
+## <a name="a-grunt"></a>Setting up [Grunt](http://gruntjs.com/) task
 
 *Gruntfile.js*
 ```javascript
@@ -421,7 +421,7 @@ grunt.initConfig({
   }
 ```
 
-## Using the Subversion pre-commit hook
+## <a name="a-svn"></a> Using the Subversion pre-commit hook
 
 A pre-commit hook is a feature available in the Subversion version control system that allows code to be validated before it is committed to the repository.
 Edit scripts/jscs-svn-pre-commit and replace JSCS value with your own path to JS CodeSniffer
@@ -434,7 +434,7 @@ Make a symlink of scripts/jscs-svn-pre-commit in your repository hooks folder. E
 ln -s /<full path>/scripts/jscs-svn-pre-commit /repositories/<project>/hooks/pre-commit
 ```
 
-## Using the git pre-commit hook
+## <a name="a-git"></a> Using the git pre-commit hook
 Make a symlink of scripts/jscs-git-pre-commit in your repository .git/hooks folder. E.g.
 ```bash
 ln -s /<full path>/scripts/jscs-git-pre-commit /<project>/.git/hooks/pre-commit
