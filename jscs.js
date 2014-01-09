@@ -77,8 +77,13 @@ var MIN_REPORT_WIDTH = 32,
         rulesetOverrides = cli.readRealtimeConfig( process.cwd() );
 
         cli.applyToEveryFileInPath( where , function( pathArg, data ) {
-            logger = sniffer.getTestResults( data, options, rulesetOverrides );
-            reporter.add( pathArg, dictionary.translateBulk( logger.getMessages() ), options.standard );
+            options.src = pathArg;
+            try {
+              logger = sniffer.getTestResults( data, options, rulesetOverrides );
+              reporter.add( pathArg, dictionary.translateBulk( logger.getMessages() ), options.standard );
+            } catch ( e ) {
+              console.error( e );
+            }
         });
 
         if ( options.report === "checkstyle" && typeof options["report-file"] !== "undefined" ) {
