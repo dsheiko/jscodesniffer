@@ -15,7 +15,7 @@ var MIN_REPORT_WIDTH = 32,
       "[--report=checkstyle] - printing Jenkins-friendly checkstyle report\n" +
       "[--report-file=filePath] - write the report to the specified file path\n" +
       "[--highlight=0] - disable colors on reports\n" +
-      "[reportWidth=" + DEFAULT_REPORT_WIDTH + "] - How many columns wide screen reports should be printed\n",
+      "[--reportWidth=" + DEFAULT_REPORT_WIDTH + "] - How many columns wide screen reports should be printed\n",
 
       main = function() {
         var

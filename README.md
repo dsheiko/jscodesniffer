@@ -8,7 +8,7 @@ One can define a custom coding style by using described below JSON notation or u
 
 
 ## Features
-* Tool is available as UMD (can be used with nodejs or as a RequireJS module)
+* Tool is available as UMD (can be used [with nodejs](#a-use) or as a [RequireJS module](#a-amd))
 * Predefined popular coding styles ([jQuery Coding Style Guide](http://contribute.jquery.org/style-guide/js/), [Idiomatic Style Manifesto](https://github.com/rwaldron/idiomatic.js/))
 * Reports in the style of [phpcs](https://github.com/squizlabs/PHP_CodeSniffer)
 * Solution ready for [Continuous Integration](#a-ci)
@@ -39,7 +39,7 @@ You can also create a symlink to make it globally available
 ln -s jscs /usr/local/bin/jscs
 ```
 
-## Using JSCodeSniffer in the command line
+## <a name="a-use"></a> Using JSCodeSniffer in the command line
 
 Simply get detailed report on the file coding style according to jQuery Coding Style Guide
 ```bash
@@ -55,7 +55,7 @@ node jscs.js source-code.js
 
 Get detailed report on the coding style for all *.js/*.json files of the 'lib' folder according to jQuery Coding Style Guide
 ```bash
-./jscs lib --standard=Jquery
+./jscs lib --standard=Jquery --report-full
 ```
 
 Get summary report
@@ -69,7 +69,28 @@ Get XML report (which allows you to parse the output easily and use the results 
 ./jscs lib --report=xml
 ```
 
-## Using JSCodeSniffer as RequireJS (AMD) module
+Get Checkstyle report (that is supported by wide range of 3rd party software. E.g. Jenkins via a plugin)
+```bash
+./jscs lib --report=checkstyle
+```
+
+Report to a file (by default report goes to stdout)
+```bash
+./jscs lib --report-file=filePath
+```
+
+Disable colors in the report
+```bash
+./jscs lib --highlight=0
+```
+
+Define width of report screen
+```bash
+./jscs lib --reportWidth=84
+```
+
+
+## <a name="a-amd"></a> Using JSCodeSniffer as RequireJS (AMD) module
 
 1. Install the package or download and unpack it into you project folder
 ```bash
