@@ -16,9 +16,9 @@ One can define a custom coding style by using described below JSON notation or u
     - Provided [SVN pre-commit hook script](#a-svn)
     - Provided [Grunt task](#a-grunt)
     - Provided [Jenkins CheckStyle report](#a-ant)
-* Custom standard can be easily configured by using JSON notation
-* Scripts can be associated to a coding style in block comments using `jscs` tag
-* Relaxing options can be provided with real-time configuration (.jscsrc) per project
+* Custom standard [can be easily configured](#a-standard) by using JSON notation
+* Scripts can be associated to a coding style in block comments [using `jscs` tag](#a-env)
+* Relaxing options can be provided with [real-time configuration](#a-realtime) (`.jscsrc`) per project
 * Thoroughly covered with automated tests: 200+ unit-tests, 70+ integration tests
 
 ## Setup
@@ -41,9 +41,14 @@ ln -s jscs /usr/local/bin/jscs
 
 ## Using JSCodeSniffer in the command line
 
-Simply get detailed report on the file coding style according to Idiomatic Style Manifesto
+Simply get detailed report on the file coding style according to jQuery Coding Style Guide
 ```bash
 ./jscs source-code.js
+```
+
+It's equivalent to:
+```bash
+node jscs.js source-code.js
 ```
 
 ![JS CodeSniffer Full Report Example](https://raw.github.com/dsheiko/jscodesniffer/master/doc/sample1.jpg "JS CodeSniffer Full Report Example")
@@ -89,7 +94,7 @@ require( [ "<pkg-path>/lib/Sniffer", "<pkg-path>/lib/Dictionary/en", "<pkg-path>
 ```
 
 
-## Environments
+## <a name="a-env"></a> Environments
 
 Standard to sniff against can be enforced on the file by following instructions directly in the code
 ```javascript
@@ -100,7 +105,7 @@ Old form introduced in version 1.x.x is also supported
 /* @jscs standard:Jquery */
 ```
 
-## Real-Time Configuration
+## <a name="a-realtime"></a> Real-Time Configuration
 
 Adjusting options can be provided as manual standard in `.jscsrc` file placed in the root of your project.
 JSCodesniffer will search upward recursively until it finds any. It will extend the specified standard rule-sets
@@ -115,7 +120,7 @@ empty rule-set configurations:
 }
 ```
 
-## Declaring coding style
+## <a name="a-standard"></a> Declaring coding style
 Standard declaration are located in `standard` directory. You can store there in a file named after your custom standard name
 the rule-sets that you want your code be validated against. To make the defenition available for AMD/RequireJs, the JSON notation is supposed
 to be wrapped as a UMD module.
