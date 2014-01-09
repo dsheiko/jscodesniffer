@@ -19,26 +19,26 @@
         "should": "*"
     },
     "licenses": [
-        {
-            "type": "MIT",
-            "url": "http://github.com/fawek/codepainter/raw/master/LICENSE"
-        }
+			{
+				"type": "MIT",
+				"url": "http://github.com/fawek/codepainter/raw/master/LICENSE"
+			}
     ],
     "maintainers": [
-        "Dmitry Sheiko <me@dsheiko.com> (http://dsheiko.com)"
+			"Dmitry Sheiko <me@dsheiko.com> (http://dsheiko.com)"
     ],
     "repository": {
-        "type": "git",
-        "url": "https://github.com/dsheiko/jscodesniffer.git"
+			"type": "git",
+			"url": "https://github.com/dsheiko/jscodesniffer.git"
     },
     "bugs": {
-        "url": "https://github.com/dsheiko/jscodesniffer/issues"
+			"url": "https://github.com/dsheiko/jscodesniffer/issues"
     },
     "scripts": {
         "test": "grunt test"
     },
     "keywords": [
-        "styleguide",
-        "formatter"
+			"styleguide",
+			"formatter"
     ]
 }
