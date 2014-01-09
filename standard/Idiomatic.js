@@ -111,7 +111,7 @@ define(function() {
     "allowArgPrecedingWhitespaces": 1,
     "allowArgTrailingWhitespaces": 1,
     "exceptions": {
-    "singleArg" : {
+    "singleArg": {
       "for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression", "Literal" ],
       "allowArgPrecedingWhitespaces": 0,
       "allowArgTrailingWhitespaces": 0
@@ -147,7 +147,7 @@ define(function() {
     Unary special-character operators (e.g., !, ++) must not have space next to their operand.
     */
   "UnaryExpressionIdentifierSpacing": {
-    "allowTrailingWhitespaces" : 0
+    "allowTrailingWhitespaces": 0
   },
   /*
     The ? and : in a ternary conditional must have space on both sides.
@@ -178,7 +178,7 @@ define(function() {
     Naming functions, objects, instances, etc
     */
   "VariableNamingConventions": {
-    "allowCase": ["camel"],
+    "allowCase": [ "camel" ],
     "allowRepeating": true,
     "allowNumbers": true
   },
@@ -187,7 +187,7 @@ define(function() {
     Naming constructors, prototypes, etc.
     */
   "FunctionNamingConventions": {
-    "allowCase": ["camel", "pascal"],
+    "allowCase": [ "camel", "pascal" ],
     "allowRepeating": true,
     "allowNumbers": true
   }
