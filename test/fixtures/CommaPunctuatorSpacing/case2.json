@@ -1,0 +1,18 @@
+  {
+        "type": "Punctuator",
+        "value": ",",
+        "range": [
+            12,
+            13
+        ],
+        "loc": {
+            "start": {
+                "line": 2,
+                "column": 5
+            },
+            "end": {
+                "line": 2,
+                "column": 6
+            }
+        }
+    }

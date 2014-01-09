@@ -1,0 +1,10 @@
+* Write a decent documentation, probably using Bootstrap 3.0 doc template
+* Formalize ErrorCodes, probably following the pattern <ruleseName>.<ruleName>. References: phpcs
+* Add Crockford's styles http://javascript.crockford.com/code.html
+* Add missing tests for Sniffer, SyntaxAnalizer and other's contract validation
+* Beautify tests following the pattern
+describe("method",..
+it ("must..."
+it ("must..."
+* Make online validator
+* Make inline documentation compatible to JSDoc 3 (http://usejsdoc.org/tags-param.html)

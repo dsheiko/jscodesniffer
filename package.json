@@ -1,42 +1,44 @@
 {
     "name": "jscodesniffer",
     "description": "Tool to ensure that your JavaScript code does not violate the specified coding standard (Idiomatic Style Manifesto or JQuery Core Style Guidelines)",
-    "version": "1.1.3",
+    "version": "2.0.0",
     "author": "Dmitry Sheiko <me@dsheiko.com>",
     "bin": {
         "jscs": "./jscs"
     },
     "dependencies": {
-        "esprima": ">= 1.0.2",
-        "assert": ">= 0.4.9",
-        "mocha": ">= 1.7.4"
+        "esprima": "~1.0.4"
+
     },
     "devDependencies": {
         "grunt": "~0.4.1",
         "grunt-contrib-jshint": "~0.4.3",
-        "grunt-mocha-cli": "~1.2.1"
+        "grunt-mocha-cli": "~1.2.1",
+        "assert": ">= 0.4.9",
+        "mocha": ">= 1.7.4",
+        "should": "*"
     },
     "licenses": [
-        {
-            "type": "MIT",
-            "url": "http://github.com/fawek/codepainter/raw/master/LICENSE"
-        }
+			{
+				"type": "MIT",
+				"url": "http://github.com/fawek/codepainter/raw/master/LICENSE"
+			}
     ],
     "maintainers": [
-        "Dmitry Sheiko <me@dsheiko.com> (http://dsheiko.com)"
+			"Dmitry Sheiko <me@dsheiko.com> (http://dsheiko.com)"
     ],
     "repository": {
-        "type": "git",
-        "url": "https://github.com/dsheiko/jscodesniffer.git"
+			"type": "git",
+			"url": "https://github.com/dsheiko/jscodesniffer.git"
     },
     "bugs": {
-        "url": "https://github.com/dsheiko/jscodesniffer/issues"
+			"url": "https://github.com/dsheiko/jscodesniffer/issues"
     },
     "scripts": {
         "test": "grunt test"
     },
     "keywords": [
-        "styleguide",
-        "formatter"
+			"styleguide",
+			"formatter"
     ]
 }

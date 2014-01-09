@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JSCodeSniffer with RequireJS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+		 <script data-main="demo" src="require.js"></script>
+		 <script src="demo.js"></script>
+
+  </head>
+  <body>
+		<div>Example of using JSCodeSniffer with client-side JavaScript (RequireJS)</div>
+		<form id="form">
+			<textarea id="srcCode">
+var foo = [a,b];
+if(condition) doSomething();
+			</textarea>
+			<button type="submit">Sniff</button>
+		</form>
+		<ul id="output">
+
+		</ul>
+  </body>
+</html>

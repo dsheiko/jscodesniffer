@@ -1,14 +1,25 @@
-JS_CodeSniffer
+JSCodeSniffer v.2.x
 ==============
 [![Build Status](https://travis-ci.org/dsheiko/jscodesniffer.png)](https://travis-ci.org/dsheiko/jscodesniffer)
 [![NPM version](https://badge.fury.io/js/jscodesniffer.png)](http://badge.fury.io/js/jscodesniffer)
 
-JS_CodeSniffer is a node.js application that tokenises and "sniffs" JavaScript files to detect violations of a defined coding standard. It is an essential development tool that ensures your code remains clean and consistent.
-A coding standard in JS_CodeSniffer is a collection of sniff files. Each sniff checks one part of the coding standard only. The default coding standard used by JS_CodeSniffer is the Idiomatic Style Manifesto (https://github.com/rwldrn/idiomatic.js).
+JSCodeSniffer is a node.js application that validates JavaScript sources against provided coding style, just like phpcs.
+One can define a custom coding style by using described below JSON notation or use one of predefined standards.
 
-STATUS: 1.1.1
 
-JS Sniffer online available at http://jscodesniffer.dsheiko.com
+## Features
+* Tool is available as UMD (can be used [with nodejs](#a-use) or as a [RequireJS module](#a-amd))
+* Predefined popular coding styles ([jQuery Coding Style Guide](http://contribute.jquery.org/style-guide/js/), [Idiomatic Style Manifesto](https://github.com/rwaldron/idiomatic.js/))
+* Reports in the style of [phpcs](https://github.com/squizlabs/PHP_CodeSniffer)
+* Solution ready for [Continuous Integration](#a-ci)
+    - Provided [Git pre-commit hook script](#a-git)
+    - Provided [SVN pre-commit hook script](#a-svn)
+    - Provided [Grunt task](#a-grunt)
+    - Provided [Jenkins CheckStyle report](#a-ant)
+* Custom standard [can be easily configured](#a-standard) by using JSON notation
+* Scripts can be associated to a coding style in block comments [using `jscs` tag](#a-env)
+* Relaxing options can be provided with [real-time configuration](#a-realtime) (`.jscsrc`) per project
+* Thoroughly covered with automated tests: 200+ unit-tests, 70+ integration tests
 
 ## Setup
 
@@ -16,46 +27,391 @@ JS_CodeSniffer relies on node.js. If you don't have node.js installed, just foll
 https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
 
 Make sure all the required dependencies installed
-```
+```bash
 npm i
 ```
 Make sure the binary is executable
-```
+```bash
 chmod +x jscs
 ```
 You can also create a symlink to make it globally available
-```
+```bash
 ln -s jscs /usr/local/bin/jscs
 ```
 
-## Usage
+## <a name="a-use"></a> Using JSCodeSniffer in the command line
 
-Simply get detailed report on the file coding style according to Idiomatic Style Manifesto
-```
+Simply get detailed report on the file coding style according to jQuery Coding Style Guide
+```bash
 ./jscs source-code.js
+```
+
+It's equivalent to:
+```bash
+node jscs.js source-code.js
 ```
 
 ![JS CodeSniffer Full Report Example](https://raw.github.com/dsheiko/jscodesniffer/master/doc/sample1.jpg "JS CodeSniffer Full Report Example")
 
 Get detailed report on the coding style for all *.js/*.json files of the 'lib' folder according to jQuery Coding Style Guide
-```
-./jscs lib --standard=Jquery
+```bash
+./jscs lib --standard=Jquery --report-full
 ```
 
 Get summary report
-```
+```bash
 ./jscs lib --report-summary
 ```
 ![JS CodeSniffer Summary Report Example](https://raw.github.com/dsheiko/jscodesniffer/master/doc/sample2.jpg "JS CodeSniffer Summary Report Example")
 
 Get XML report (which allows you to parse the output easily and use the results in your own scripts)
-```
+```bash
 ./jscs lib --report=xml
 ```
 
-Setting up [Apache Ant](http://ant.apache.org/) build script reporting to [Jenkins](http://jenkins-ci.org) Checkstyle plugin.
-NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will find created by phpcs checkstyle.xml and extend its body instead of overriding the report.
+Get Checkstyle report (that is supported by wide range of 3rd party software. E.g. Jenkins via a plugin)
+```bash
+./jscs lib --report=checkstyle
 ```
+
+Report to a file (by default report goes to stdout)
+```bash
+./jscs lib --report-file=filePath
+```
+
+Disable colors in the report
+```bash
+./jscs lib --highlight=0
+```
+
+Define width of report screen
+```bash
+./jscs lib --reportWidth=84
+```
+
+
+## <a name="a-amd"></a> Using JSCodeSniffer as RequireJS (AMD) module
+
+1. Install the package or download and unpack it into you project folder
+```bash
+ npm i jscodesniffer
+```
+
+2. Use RequireJS to load required modules
+
+```javascript
+require( [ "<pkg-path>/lib/Sniffer", "<pkg-path>/lib/Dictionary/en", "<pkg-path>/lib/Dictionary" ], function( Sniffer, en, Dictionary ) {
+  var sniffer = new Sniffer(),
+      dictionary = new Dictionary( en ),
+      logger, messages;
+
+    // Get sniffer report
+    logger = sniffer.getTestResults( node.srcCode.value, { standard: "Jquery" } ),
+    // Translate messages
+    messages = dictionary.translateBulk( logger.getMessages(), true );
+    // Output report
+    console.log( messages );
+});
+```
+
+
+## <a name="a-env"></a> Environments
+
+Standard to sniff against can be enforced on the file by following instructions directly in the code
+```javascript
+/* jscs standard:Jquery */
+```
+Old form introduced in version 1.x.x is also supported
+```javascript
+/* @jscs standard:Jquery */
+```
+
+## <a name="a-realtime"></a> Real-Time Configuration
+
+Adjusting options can be provided as manual standard in `.jscsrc` file placed in the root of your project.
+JSCodesniffer will search upward recursively until it finds any. It will extend the specified standard rule-sets
+with the defenitions provided in this real-time configuration file. `.jscsrc` syntax is pretty much the same as standard
+defenition file except it doesn't need to be UMD (just JSON). I you need disable particular rule-sets you can simply
+empty rule-set configurations:
+
+```bash
+{
+  "Indentation": false,
+  "QuoteConventions": false
+}
+```
+
+## <a name="a-standard"></a> Declaring coding style
+Standard declaration are located in `standard` directory. You can store there in a file named after your custom standard name
+the rule-sets that you want your code be validated against. To make the defenition available for AMD/RequireJs, the JSON notation is supposed
+to be wrapped as a UMD module.
+
+NOTE: Conventions 'Any ; used as a statement terminator must be at the end of the line' and 'Multi-line Statements is checked'
+are tested by JSHint and therefore not provided with sniffs (See [http://contribute.jquery.org/style-guide/js/#linting] for details).
+
+```javascript
+{
+  /*
+    defines what characters allowed for line indentation
+  */
+    "Indentation": {
+      "allowOnlyTabs": true,
+      "allowOnlySpaces": true
+    },
+  /*
+    defines if trailing spaces allowed for lines
+  */
+    "LineSpacing": {
+      "allowLineTrailingSpaces": false
+    },
+  /*
+    defines allowed range for line length
+  */
+    "LineLength": {
+      "allowMaxLength": 80,
+      "allowMinLength": 0
+    },
+  /*
+    defines spacing conventions for comma punctuator
+    Example:
+    // good
+    var foo, bar;
+    // bad
+    var foo , bar;
+  */
+    "CommaPunctuatorSpacing": {
+      "disallowPrecedingSpaces": false
+    },
+/*
+    defines spacing conventions for semicolon punctuator
+    Example:
+    // good
+    var foo;
+    // bad
+    var foo ;
+  */
+    "SemicolonPunctuatorSpacing": {
+      "disallowPrecedingSpaces": false
+    },
+
+  /*
+    defines scoping rules for compound statements
+
+    Example:
+    // good
+    if ( true ) {
+      var foo = "bar";
+    }
+    // bad
+    if ( true ) var foo = "bar";
+
+  */
+    "CompoundStatementConventions": {
+      "for": [
+        "IfStatement",
+        "SwitchStatement",
+        "WhileStatement",
+        "DoWhileStatement",
+        "ForStatement",
+        "ForInStatement",
+        "WithStatement",
+        "TryStatement"
+      ],
+      "requireBraces": true,
+      "requireMultipleLines": true
+    },
+    /*
+    defines spacing conventions for unary expressions
+
+    Example:
+    !!100 // good
+    !! 100 // bad
+    */
+    "UnaryExpressionIdentifierSpacing": {
+      "allowTrailingWhitespaces" : 0
+    },
+    /*
+    defines spacing conventions for ternary conditionals
+
+    Example:
+    foo = true ? 1 : 0; // good
+    foo = true ?1:0; // bad
+    */
+    "TernaryConditionalPunctuatorsSpacing": {
+      "allowTestTrailingWhitespaces": 1,
+      "allowConsequentPrecedingWhitespaces": 1,
+      "allowConsequentTrailingWhitespaces": 1,
+      "allowAlternatePrecedingWhitespaces": 1
+    },
+    /*
+    defines spacing conventions for empty constructs
+
+    Example:
+    obj = {}; // good
+    obj = {  }; // bad
+    */
+    "EmptyConstructsSpacing": {
+      "for": [
+        "ObjectExpression",
+        "ArrayExpression",
+        "CallExpression"
+      ],
+      "allowWhitespaces": false
+    },
+   /*
+    defines spacing conventions for object literals
+
+    Example:
+    obj = { prop: 1 }; // good
+    obj = { prop:1 };// bad
+    */
+    "ObjectLiteralSpacing": {
+      "allowKeyPrecedingWhitespaces": 1,
+      "allowKeyTrailingWhitespaces": 0,
+      "allowValuePrecedingWhitespaces": 1,
+      "allowValueTrailingWhitespaces": 1
+    },
+   /*
+    defines spacing conventions for array literals
+
+    Example:
+    arr = [ 1, 2 ]; // good
+    arr = [1,2]; // bad
+    */
+    "ArrayLiteralSpacing": {
+      "allowElementPrecedingWhitespaces": 1,
+      "allowElementTrailingWhitespaces": 1
+    },
+   /*
+    defines type of quotes to use across the code-base
+
+    Example:
+    foo = "text"; // good
+    foo = 'text'; // bad
+    */
+    "QuoteConventions": {
+      "allowDoubleQuotes": true,
+      "allowSingleQuotes": false
+    },
+    /*
+    defines naming conventions for variables
+    Note: variable of all uppercase (including $_0-9) are considered as constants and ignored by the sniffer
+
+    Example:
+    var camelCase; // good
+    var not_camel_case; // bad
+    */
+    "VariableNamingConventions": {
+      "allowCase": ["camel"],
+      "allowRepeating": true,
+      "allowNumbers": true
+    },
+   /*
+    defines naming conventions for functions
+
+    Example:
+    var PascalCase; // good
+    var not_camel_or_pascal_case; // bad
+    */
+    "FunctionNamingConventions": {
+      "allowCase": ["camel", "pascal"],
+      "allowRepeating": true,
+      "allowNumbers": true
+    },
+   /*
+    defines spacing conventions for arguments
+
+    Example:
+    fn( 1, 2 ); // good
+    fn(1,2); // bad
+    */
+    "ArgumentsSpacing": {
+      "allowArgPrecedingWhitespaces": 1,
+      "allowArgTrailingWhitespaces": 1,
+      "exceptions": {
+        "singleArg" : {
+          "for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
+          "allowArgPrecedingWhitespaces": 0,
+          "allowArgTrailingWhitespaces": 0
+        },
+        "firstArg": {
+          "for": [ "FunctionExpression" ],
+          "allowArgPrecedingWhitespaces": 0
+        },
+        "lastArg": {
+          "for": [ "FunctionExpression" ],
+          "allowArgTrailingWhitespaces": 0
+        }
+      }
+    },
+  /*
+    defines spacing conventions for parameters
+
+    Example:
+    function fn( foo, bar ){}; // good
+    function fn(foo,bar){}; // bad
+    */
+    "ParametersSpacing": {
+      "allowParamPrecedingWhitespaces": 1,
+      "allowParamTrailingWhitespaces": 1
+    },
+  /*
+    defines how methods can be placed when a chain of method calls is too long to fit on one line
+
+    Example:
+    // good
+    elements
+    .addClass( "foo" )
+    .children();
+
+    // bad
+    elements.addClass( "foo" )
+    .children();
+    */
+    "ChainedMethodCallsSpacing" : {
+      "allowTrailingObjectWhitespaces": 0,
+      "allowPrecedingPropertyWhitespaces": 0,
+      "allowOnePerLineWhenMultilineCaller": true
+    },
+    /*
+    defines spacing conventions for operators (including declarator)
+
+    Example:
+    foo = 1 + 1; // good
+    foo = 1+1; // bad
+    */
+    "OperatorSpacing" : {
+      "allowOperatorPrecedingWhitespaces": 1,
+      "allowOperatorTrailingWhitespaces": 1
+    },
+    /*
+    defines conventions for variable declarations
+
+    Example:
+    // good
+    (function(){
+      var foo, bar;
+    })();
+
+    // bad
+    (function(){
+      var foo;
+      var bar;
+    })();
+    */
+    "VariableDeclarationPerScopeConventions" : {
+      "disallowMultiplePerBlockScope": true,
+      "requireInTheBeginning": true
+    }
+
+  }
+```
+
+# <a name="a-ci"></a>JSCodeSniffer and Continuous Integration
+
+## <a name="a-ant"></a>Setting up [Apache Ant](http://ant.apache.org/) build script reporting to [Jenkins](http://jenkins-ci.org) Checkstyle plugin.
+NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will find created by phpcs checkstyle.xml and extend its body instead of overriding the report.
+```xml
 <target name="jscs-ci"
          description="Find coding standard violations using JS_CodeSniffer and print human readable output.">
   <exec executable="jscs">
@@ -67,10 +423,10 @@ NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will fi
  </target>
 ```
 
-Setting up [Grunt](http://gruntjs.com/) task:
+## <a name="a-grunt"></a>Setting up [Grunt](http://gruntjs.com/) task
 
 *Gruntfile.js*
-```
+```javascript
 grunt.loadNpmTasks('grunt-jscs');
 grunt.initConfig({
      // Validate against jQuery coding standard
@@ -83,127 +439,29 @@ grunt.initConfig({
   });
 ```
 *package.json*
-```
+```javascript
 "devDependencies": {
     //..
+    "jscodesniffer": ">= 2.0.0",
     "grunt-jscs": ">0.0.1"
   }
 ```
 
-## Environments
-
-Standard to sniff against can be enforced on the file by following instructions directly in the code
-```
-/* @jscs standard:Jquery */
-```
-
-## Using the Subversion pre-commit hook
+## <a name="a-svn"></a> Using the Subversion pre-commit hook
 
 A pre-commit hook is a feature available in the Subversion version control system that allows code to be validated before it is committed to the repository.
 Edit scripts/jscs-svn-pre-commit and replace JSCS value with your own path to JS CodeSniffer
-```
+```bash
 JSCS = "/your-path/jscodesniffer"
 ```
 
 Make a symlink of scripts/jscs-svn-pre-commit in your repository hooks folder. E.g.
-```
+```bash
 ln -s /<full path>/scripts/jscs-svn-pre-commit /repositories/<project>/hooks/pre-commit
 ```
 
-## Using the git pre-commit hook
+## <a name="a-git"></a> Using the git pre-commit hook
 Make a symlink of scripts/jscs-git-pre-commit in your repository .git/hooks folder. E.g.
-```
+```bash
 ln -s /<full path>/scripts/jscs-git-pre-commit /<project>/.git/hooks/pre-commit
 ```
-
-
-## Following sniffs implemented
-
-### Idiomatic Style Manifesto:
-
-* Identifier naming convention
-  * Constructors must be on PascalCase and other identifiers of camelCase
-  * Neither Pascal nor CamelCase allows repeating uppercase characters
-  * Both allow but only trailing digits
-
-```
-var camelCase,
-    camelCase1,
-    PascalCaseIdentifier = function(){},
-    obj = { PascalCaseIdentifier: function(){} };
-```
-
-* Liberal spacing on operators (Arithmetic Operators, Assignment Operators, Bitwise Operators, Comparison Operators, Logical Operators)
-
-```
-num >> 0;
-num >>> 0;
-length === 0;
-```
-
-* Liberal spacing on primitive type literals ( Boolean, Date, Number, RegExp,  String)
-
-```
-var num = 42,
-    str = "string",
-    re = /A-Z/,
-    coercion = 42 + "string" + null;
-```
-
-* Liberal spacing on function arguments
-
-```
-foo( 1, 2, 3 );
-foo([ "alpha", "beta" ]);
-foo({
-  a: "alpha",
-  b: "beta"
-});
-foo("bar");
-```
-
-* Liberal spacing within grouping parenthesis
-
-```
-if ( !("foo" in obj) ) {
-}
-```
-
-* Single var statement per scope
-
-```
-var foo = "",
-    bar = "",
-    quux = function() {
-        var foo;
-    };
-```
-
-
-### JQuery Core Style Guidelines:
-
-* Identifier naming convention
-* Liberal spacing on operators (Arithmetic Operators, Assignment Operators, Bitwise Operators, Comparison Operators, Logical Operators)
-* Liberal spacing on primitive type literals ( Boolean, Date, Number, RegExp,  String)
-* Liberal spacing on function arguments
-  * If inside other function call, no spaces wrapping the expression allowed otherwise grouping parens must have one padding space
-  * Functions, object literals, array literals and string literals go snug to front and back of the parentheses when it's the only argument
-  * Multi-line function/object/array literals go snug at end
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/ec7ee35f81b13e41097453e9da3106cb "githalytics.com")](http://githalytics.com/dsheiko/jscodesniffer)
-
-
-# Implementation notes
-
-JSCodeSniffer uses token array provided by Esprima. It wraps the array elements with TokenizerIterator object that enhance
-the sequence with backward/forward navigation and matching methods.
-JSCodeSniffer traverses tokens sequence till a stop condition. Then it relies on the following methods to find out about surroundings of the current tokens:
-
-* instance.current() - the same as instance.get(0)
-* instance.get(N positive value) - next N's token
-* instance.get(N negative value) - prev N's token
-
-and following methods to examine if a token matches given conditions:
-
-* instance.match("String") - is a token of the type "String"
-* instance.match("Keyword", [ "var", "const" ]) - is a token of the type "Keyword" with value "var" or "const"

@@ -1,9 +1,29 @@
 {
   "globals": {
-    "define": false,
-    "require": false,
+    "define": true,
+    "require": true,
     "exports": true,
-    "window": true
+    "window": true,
+		"describe": false,
+		"it": false,
+		"should": false,
+		"beforeEach": false,
+		"afterEach": false,
+		"module": false,
+		"__dirname": false,
+		"console": true
   },
-  "expr" : true
+  "boss": true,
+  "curly": true,
+  "eqeqeq": true,
+  "eqnull": true,
+  "expr": true,
+  "immed": true,
+  "noarg": true,
+  "onevar": true,
+  "quotmark": "double",
+  "smarttabs": true,
+  "trailing": true,
+  "undef": true,
+  "unused": true
 }

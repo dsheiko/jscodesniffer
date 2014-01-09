@@ -1,0 +1,95 @@
+{
+    "type": "Program",
+    "body": [
+        {
+            "type": "VariableDeclaration",
+            "declarations": [
+                {
+                    "type": "VariableDeclarator",
+                    "id": {
+                        "type": "Identifier",
+                        "name": "a",
+                        "range": [
+                            218,
+                            219
+                        ],
+                        "loc": {
+                            "start": {
+                                "line": 9,
+                                "column": 4
+                            },
+                            "end": {
+                                "line": 9,
+                                "column": 5
+                            }
+                        }
+                    },
+                    "init": null,
+                    "range": [
+                        218,
+                        219
+                    ],
+                    "loc": {
+                        "start": {
+                            "line": 9,
+                            "column": 4
+                        },
+                        "end": {
+                            "line": 9,
+                            "column": 5
+                        }
+                    }
+                }
+            ],
+            "kind": "var",
+            "range": [
+                214,
+                220
+            ],
+            "loc": {
+                "start": {
+                    "line": 9,
+                    "column": 0
+                },
+                "end": {
+                    "line": 9,
+                    "column": 6
+                }
+            }
+        }
+    ],
+    "range": [
+        214,
+        220
+    ],
+    "loc": {
+        "start": {
+            "line": 9,
+            "column": 0
+        },
+        "end": {
+            "line": 9,
+            "column": 6
+        }
+    },
+    "comments": [
+        {
+            "type": "Block",
+            "value": "\n * @package jscodesniffer\n * @author sheiko\n * @license MIT\n * @copyright (c) Dmitry Sheiko http://www.dsheiko.com\n * @jscs standard:Jquery\n * Code style: http://docs.jquery.com/JQuery_Core_Style_Guidelines\n ",
+            "range": [
+                0,
+                213
+            ],
+            "loc": {
+                "start": {
+                    "line": 1,
+                    "column": 0
+                },
+                "end": {
+                    "line": 8,
+                    "column": 3
+                }
+            }
+        }
+    ]
+}
