@@ -6,5 +6,6 @@
 describe("method",..
 it ("must..."
 it ("must..."
-* Make online validator
+* Make online validator highlighting problem code using payload start/end locations
 * Make inline documentation compatible to JSDoc 3 (http://usejsdoc.org/tags-param.html)
+* Add a Sniff checking all the NewExpression followed by PascalStyle
