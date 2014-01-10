@@ -160,11 +160,11 @@ define(function() {
 		with the first call on a separate line from the object the methods are called on.
 		If the method changes the context, an extra level of indentation must be used.
 		*/
-	"ChainedMethodCallsSpacing": {
-		"allowTrailingObjectWhitespaces": 0,
-		"allowPrecedingPropertyWhitespaces": 0,
-		"allowOnePerLineWhenMultilineCaller": true
-	},
+//	"ChainedMethodCallsSpacing": {
+//		"allowTrailingObjectWhitespaces": 0,
+//		"allowPrecedingPropertyWhitespaces": 0,
+//		"allowOnePerLineWhenMultilineCaller": true
+//	},
 
 	"OperatorSpacing": {
 		"allowOperatorPrecedingWhitespaces": 1,

@@ -225,37 +225,37 @@ object[ array[ i ] ] = someFn( i );\n\
 
       });
 
-    describe( " ( Chained Method Calls ) ", function () {
-      var
-          sniffer,
-          logger = null;
-
-      beforeEach(function(){
-        sniffer = new Sniffer();
-      });
-
-        it("there must be one call per line, with the first call on a separate line from the object the methods" +
-          " are called on (1)", function () {
-          logger = sniffer.getTestResults( "elements\n.addClass( \"foo\" )\n.children();", OPTIONS );
-          logger.getMessages().length.should.not.be.ok;
-        });
-        it("there must be one call per line.. (2)", function () {
-          logger = sniffer.getTestResults(
-              "elements\n.addClass( \"foo\" )\n.children()\n.aa\n.b(function(){\na();\n});", OPTIONS );
-          logger.getMessages().length.should.not.be.ok;
-        });
-
-        it("but only of its multilin chain (3)", function () {
-          logger = sniffer.getTestResults( "elements.a( 1 ).b().aa.b(function(){\na();\n});", OPTIONS );
-          logger.getMessages().length.should.not.be.ok;
-        });
-
-        it("there must be one call per line.. (4)", function () {
-          logger = sniffer.getTestResults( "elements\n.addClass( \"foo\" ).children();", OPTIONS );
-          logger.getMessages().hasErrorCode( "ChainedMethodCallsOnePerLine" ).should.be.ok;
-        });
-
-    });
+//    describe( " ( Chained Method Calls ) ", function () {
+//      var
+//          sniffer,
+//          logger = null;
+//
+//      beforeEach(function(){
+//        sniffer = new Sniffer();
+//      });
+//
+//        it("there must be one call per line, with the first call on a separate line from the object the methods" +
+//          " are called on (1)", function () {
+//          logger = sniffer.getTestResults( "elements\n.addClass( \"foo\" )\n.children();", OPTIONS );
+//          logger.getMessages().length.should.not.be.ok;
+//        });
+//        it("there must be one call per line.. (2)", function () {
+//          logger = sniffer.getTestResults(
+//              "elements\n.addClass( \"foo\" )\n.children()\n.aa\n.b(function(){\na();\n});", OPTIONS );
+//          logger.getMessages().length.should.not.be.ok;
+//        });
+//
+//        it("but only of its multilin chain (3)", function () {
+//          logger = sniffer.getTestResults( "elements.a( 1 ).b().aa.b(function(){\na();\n});", OPTIONS );
+//          logger.getMessages().length.should.not.be.ok;
+//        });
+//
+//        it("there must be one call per line.. (4)", function () {
+//          logger = sniffer.getTestResults( "elements\n.addClass( \"foo\" ).children();", OPTIONS );
+//          logger.getMessages().hasErrorCode( "ChainedMethodCallsOnePerLine" ).should.be.ok;
+//        });
+//
+//    });
 
     describe( " ( Assignments ) ", function () {
       var
