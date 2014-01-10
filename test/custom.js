@@ -21,12 +21,9 @@ describe( " Custom checks ", function () {
   });
 
   it("-", function () {
-   var code = "jQuery.unique(\n\
-				jQuery.merge( this.get(), jQuery( selector, context ) )\n\
-			)";
+   var code = "!!( false );";
     logger = sniffer.getTestResults( code, OPTIONS );
     console.log(logger.getMessages());
-    //logger.getMessages().hasErrorCode("CompoundStatementRequireMultipleLines").should.be.ok;
   });
 
 });
