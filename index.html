@@ -1,79 +1,113 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en" dir="ltr" itemscope itemtype="http://schema.org/Article">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Check your JavaScript code style online</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="./assets/demo.css" />
+        <link rel="publisher" href="https://plus.google.com/113857365337532405020" />
+        <link href='http://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:600,700' rel='stylesheet' type='text/css'>
+        <link rel="shortcut icon" href="favicon.ico">
+        <link href="./js/sh/build/sh.min.css" rel="stylesheet" type="text/css" />
+        <link rel="demo" href="http://jscodesniffer.dsheiko.com" title="JS CodeSniffer" />
+				<script type="text/javascript" src="./js/sh/build/sh.min.js"></script>
+				<script data-main="js/app" src="./js/require.js"></script>
 
-  <head>
-    <meta charset='utf-8' />
-    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Jscodesniffer : Tool to ensure that your JavaScript code does not violate the specified coding standard (Idiomatic Style Manifesto or JQuery Core Style Guidelines)" />
-
-    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
-
-    <title>Jscodesniffer</title>
-  </head>
-
-  <body>
-
-    <!-- HEADER -->
-    <div id="header_wrap" class="outer">
-        <header class="inner">
-          <a id="forkme_banner" href="https://github.com/dsheiko/jscodesniffer">View on GitHub</a>
-
-          <h1 id="project_title">Jscodesniffer</h1>
-          <h2 id="project_tagline">Tool to ensure that your JavaScript code does not violate the specified coding standard (Idiomatic Style Manifesto or JQuery Core Style Guidelines)</h2>
-
-            <section id="downloads">
-              <a class="zip_download_link" href="https://github.com/dsheiko/jscodesniffer/zipball/master">Download this project as a .zip file</a>
-              <a class="tar_download_link" href="https://github.com/dsheiko/jscodesniffer/tarball/master">Download this project as a tar.gz file</a>
-            </section>
+        <!--[if lt IE 9]>
+            <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+          <script type="text/javascript">
+            var _gaq = _gaq || [];
+              _gaq.push(['_setAccount', 'UA-1150677-1']);
+              _gaq.push(['_setDomainName', 'jscodesniffer.dsheiko.com']);
+              _gaq.push(['_trackPageview']);
+            (function() {
+              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+          </script>
+    </head>
+    <body>
+        <header id="home" role="banner">
+            <div>
+                <hgroup>
+                    <h1>JSCodeSniffer Online</h1>
+                    <h2>validates JavaScript code according to a provided coding style</h2>
+                </hgroup>
+                <a class="fork" href="https://github.com/dsheiko/jscodesniffer">Fork Me on GitHub</a>
+            </div>
         </header>
-    </div>
+        <section role="main">
+            <div>
+                <article>
+                    <h2>Overview</h2>
 
-    <!-- MAIN CONTENT -->
-    <div id="main_content_wrap" class="outer">
-      <section id="main_content" class="inner">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+                    <p>This validator checks JavaScript code style consistency according to <a href="http://contribute.jquery.org/style-guide/js/">jQuery JavaScript Style Guide</a> or
+											<a href="https://github.com/rwaldron/idiomatic.js/">Idiomatic Style Manifesto</a> depending on which standard you choose.</p>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+										<p>Maintaining a uniform style and following conventions encourages code readability, increases efficiency and productivity</p>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+                    <h2>Check your code online</h2>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+                    <form id="srccode">
+                        <p>Insert your code in the form below, select coding style standard and press "Validate" button</p>
+                        <textarea rows="10"></textarea>
+                        <div class="standard">
+                            Standard: <select name="standard">
+															<option value="Jquery">jQuery</option>
+															<option>Idiomatic</option>
+                            </select>
+                        </div>
+                        <button type="submit">Validate</button>
+                    </form>
+                    <div id="srcview">
+                        <p class="message"></p>
+                        <div class="container">
+                        </div>
+                    </div>
+                    <div id="srclog">
+                        <h2>Error Log</h2>
+                        <div class="container">
+                        </div>
+                    </div>
+                    <div id="reset">
+                        <button>Do you want to try again?</button>
+                    </div>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+										<p>
+										</p>
+                        <div id="disqus_thread"></div>
+                </article>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+                <div class="download">
+                    <a class="btn btn-inverse btn-large" href="https://github.com/dsheiko/jscodesniffer">Download the latest version from GitHub</a>
+                </div>
+            </div>
+        </section>
+        <footer>
+            <article>
+                <p><var>jscodesniffer</var> is created by <a href="http://dsheiko.com">Dmitry Sheiko</a>.
+                    It's released under the MIT license. </p>
+                <p>If you have any questions or feedback you can use the <a href="https://github.com/dsheiko/jscodesniffer">GitHub project page.</a>
+                </p>
+            </article>
+        </footer>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<script type="text/javascript">
+	  (function() {
+           // disqus_identifier = id;
+	   var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+           dsq.id = 'disqusLoader';
+	   dsq.src = 'http://dsheiko.disqus.com/embed.js';
+	   (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+	  })();
+	</script>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
-      </section>
-    </div>
-
-    <!-- FOOTER  -->
-    <div id="footer_wrap" class="outer">
-      <footer class="inner">
-        <p class="copyright">Jscodesniffer maintained by <a href="https://github.com/dsheiko">dsheiko</a></p>
-        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
-      </footer>
-    </div>
-
-    
-
-  </body>
+    </body>
 </html>

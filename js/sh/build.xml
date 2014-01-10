@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE project>
+<project name="sh"  basedir="." default="build">
+    <property name="root.dir" location="." />
+    <property name="src.dir" location="${root.dir}/scripts" />
+    <property name="css.dir" location="${root.dir}/styles" />
+    <property name="build.dir" location="${root.dir}/build" />
+    <target name="build">
+        <concat destfile="${build.dir}/sh.min.js" encoding="UTF-8" >
+            <filelist dir="${src.dir}" files= "shCore.js,shBrushJScript.js,shBrushPhp.js,shBrushXml.js,shBrushCss.js,shBrushJava.js,shBrushPlain.js">
+            </filelist>
+        </concat>        
+        <concat destfile="${build.dir}/sh.min.css" encoding="UTF-8" >
+            <filelist dir="${css.dir}" files= "shCore.css,shThemeDefault.css">
+            </filelist>
+        </concat>
+    </target>
+</project>
