@@ -465,3 +465,6 @@ Make a symlink of scripts/jscs-git-pre-commit in your repository .git/hooks fold
 ```bash
 ln -s /<full path>/scripts/jscs-git-pre-commit /<project>/.git/hooks/pre-commit
 ```
+
+
+[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/ec7ee35f81b13e41097453e9da3106cb "githalytics.com")](http://githalytics.com/dsheiko/jscodesniffer)
