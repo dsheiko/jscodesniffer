@@ -21,7 +21,7 @@ describe( " Custom checks ", function () {
   });
 
   it("-", function () {
-   var code = "!!( false );";
+   var code = "fn( 1,2 );";
     logger = sniffer.getTestResults( code, OPTIONS );
     console.log(logger.getMessages());
   });
