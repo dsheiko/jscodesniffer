@@ -13,7 +13,7 @@ document.addEventListener( "DOMContentLoaded", function() {
         var logger, messages;
         e.preventDefault();
         // Get sniffer report
-        logger = sniffer.getTestResults( node.srcCode.value, { standard: "Jquery" } ),
+        logger = sniffer.getTestResults( node.srcCode.value, { standard: "Jquery" } );
         // Translate messages
         messages = dictionary.translateBulk( logger.getMessages(), true );
         // Output report
