@@ -83,12 +83,12 @@ define(function() {
 		"allowConsequentPrecedingWhitespaces": 1,
 		"allowConsequentTrailingWhitespaces": 1,
 		"allowAlternatePrecedingWhitespaces": 1,
-			/*
-			 foo( a?b:c )
-			 The exceptions for nesting have been removed.
-				Now it can be as no space as one space convention
-			 */
-			"nesting": false
+		/*
+		 foo( a?b:c )
+		 The exceptions for nesting have been removed.
+			Now it can be as no space as one space convention
+		 */
+		"ifNesting": false
 	},
 	/*
 		No filler spaces in empty constructs (e.g., {}, [], fn())
@@ -154,14 +154,14 @@ define(function() {
 			"lastArg": {
 				"for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
 				"allowArgTrailingWhitespaces": 0
-			},
-			/*
-			 foo( bar(1) )
-			 The exceptions for nesting have been removed.
-				Now it can be as no space as one space convention
-			 */
-			"nesting": false
-		}
+			}
+		},
+		/*
+		foo( bar(1) )
+		The exceptions for nesting have been removed.
+		 Now it can be as no space as one space convention
+		*/
+		"ifNesting": false
 	},
 	"ParametersSpacing": {
 		"allowParamPrecedingWhitespaces": 1,
