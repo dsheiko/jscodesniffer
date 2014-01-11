@@ -241,7 +241,21 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       "allowTestTrailingWhitespaces": 1,
       "allowConsequentPrecedingWhitespaces": 1,
       "allowConsequentTrailingWhitespaces": 1,
-      "allowAlternatePrecedingWhitespaces": 1
+      "allowAlternatePrecedingWhitespaces": 1,
+       /*
+        Optional modifier.
+        When undefined the sniffer treats nesting statements the same 
+            as regular
+        When false, no rules applied for nesting statements
+        When defined, the corresponding rules go for nesting statements
+        foo( a?b:c )
+        */
+      "ifNesting": {
+        "allowTestTrailingWhitespaces": 0,
+        "allowConsequentPrecedingWhitespaces": 0,
+        "allowConsequentTrailingWhitespaces": 0,
+        "allowAlternatePrecedingWhitespaces": 0       
+      }
     },
     /*
     defines spacing conventions for empty constructs
@@ -342,6 +356,18 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
           "for": [ "FunctionExpression" ],
           "allowArgTrailingWhitespaces": 0
         }
+      },
+      /*
+        Optional modifier.
+        When undefined the sniffer treats nesting statements the same 
+            as regular
+        When false, no rules applied for nesting statements
+        When defined, the corresponding rules go for nesting statements
+        foo( bar(1,1) )
+        */
+      "ifNesting": {
+        "allowArgPrecedingWhitespaces": 0,
+        "allowArgTrailingWhitespaces": 0  
       }
     },
   /*
