@@ -82,18 +82,24 @@ define(function() {
 		"allowTestTrailingWhitespaces": 1,
 		"allowConsequentPrecedingWhitespaces": 1,
 		"allowConsequentTrailingWhitespaces": 1,
-		"allowAlternatePrecedingWhitespaces": 1
+		"allowAlternatePrecedingWhitespaces": 1,
+			/*
+			 foo( a?b:c )
+			 The exceptions for nesting have been removed.
+				Now it can be as no space as one space convention
+			 */
+			"nesting": false
 	},
 	/*
 		No filler spaces in empty constructs (e.g., {}, [], fn())
 		*/
 	"EmptyConstructsSpacing": {
 		"for": [
-		"ObjectExpression",
-		"ArrayExpression",
-		"CallExpression",
-		"FunctionDeclaration",
-		"FunctionExpression"
+			"ObjectExpression",
+			"ArrayExpression",
+			"CallExpression",
+			"FunctionDeclaration",
+			"FunctionExpression"
 		],
 		"allowWhitespaces": false
 	},
@@ -136,19 +142,25 @@ define(function() {
 		"allowArgPrecedingWhitespaces": 1,
 		"allowArgTrailingWhitespaces": 1,
 		"exceptions": {
-		"singleArg": {
-			"for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
-			"allowArgPrecedingWhitespaces": 0,
-			"allowArgTrailingWhitespaces": 0
-		},
-		"firstArg": {
-			"for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
-			"allowArgPrecedingWhitespaces": 0
-		},
-		"lastArg": {
-			"for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
-			"allowArgTrailingWhitespaces": 0
-		}
+			"singleArg": {
+				"for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
+				"allowArgPrecedingWhitespaces": 0,
+				"allowArgTrailingWhitespaces": 0
+			},
+			"firstArg": {
+				"for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
+				"allowArgPrecedingWhitespaces": 0
+			},
+			"lastArg": {
+				"for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
+				"allowArgTrailingWhitespaces": 0
+			},
+			/*
+			 foo( bar(1) )
+			 The exceptions for nesting have been removed.
+				Now it can be as no space as one space convention
+			 */
+			"nesting": false
 		}
 	},
 	"ParametersSpacing": {
@@ -160,11 +172,11 @@ define(function() {
 		with the first call on a separate line from the object the methods are called on.
 		If the method changes the context, an extra level of indentation must be used.
 		*/
-//	"ChainedMethodCallsSpacing": {
-//		"allowTrailingObjectWhitespaces": 0,
-//		"allowPrecedingPropertyWhitespaces": 0,
+	"ChainedMethodCallsSpacing": {
+		"allowTrailingObjectWhitespaces": 0,
+		"allowPrecedingPropertyWhitespaces": 0
 //		"allowOnePerLineWhenMultilineCaller": true
-//	},
+},
 
 	"OperatorSpacing": {
 		"allowOperatorPrecedingWhitespaces": 1,
