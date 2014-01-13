@@ -1,6 +1,6 @@
 * Use TokenIterator to identify sibling tokens. That will improve quality of spacing around check and make feasible
 chained call per line sniff
-
+* Add Sniffers to check against JSDoc3: missing documentation, invalid tags and doc syntax
 * Write a decent documentation, probably using Bootstrap 3.0 doc template
 * Formalize ErrorCodes, probably following the pattern <ruleseName>.<ruleName>. References: phpcs
 * Add Crockford's styles http://javascript.crockford.com/code.html
