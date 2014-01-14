@@ -11,7 +11,8 @@
 		"afterEach": false,
 		"module": false,
 		"__dirname": false,
-		"console": true
+		"console": true,
+		"argv": false
   },
   "boss": true,
   "curly": true,
