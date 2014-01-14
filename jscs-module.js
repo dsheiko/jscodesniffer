@@ -104,12 +104,12 @@ define(function( require ) {
 		cli.applyToEveryFileInPath( where, function( pathArg, data ) {
 			var logger;
 			options.src = pathArg;
-			try {
+//			try {
 				logger = sniffer.getTestResults( data, options, rulesetOverrides );
 				reporter.add( pathArg, dictionary.translateBulk( logger.getMessages() ), options.standard );
-			} catch ( e ) {
-				console.error( e );
-			}
+//			} catch ( e ) {
+//				console.error( e );
+//			}
 		});
 
 		if ( options.report === "checkstyle" && typeof options["report-file"] !== "undefined" ) {
