@@ -1,6 +1,7 @@
 /*jshint -W068 */
 var fixture = require( "./inc/fixture" ),
-    MediatorMock = require( "./inc/MediatorMock" ),
+    TokenIteratorStub = require( "./inc/TokenIteratorStub" ),
+		MediatorMock = require( "./inc/MediatorMock" ),
     SourceCodeStub = require( "./inc/SourceCodeStub" ),
     sniffClass = require( "../lib/Sniff/SyntaxTree/ArgumentsSpacing" );
 
@@ -76,90 +77,120 @@ describe( "ArgumentsSpacing", function () {
       });
 
       it("must trigger no violation on a( 1, 1 )", function () {
-          var caseId = "case1";
-          pNode = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          var caseId = "case1",
+							tree = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" );
+          pNode = tree.body[ 0 ].expression;
           sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArgumentsSpacing/" + caseId + ".js" )
-            ), mediator );
+            ), mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           mediator.getMessages().should.not.be.ok;
         });
         it("must trigger violation on a(1, 1 )", function () {
-          var caseId = "case2";
-          pNode = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          var caseId = "case2",
+							tree = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" );
+          pNode = tree.body[ 0 ].expression;
           sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArgumentsSpacing/" + caseId + ".js" )
-            ), mediator );
+            ), mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           msg = mediator.getMessage( "ArgPrecedingWhitespaces" );
           msg.should.be.ok;
         });
         it("must trigger violation on a( 1,1 )", function () {
-          var caseId = "case3";
-          pNode = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          var caseId = "case3",
+							tree = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" );
+          pNode = tree.body[ 0 ].expression;
           sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArgumentsSpacing/" + caseId + ".js" )
-            ), mediator );
+            ), mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           msg = mediator.getMessage( "ArgPrecedingWhitespaces" );
           msg.should.be.ok;
         });
         it("must trigger violation on a( 1, 1)", function () {
-          var caseId = "case4";
-          pNode = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          var caseId = "case4",
+							tree = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" );
+          pNode = tree.body[ 0 ].expression;
           sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArgumentsSpacing/" + caseId + ".js" )
-            ), mediator );
+            ), mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           msg = mediator.getMessage( "ArgTrailingWhitespaces" );
           msg.should.be.ok;
         });
         it("must trigger no violation on a( 1,.. 1..)", function () {
-          var caseId = "case5";
-          pNode = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          var caseId = "case5",
+							tree = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" );
+          pNode = tree.body[ 0 ].expression;
           sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArgumentsSpacing/" + caseId + ".js" )
-            ), mediator );
+            ), mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           mediator.getMessages().should.not.be.ok;
         });
 
 
         it("must trigger no violation on a({ p: 1 })", function () {
-          var caseId = "case6";
-          pNode = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          var caseId = "case6",
+							tree = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" );
+          pNode = tree.body[ 0 ].expression;
           sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArgumentsSpacing/" + caseId + ".js" )
-            ), mediator );
+            ), mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           mediator.getMessages().should.not.be.ok;
         });
         it("must trigger no violation on a([ 1 ])", function () {
-          var caseId = "case7";
-          pNode = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          var caseId = "case7",
+							tree = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" );
+          pNode = tree.body[ 0 ].expression;
           sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArgumentsSpacing/" + caseId + ".js" )
-            ), mediator );
+            ), mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           mediator.getMessages().should.not.be.ok;
         });
         it("must trigger no violation on a(function(){})", function () {
-          var caseId = "case8";
-          pNode = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          var caseId = "case8",
+							tree = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" );
+          pNode = tree.body[ 0 ].expression;
           sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArgumentsSpacing/" + caseId + ".js" )
-            ), mediator );
+            ), mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           mediator.getMessages().should.not.be.ok;
         });
 
         it("must trigger no violation on a(function(){}, 1 )", function () {
-          var caseId = "case9";
-          pNode = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          var caseId = "case9",
+							tree = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" );
+          pNode = tree.body[ 0 ].expression;
           sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArgumentsSpacing/" + caseId + ".js" )
-            ), mediator );
+            ), mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           mediator.getMessages().should.not.be.ok;
         });
 
 
         it("must trigger no violation on o.p( 1, 1 ).p( 1 )", function () {
-          var caseId = "case11";
-          pNode = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          var caseId = "case11",
+							tree = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" );
+          pNode = tree.body[ 0 ].expression;
           sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArgumentsSpacing/" + caseId + ".js" )
-            ), mediator );
+            ), mediator, new TokenIteratorStub( tree.tokens ) );
+          sniff.run( rule, pNode );
+          mediator.getMessages().should.not.be.ok;
+        });
+
+				it("must trigger no violation on fn( 1, bar( 1, 1 ) )", function () {
+          var caseId = "case12",
+							tree = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" );
+          pNode = tree.body[ 0 ].expression;
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArgumentsSpacing/" + caseId + ".js" )
+            ), mediator, new TokenIteratorStub( tree.tokens ) );
+          sniff.run( rule, pNode );
+          mediator.getMessages().should.not.be.ok;
+        });
+
+				it("must trigger no violation on fn( 1, ( 1 ) )", function () {
+          var caseId = "case12",
+							tree = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" );
+          pNode = tree.body[ 0 ].expression;
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArgumentsSpacing/" + caseId + ".js" )
+            ), mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           mediator.getMessages().should.not.be.ok;
         });
