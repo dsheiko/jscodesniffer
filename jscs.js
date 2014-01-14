@@ -1,6 +1,6 @@
 var main = require( "./jscs-module" );
-//try {
+try {
  main( process.argv, process.cwd() );
-//} catch ( e ) {
-//  console.error( e );
-//}
+} catch ( e ) {
+  console.error( e );
+}

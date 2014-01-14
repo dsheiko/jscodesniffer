@@ -17,10 +17,37 @@ module.exports = function(grunt) {
                 },
                 src: [ "test/unit-tests.js" ]
             }
-        }
+        },
+				jscs: {
+					test: {
+						options: {
+							"standard": "Jquery"
+						},
+						all: [ "lib", "jscs-module.js" ]
+					}
+				}
     });
 
-  grunt.registerTask( "test", [ "jshint", "mochacli" ] );
+	grunt.registerMultiTask( 'jscs', 'Run jscs', function() {
+		var argv = [
+			"node",
+			"jscs",
+			( "--standard=" + grunt.task.current.data.options.standard || "Jquery" )
+			],
+				jscs = require( "./jscs-module" ),
+				folders = grunt.task.current.data.all;
+
+		folders.forEach(function( folder ){
+			var lArgv = argv.concat( [ folder ] );
+			grunt.log.writeln( "Starting jscs on `" + folder + "`" );
+			grunt.verbose.writeln( 'Exec: ' + lArgv.join(" ") );
+			jscs( lArgv, process.cwd() );
+		});
+
+
+	});
+
+  grunt.registerTask( "test", [ "jshint", "mochacli", "jscs" ] );
   grunt.registerTask( "default", [ "test" ] );
 
 };
