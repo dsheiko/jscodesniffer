@@ -35,17 +35,16 @@ var MIN_REPORT_WIDTH = 32,
           existingReportBody,
           rulesetOverrides,
           where = ".",
-          cli = new Cli( fs, path );
+          cli = new Cli( fs, path ),
+					localArgv = typeof argv !== "undefined" ? argv : process.argv;
 
-
-
-        if ( process.argv.length < 3 ) {
+        if ( localArgv.length < 3 ) {
           console.log( HELP_SCREEN );
           process.exit( 1 );
         }
 
-        where = cli.findPathInCliArgs( process.argv );
-        options = cli.parseCliOptions( process.argv, options );
+        where = cli.findPathInCliArgs( localArgv );
+        options = cli.parseCliOptions( localArgv, options );
 
         if ( options.hasOwnProperty( "help" ) ) {
           console.log( HELP_SCREEN );
