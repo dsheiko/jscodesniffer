@@ -195,6 +195,27 @@ describe( "ArgumentsSpacing", function () {
           mediator.getMessages().should.not.be.ok;
         });
 
+
+				it("getExpOpeningBrace must find opening brace on fn( 1, ( 1 ) )", function () {
+          var caseId = "case13",
+							tree = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" );
+          pNode = tree.body[ 0 ].expression;
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArgumentsSpacing/" + caseId + ".js" )
+            ), mediator, new TokenIteratorStub( tree.tokens ) );
+
+					sniff.getExpOpeningBrace( pNode ).range.should.eql([ 2, 3 ]);
+        });
+
+				it("getExpClosingBrace must find closing brace on fn( 1, ( 1 ) )", function () {
+          var caseId = "case13",
+							tree = fixture.getJson( "ArgumentsSpacing/" + caseId + ".json" );
+          pNode = tree.body[ 0 ].expression;
+          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArgumentsSpacing/" + caseId + ".js" )
+            ), mediator, new TokenIteratorStub( tree.tokens ) );
+
+					pNode.range, sniff.getExpClosingBrace( pNode ).range.should.eql([ 13, 14 ]);
+        });
+
     });
 
 });
