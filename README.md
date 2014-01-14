@@ -244,7 +244,7 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       "allowAlternatePrecedingWhitespaces": 1,
        /*
         Optional modifier.
-        When undefined the sniffer treats nesting statements the same 
+        When undefined the sniffer treats nesting statements the same
             as regular
         When false, no rules applied for nesting statements
         When defined, the corresponding rules go for nesting statements
@@ -254,7 +254,7 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
         "allowTestTrailingWhitespaces": 0,
         "allowConsequentPrecedingWhitespaces": 0,
         "allowConsequentTrailingWhitespaces": 0,
-        "allowAlternatePrecedingWhitespaces": 0       
+        "allowAlternatePrecedingWhitespaces": 0
       }
     },
     /*
@@ -359,7 +359,7 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       },
       /*
         Optional modifier.
-        When undefined the sniffer treats nesting statements the same 
+        When undefined the sniffer treats nesting statements the same
             as regular
         When false, no rules applied for nesting statements
         When defined, the corresponding rules go for nesting statements
@@ -367,7 +367,7 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
         */
       "ifNesting": {
         "allowArgPrecedingWhitespaces": 0,
-        "allowArgTrailingWhitespaces": 0  
+        "allowArgTrailingWhitespaces": 0
       }
     },
   /*
@@ -394,11 +394,23 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     elements.addClass( "foo" )
     .children();
     */
-    "ChainedMethodCallsSpacing" : {
-      "allowTrailingObjectWhitespaces": 0,
-      "allowPrecedingPropertyWhitespaces": 0,
-      "allowOnePerLineWhenMultilineCaller": true
-    },
+
+	"ChainedMethodCallsPerLineConventions": {
+		"allowOnePerLineWhenMultilineCaller": true
+	},
+	/*
+    defines spacing conventions for chains of method calls
+		Example:
+    // good
+    elements.addClass( "foo" )
+
+    // bad
+    elements.  addClass( "foo" )
+    */
+	*/
+		"ChainedMethodCallsSpacing": {
+			"allowPrecedingPropertyWhitespaces": 0
+		},
     /*
     defines spacing conventions for operators (including declarator)
 

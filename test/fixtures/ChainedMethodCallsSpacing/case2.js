@@ -1,4 +1,1 @@
-elements.addClass( "foo" )
-.children()
-.html( "hello" )
-.end().appendTo( "body" );
+elements. addClass( "foo" );
