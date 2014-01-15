@@ -89,11 +89,11 @@ define(function() {
 		*/
 	"EmptyConstructsSpacing": {
 		"for": [
-		"ObjectExpression",
-		"ArrayExpression",
-		"CallExpression",
-		"FunctionDeclaration",
-		"FunctionExpression"
+			"ObjectExpression",
+			"ArrayExpression",
+			"CallExpression",
+			"FunctionDeclaration",
+			"FunctionExpression"
 		],
 		"allowWhitespaces": false
 	},
@@ -136,19 +136,19 @@ define(function() {
 		"allowArgPrecedingWhitespaces": 1,
 		"allowArgTrailingWhitespaces": 1,
 		"exceptions": {
-		"singleArg": {
-			"for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
-			"allowArgPrecedingWhitespaces": 0,
-			"allowArgTrailingWhitespaces": 0
-		},
-		"firstArg": {
-			"for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
-			"allowArgPrecedingWhitespaces": 0
-		},
-		"lastArg": {
-			"for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
-			"allowArgTrailingWhitespaces": 0
-		}
+			"singleArg": {
+				"for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
+				"allowArgPrecedingWhitespaces": 0,
+				"allowArgTrailingWhitespaces": 0
+			},
+			"firstArg": {
+				"for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
+				"allowArgPrecedingWhitespaces": 0
+			},
+			"lastArg": {
+				"for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
+				"allowArgTrailingWhitespaces": 0
+			}
 		}
 	},
 	"ParametersSpacing": {
@@ -160,10 +160,12 @@ define(function() {
 		with the first call on a separate line from the object the methods are called on.
 		If the method changes the context, an extra level of indentation must be used.
 		*/
-	"ChainedMethodCallsSpacing": {
-		"allowTrailingObjectWhitespaces": 0,
-		"allowPrecedingPropertyWhitespaces": 0,
+	"ChainedMethodCallsPerLineConventions": {
 		"allowOnePerLineWhenMultilineCaller": true
+	},
+
+	"ChainedMethodCallsSpacing": {
+		"allowPrecedingPropertyWhitespaces": 0
 	},
 
 	"OperatorSpacing": {
