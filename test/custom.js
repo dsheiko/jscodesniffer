@@ -22,7 +22,7 @@ describe( " Custom checks ", function () {
 
   it("-", function () {
 		//var code = "fn( 1,1,bar(1,1) );";
-   var code = "factory( require, exports, module )";
+   var code = "[1, 2 ]";
     logger = sniffer.getTestResults( code, OPTIONS );
     console.log(logger.getMessages());
   });

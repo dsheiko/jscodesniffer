@@ -1,10 +1,25 @@
 /*jshint -W068 */
-var fixture = require( "./inc/fixture" ),
+
+var
+		/**
+		 * @constant
+		 * @type {string}
+		 * @default
+		 */
+		TEST_SUITE_NAME = "ArrayLiteralSpacing",
+		/** @var {helper} */
+		helper = require( "./inc/helper" )( TEST_SUITE_NAME ),
+		/** @var {TokenIteratorStub} */
+		TokenIteratorStub = require( "./inc/TokenIteratorStub" ),
+		/** @var {MediatorMock} */
     MediatorMock = require( "./inc/MediatorMock" ),
+		/** @var {SourceCodeStub} */
     SourceCodeStub = require( "./inc/SourceCodeStub" ),
-    sniffClass = require( "../lib/Sniff/SyntaxTree/ArrayLiteralSpacing" );
+		/** @var {Sniff/SyntaxTree/ArrayLiteralSpacing} */
+    sniffClass = require( "../lib/Sniff/SyntaxTree/" + TEST_SUITE_NAME );
 
 require( "should" );
+
 describe( "ArrayLiteralSpacing", function () {
   describe( "(Contract)", function () {
     var mediator,
@@ -15,6 +30,7 @@ describe( "ArrayLiteralSpacing", function () {
         mediator = new MediatorMock();
         msg = false;
       });
+
       it("must throw exception when rule.allowElementPrecedingWhitespaces is not a number", function () {
         sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
         (function(){
@@ -28,12 +44,12 @@ describe( "ArrayLiteralSpacing", function () {
         }).should[ "throw" ]();
       });
     });
+
     /**
       * testing Cases
       */
     describe( "with left spaces = 1, right spaces = 1", function () {
-      var pNode = null,
-          mediator,
+      var mediator,
           msg,
           sniff,
           rule = { "allowElementPrecedingWhitespaces": 1, "allowElementTrailingWhitespaces": 1 };
@@ -43,85 +59,62 @@ describe( "ArrayLiteralSpacing", function () {
         msg = false;
       });
 
-      it("must not trigger violation on ([ 1, 1 ])", function () {
+      it("must not trigger violation on [ 1, 1 ]", function () {
           var caseId = "case1",
-              expected = "ok" ;
-          pNode = fixture.getJson( "ArrayLiteralSpacing/" + caseId + "." + expected + ".json" )
-          .body[ 0 ].expression;
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArrayLiteralSpacing/" + caseId +
-          "." + expected + ".js" ) ), mediator );
-          sniff.run( rule, pNode );
+							tree = helper.getTree( caseId );
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator,
+						new TokenIteratorStub( tree.tokens ) );
+          sniff.run( rule, tree.body[ 0 ].expression );
           mediator.getMessages().should.not.be.ok;
-        });
-
-        it("must trigger violation on ([1, 1 ])", function () {
-          var caseId = "case1a",
-              expected = "fail" ;
-          pNode = fixture.getJson( "ArrayLiteralSpacing/" + caseId + "." + expected + ".json" )
-          .body[ 0 ].expression;
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArrayLiteralSpacing/" + caseId +
-          "." + expected + ".js" ) ), mediator );
-          sniff.run( rule, pNode );
-          msg = mediator.getMessage( "ArraylElementPrecedingSpacing" );
-          msg.should.be.ok;
-        });
-
-        it("must trigger violation on ([ 1,1 ])", function () {
-          var caseId = "case1b",
-              expected = "fail" ;
-          pNode = fixture.getJson( "ArrayLiteralSpacing/" + caseId + "." + expected + ".json" )
-          .body[ 0 ].expression;
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArrayLiteralSpacing/" + caseId +
-          "." + expected + ".js" ) ), mediator );
-          sniff.run( rule, pNode );
-          msg = mediator.getMessage( "ArraylElementPrecedingSpacing" );
-          msg.should.be.ok;
-        });
-        it("must trigger violation on ([ 1, 1])", function () {
-          var caseId = "case1c",
-              expected = "fail" ;
-          pNode = fixture.getJson( "ArrayLiteralSpacing/" + caseId + "." + expected + ".json" )
-          .body[ 0 ].expression;
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArrayLiteralSpacing/" + caseId +
-          "." + expected + ".js" ) ), mediator );
-          sniff.run( rule, pNode );
-          msg = mediator.getMessage( "ArraylElementTrailingSpacing" );
-          msg.should.be.ok;
-        });
-
-        it("must not trigger violation on ([ 1, 1 ]) multiline", function () {
+			});
+			it("must trigger violation on [1, 1 ]", function () {
           var caseId = "case2",
-              expected = "ok" ;
-          pNode = fixture.getJson( "ArrayLiteralSpacing/" + caseId + "." + expected + ".json" )
-          .body[ 0 ].expression;
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArrayLiteralSpacing/" + caseId +
-          "." + expected + ".js" ) ), mediator );
-          sniff.run( rule, pNode );
+							tree = helper.getTree( caseId );
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator,
+						new TokenIteratorStub( tree.tokens ) );
+          sniff.run( rule, tree.body[ 0 ].expression );
+          mediator.getMessage( "ArraylElementPrecedingSpacing" ).should.be.ok;
+			});
+			it("must trigger violation on [ 1,1 ]", function () {
+          var caseId = "case3",
+							tree = helper.getTree( caseId );
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator,
+						new TokenIteratorStub( tree.tokens ) );
+          sniff.run( rule, tree.body[ 0 ].expression );
+          mediator.getMessage( "ArraylElementPrecedingSpacing" ).should.be.ok;
+			});
+			it("must trigger violation on [ 1, 1]", function () {
+          var caseId = "case4",
+							tree = helper.getTree( caseId );
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator,
+						new TokenIteratorStub( tree.tokens ) );
+          sniff.run( rule, tree.body[ 0 ].expression );
+          mediator.getMessage( "ArraylElementTrailingSpacing" ).should.be.ok;
+			});
+			it("must not trigger violation on [\\n 1,\\n 1\\n]", function () {
+          var caseId = "case5",
+							tree = helper.getTree( caseId );
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator,
+						new TokenIteratorStub( tree.tokens ) );
+          sniff.run( rule, tree.body[ 0 ].expression );
           mediator.getMessages().should.not.be.ok;
-        });
-
-        it("must trigger violation on ([1,..1..])", function () {
-          var caseId = "case2a",
-              expected = "fail" ;
-          pNode = fixture.getJson( "ArrayLiteralSpacing/" + caseId + "." + expected + ".json" )
-          .body[ 0 ].expression;
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArrayLiteralSpacing/" + caseId +
-          "." + expected + ".js" ) ), mediator );
-          sniff.run( rule, pNode );
-          msg = mediator.getMessage( "ArraylElementPrecedingSpacing" );
-          msg.should.be.ok;
-        });
-        it("must trigger violation on ([..1,..1])", function () {
-          var caseId = "case2b",
-              expected = "fail" ;
-          pNode = fixture.getJson( "ArrayLiteralSpacing/" + caseId + "." + expected + ".json" )
-          .body[ 0 ].expression;
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ArrayLiteralSpacing/" + caseId +
-          "." + expected + ".js" ) ), mediator );
-          sniff.run( rule, pNode );
-          msg = mediator.getMessage( "ArraylElementTrailingSpacing" );
-          msg.should.be.ok;
-        });
+			});
+			it("must not trigger violation on [1,\\n  1\\n]", function () {
+          var caseId = "case6",
+							tree = helper.getTree( caseId );
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator,
+						new TokenIteratorStub( tree.tokens ) );
+          sniff.run( rule, tree.body[ 0 ].expression );
+          mediator.getMessage( "ArraylElementPrecedingSpacing" ).should.be.ok;
+			});
+			it("must not trigger violation on [\\n1,\\n  1]", function () {
+          var caseId = "case7",
+							tree = helper.getTree( caseId );
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator,
+						new TokenIteratorStub( tree.tokens ) );
+          sniff.run( rule, tree.body[ 0 ].expression );
+          mediator.getMessage( "ArraylElementTrailingSpacing" ).should.be.ok;
+			});
 
     });
 
