@@ -22,7 +22,10 @@ describe( " Custom checks ", function () {
 
   it("-", function () {
 		//var code = "fn( 1,1,bar(1,1) );";
-   var code = "[1, 2 ]";
+   var code = "publish( NAME, \"SemicolonPrecedingSpacesNotAllowed\", [\n\
+			token.range[ 0 ] - 1,\n\
+			token.range[ 0 ]\n\
+		] )";
     logger = sniffer.getTestResults( code, OPTIONS );
     console.log(logger.getMessages());
   });

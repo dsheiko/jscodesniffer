@@ -4,16 +4,17 @@
 	* @constructor
 	* @alis module:TokenIterator
 	* @param {Object[]} tokens
-	* @param {Object.<number, number>} posIndexMapInjection
 	* @returns {TokenIterator}
 	*/
-	var TokenIterator = function( tokens, posIndexMapInjection ) {
-		var pos = 0,
-				posIndexMap = posIndexMapInjection || [];
+	var TokenIterator = function( tokens ) {
+			var pos = 0,
+			leftPosIndexMap = [],
+			rightPosIndexMap = [];
 		// Update position X index map on the first run
-		if ( !posIndexMap.length ) {
+		if ( !leftPosIndexMap.length ) {
 			tokens.forEach(function( el, inx ){
-				posIndexMap[ el.range[ 0 ] ] = inx;
+				leftPosIndexMap[ el.range[ 0 ] ] = inx;
+				rightPosIndexMap[ el.range[ 1 ] ] = inx;
 			});
 		}
 		return {
@@ -56,15 +57,27 @@
 				return tokens[ pos ];
 			},
 			/**
-			* Move to the token corresponding given in-code position
+			* Move to the token corresponding given left in-code position
 			* @param {number} lPos
 			* @returns {TokenIterator}
 			*/
-			findByPos: function( lPos ) {
-				if ( typeof posIndexMap[ lPos ] === "undefined" ) {
+			findByLeftPos: function( lPos ) {
+				if ( typeof leftPosIndexMap[ lPos ] === "undefined" ) {
 					throw new RangeError( "No token associated with the position " + lPos );
 				}
-				pos = posIndexMap[ lPos ];
+				pos = leftPosIndexMap[ lPos ];
+				return this;
+			},
+			/**
+			* Move to the token corresponding given right in-code position
+			* @param {number} rPos
+			* @returns {TokenIterator}
+			*/
+			findByRightPos: function( rPos ) {
+				if ( typeof rightPosIndexMap[ rPos ] === "undefined" ) {
+					throw new RangeError( "No token associated with the position " + rPos );
+				}
+				pos = rightPosIndexMap[ rPos ];
 				return this;
 			},
 				/**
