@@ -1,5 +1,4 @@
 /*jshint -W068 */
-
 var
 		/**
 		 * @constant

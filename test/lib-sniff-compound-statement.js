@@ -1,8 +1,20 @@
 /*jshint -W068 */
-var fixture = require( "./inc/fixture" ),
+var
+		/**
+		 * @constant
+		 * @type {string}
+		 * @default
+		 */
+		TEST_SUITE_NAME = "CompoundStatementConventions",
+		/** @var {helper} */
+		helper = require( "./inc/helper" )( TEST_SUITE_NAME ),
+		/** @var {MediatorMock} */
     MediatorMock = require( "./inc/MediatorMock" ),
+		/** @var {SourceCodeStub} */
     SourceCodeStub = require( "./inc/SourceCodeStub" ),
-    sniffClass = require( "../lib/Sniff/SyntaxTree/CompoundStatementConventions" );
+		/** @var {Sniff/SyntaxTree/ArrayLiteralSpacing} */
+    sniffClass = require( "../lib/Sniff/SyntaxTree/" + TEST_SUITE_NAME );
+
 
 require( "should" );
 describe( "CompoundStatementConventions", function () {
@@ -46,8 +58,7 @@ describe( "CompoundStatementConventions", function () {
       var pNode = null,
           mediator,
           sniff,
-          statement = "IfStatement",
-          caseId = "case1";
+          statement = "IfStatement";
 
       beforeEach(function(){
         mediator = new MediatorMock();
@@ -56,42 +67,42 @@ describe( "CompoundStatementConventions", function () {
 
       it("must trigger violation on (if(1) a = 1;) when braces required", function () {
           var rule = {
-            "for": [ statement ],
-            "requireBraces": true,
-            "requireMultipleLines": false
-          };
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".fail.js" )
-            ), mediator );
+								"for": [ statement ],
+								"requireBraces": true,
+								"requireMultipleLines": false
+							},
+							caseId = "case1.fail";
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator );
 
-          pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".fail.json" ).body[ 0 ];
+          pNode = helper.getTree( caseId ).body[ 0 ];
           sniff.run( rule, pNode );
           mediator.getMessage( "CompoundStatementRequireBraces" ).should.be.ok;
         });
 
         it("must trigger violation on (if(1) a = 1;) when multiple lines required", function () {
           var rule = {
-            "for": [ statement ],
-            "requireBraces": false,
-            "requireMultipleLines": true
-          };
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".fail.js" )
-            ), mediator );
+								"for": [ statement ],
+								"requireBraces": false,
+								"requireMultipleLines": true
+							},
+							caseId = "case1.fail";
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator );
 
-          pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".fail.json" ).body[ 0 ];
+          pNode = helper.getTree( caseId ).body[ 0 ];
           sniff.run( rule, pNode );
           mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
         });
 
         it("must not trigger violation on (if(1) {..}) when breaces and multiple lines required", function () {
           var rule = {
-            "for": [ statement ],
-            "requireBraces": true,
-            "requireMultipleLines": true
-          };
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".ok.js" )
-            ), mediator );
+								"for": [ statement ],
+								"requireBraces": true,
+								"requireMultipleLines": true
+							},
+							caseId = "case1.ok";
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator );
 
-          pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".ok.json" ).body[ 0 ];
+          pNode = helper.getTree( caseId ).body[ 0 ];
           sniff.run( rule, pNode );
           mediator.getMessages().should.not.be.ok;
         });
@@ -103,10 +114,8 @@ describe( "CompoundStatementConventions", function () {
     describe( "with SwitchStatement", function () {
       var pNode = null,
           mediator,
-
           sniff,
-          statement = "SwitchStatement",
-          caseId = "case2";
+          statement = "SwitchStatement";
 
       beforeEach(function(){
         mediator = new MediatorMock();
@@ -114,29 +123,29 @@ describe( "CompoundStatementConventions", function () {
       });
 
       it("must trigger violation on (switch(true) {}) when multiple lines required", function () {
-          var rule = {
-            "for": [ statement ],
-            "requireBraces": true,
-            "requireMultipleLines": true
-          };
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".fail.js" )
-            ), mediator );
+          var caseId = "case2.fail",
+							rule = {
+								"for": [ statement ],
+								"requireBraces": true,
+								"requireMultipleLines": true
+							};
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator );
 
-          pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".fail.json" ).body[ 0 ];
+          pNode = helper.getTree( caseId ).body[ 0 ];
           sniff.run( rule, pNode );
           mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
         });
 
         it("must not trigger violation on (switch(true) {...}) when multiple lines required", function () {
-          var rule = {
-            "for": [ statement ],
-            "requireBraces": true,
-            "requireMultipleLines": true
-          };
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".ok.js" )
-            ), mediator );
+          var caseId = "case2.ok",
+							rule = {
+								"for": [ statement ],
+								"requireBraces": true,
+								"requireMultipleLines": true
+							};
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator );
 
-          pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".ok.json" ).body[ 0 ];
+          pNode = helper.getTree(  caseId ).body[ 0 ];
           sniff.run( rule, pNode );
           mediator.getMessages().should.not.be.ok;
         });
@@ -148,10 +157,8 @@ describe( "CompoundStatementConventions", function () {
   describe( "with WhileStatement", function () {
       var pNode = null,
           mediator,
-
           sniff,
-          statement = "WhileStatement",
-          caseId = "case3";
+          statement = "WhileStatement";
 
       beforeEach(function(){
         mediator = new MediatorMock();
@@ -159,43 +166,43 @@ describe( "CompoundStatementConventions", function () {
       });
 
     it("must trigger violation on (while (true) a = 1;) when braces required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": true,
-          "requireMultipleLines": false
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".fail.js" )
-          ), mediator );
+        var caseId = "case3.fail",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": true,
+							"requireMultipleLines": false
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".fail.json" ).body[ 0 ];
+        pNode = helper.getTree( caseId ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessage( "CompoundStatementRequireBraces" ).should.be.ok;
       });
 
       it("must trigger violation on (while (true) a = 1;) when multiple lines required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": false,
-          "requireMultipleLines": true
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".fail.js" )
-          ), mediator );
+        var caseId = "case3.fail",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": false,
+							"requireMultipleLines": true
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".fail.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
       });
 
       it("must not trigger violation on (while (true) {...}) when braces and multiple lines required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": true,
-          "requireMultipleLines": true
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".ok.js" )
-          ), mediator );
+        var caseId = "case3.ok",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": true,
+							"requireMultipleLines": true
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId  ) ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".ok.json" ).body[ 0 ];
+        pNode = helper.getTree( caseId ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessages().should.not.be.ok;
       });
@@ -209,10 +216,8 @@ describe( "CompoundStatementConventions", function () {
   describe( "with DoWhileStatement", function () {
       var pNode = null,
           mediator,
-
           sniff,
-          statement = "DoWhileStatement",
-          caseId = "case4";
+          statement = "DoWhileStatement";
 
       beforeEach(function(){
         mediator = new MediatorMock();
@@ -220,43 +225,46 @@ describe( "CompoundStatementConventions", function () {
       });
 
     it("must trigger violation on (do a++; while (true)) when braces required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": true,
-          "requireMultipleLines": false
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".fail.js" )
+        var caseId = "case4.fail",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": true,
+							"requireMultipleLines": false
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".fail.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessage( "CompoundStatementRequireBraces" ).should.be.ok;
       });
 
       it("must trigger violation on (do a++; while (true)) when multiple lines required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": false,
-          "requireMultipleLines": true
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".fail.js" )
+        var caseId = "case4.fail",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": false,
+							"requireMultipleLines": true
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".fail.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
       });
 
       it("must not trigger violation on (do {...} while (true)) when braces and multiple lines required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": true,
-          "requireMultipleLines": true
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".ok.js" )
+        var caseId = "case4.ok",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": true,
+							"requireMultipleLines": true
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".ok.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessages().should.not.be.ok;
       });
@@ -269,10 +277,8 @@ describe( "CompoundStatementConventions", function () {
   describe( "with ForStatement", function () {
       var pNode = null,
           mediator,
-
           sniff,
-          statement = "ForStatement",
-          caseId = "case5";
+          statement = "ForStatement";
 
       beforeEach(function(){
         mediator = new MediatorMock();
@@ -280,43 +286,46 @@ describe( "CompoundStatementConventions", function () {
       });
 
     it("must trigger violation on (for(;;) i++;) when braces required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": true,
-          "requireMultipleLines": false
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".fail.js" )
+        var caseId = "case5.fail",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": true,
+							"requireMultipleLines": false
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".fail.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessage( "CompoundStatementRequireBraces" ).should.be.ok;
       });
 
       it("must trigger violation on (for(;;) i++;) when multiple lines required", function () {
-        var rule = {
+        var caseId = "case5.fail",
+				rule = {
           "for": [ statement ],
           "requireBraces": false,
           "requireMultipleLines": true
         };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".fail.js" )
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".fail.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
       });
 
       it("must not trigger violation on (for(;;) {...}) when braces and multiple lines required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": true,
-          "requireMultipleLines": true
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".ok.js" )
+        var caseId = "case5.ok",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": true,
+							"requireMultipleLines": true
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".ok.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessages().should.not.be.ok;
       });
@@ -328,10 +337,8 @@ describe( "CompoundStatementConventions", function () {
   describe( "with ForInStatement", function () {
       var pNode = null,
           mediator,
-
           sniff,
-          statement = "ForInStatement",
-          caseId = "case6";
+          statement = "ForInStatement";
 
       beforeEach(function(){
         mediator = new MediatorMock();
@@ -339,43 +346,46 @@ describe( "CompoundStatementConventions", function () {
       });
 
     it("must trigger violation on (for(p in o) i++;) when braces required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": true,
-          "requireMultipleLines": false
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".fail.js" )
+        var caseId = "case6.fail",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": true,
+							"requireMultipleLines": false
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".fail.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessage( "CompoundStatementRequireBraces" ).should.be.ok;
       });
 
       it("must trigger violation on (for(p in o) i++;) when multiple lines required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": false,
-          "requireMultipleLines": true
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".fail.js" )
+        var caseId = "case6.fail",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": false,
+							"requireMultipleLines": true
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".fail.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
       });
 
       it("must not trigger violation on (for(p in o) {...}) when braces and multiple lines required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": true,
-          "requireMultipleLines": true
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".ok.js" )
+        var caseId = "case6.ok",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": true,
+							"requireMultipleLines": true
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".ok.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessages().should.not.be.ok;
       });
@@ -388,10 +398,8 @@ describe( "CompoundStatementConventions", function () {
   describe( "with WithStatement", function () {
       var pNode = null,
           mediator,
-
           sniff,
-          statement = "WithStatement",
-          caseId = "case7";
+          statement = "WithStatement";
 
       beforeEach(function(){
         mediator = new MediatorMock();
@@ -399,43 +407,46 @@ describe( "CompoundStatementConventions", function () {
       });
 
     it("must trigger violation on (with(o) i++;) when braces required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": true,
-          "requireMultipleLines": false
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".fail.js" )
+        var caseId = "case7.fail",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": true,
+							"requireMultipleLines": false
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".fail.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessage( "CompoundStatementRequireBraces" ).should.be.ok;
       });
 
       it("must trigger violation on (with(o) i++;) when multiple lines required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": false,
-          "requireMultipleLines": true
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".fail.js" )
+        var caseId = "case7.fail",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": false,
+							"requireMultipleLines": true
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".fail.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
       });
 
       it("must not trigger violation on (with(o) {...}) when braces and multiple lines required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": true,
-          "requireMultipleLines": true
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".ok.js" )
+        var caseId = "case7.ok",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": true,
+							"requireMultipleLines": true
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".ok.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessages().should.not.be.ok;
       });
@@ -447,41 +458,40 @@ describe( "CompoundStatementConventions", function () {
   describe( "with TryStatement", function () {
       var pNode = null,
           mediator,
-
           sniff,
-          statement = "TryStatement",
-          caseId = "case8";
+          statement = "TryStatement";
 
       beforeEach(function(){
         mediator = new MediatorMock();
 
       });
 
-
       it("must trigger violation on (try {} catch(e){}) when multiple lines required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": false,
-          "requireMultipleLines": true
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".fail.js" )
+        var caseId = "case8.fail",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": false,
+							"requireMultipleLines": true
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".fail.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
       });
 
       it("must not trigger violation on (try {..} catch(e){}) when braces and multiple lines required", function () {
-        var rule = {
-          "for": [ statement ],
-          "requireBraces": true,
-          "requireMultipleLines": true
-        };
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "CompoundStatementConventions/" + caseId + ".ok.js" )
+        var caseId = "case8.ok",
+						rule = {
+							"for": [ statement ],
+							"requireBraces": true,
+							"requireMultipleLines": true
+						};
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
 
-        pNode = fixture.getJson( "CompoundStatementConventions/" + caseId + ".ok.json" ).body[ 0 ];
+        pNode = helper.getTree(  caseId  ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessages().should.not.be.ok;
       });
