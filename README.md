@@ -100,8 +100,8 @@ Define width of report screen
 2. Use RequireJS to load required modules
 
 ```javascript
-require( [ "<pkg-path>/lib/Sniffer", "<pkg-path>/lib/Dictionary/en", "<pkg-path>/lib/Dictionary" ], function( Sniffer, en, Dictionary ) {
-  var sniffer = new Sniffer(),
+require( [ "<esprima-js-path>/esprima", "<pkg-path>/lib/Sniffer", "<pkg-path>/lib/Dictionary/en", "<pkg-path>/lib/Dictionary" ], function( esprima, Sniffer, en, Dictionary ) {
+  var sniffer = new Sniffer( esprima ),
       dictionary = new Dictionary( en ),
       logger, messages;
 

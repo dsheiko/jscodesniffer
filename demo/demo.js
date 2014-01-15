@@ -1,6 +1,7 @@
 document.addEventListener( "DOMContentLoaded", function() {
-  require( [ "../lib/Sniffer", "../lib/Dictionary/en", "../lib/Dictionary" ], function( Sniffer, en, Dictionary ) {
-    var sniffer = new Sniffer(),
+  require( [ "../node_modules/esprima/esprima", "../lib/Sniffer", "../lib/Dictionary/en", "../lib/Dictionary" ],
+	function( esprima, Sniffer, en, Dictionary ) {
+    var sniffer = new Sniffer( esprima ),
         dictionary = new Dictionary( en ),
         node = {
           srcCode: document.getElementById( "srcCode" ),
