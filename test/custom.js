@@ -22,9 +22,9 @@ describe( " Custom checks ", function () {
 
   it("-", function () {
 		//var code = "fn( 1,1,bar(1,1) );";
-   var code = "!!11;";
+   var code = "(function(){ var a = 0; var b; }())";
     logger = sniffer.getTestResults( code, OPTIONS );
-    console.log(logger.getMessages()[0]);
+    console.log(logger.getMessages());
   });
 
 });
