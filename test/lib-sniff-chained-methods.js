@@ -20,16 +20,16 @@ describe( "ChainedMethodCallsPerLineConventions", function () {
       msg = false;
     });
 
-    it("must throw exception when invalid rule.allowOnePerLineWhenMultilineCaller given", function () {
+    it("must throw exception when invalid rule.requireOnePerLineWhenMultilineCaller given", function () {
       sniff = new ChainedMethodCallsPerLineConventions( new SourceCodeStub( "code" ), mediator );
       (function(){
-        sniff.run( { "allowOnePerLineWhenMultilineCaller": 1 }, null );
+        sniff.run( { "requireOnePerLineWhenMultilineCaller": 1 }, null );
       }).should[ "throw" ]();
     });
 
     it("must trigger violation ", function () {
       var rule =  {
-        "allowOnePerLineWhenMultilineCaller": true
+        "requireOnePerLineWhenMultilineCaller": true
       }, tree = fixture.getJson( "ChainedMethodCallsPerLineConventions/case2.json" );
       sniff = new ChainedMethodCallsPerLineConventions(
 					new SourceCodeStub( fixture.getText( "ChainedMethodCallsPerLineConventions/case2.js" )
@@ -43,7 +43,7 @@ describe( "ChainedMethodCallsPerLineConventions", function () {
 
     it("must not trigger violation", function () {
       var rule =  {
-        "allowOnePerLineWhenMultilineCaller": true
+        "requireOnePerLineWhenMultilineCaller": true
       }, tree = fixture.getJson( "ChainedMethodCallsPerLineConventions/case1.json" );
       sniff = new ChainedMethodCallsPerLineConventions( new SourceCodeStub(
 						fixture.getText( "ChainedMethodCallsPerLineConventions/case1.js" )

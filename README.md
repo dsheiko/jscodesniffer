@@ -396,7 +396,7 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     */
 
 	"ChainedMethodCallsPerLineConventions": {
-		"allowOnePerLineWhenMultilineCaller": true
+		"requireOnePerLineWhenMultilineCaller": true
 	},
 	/*
     defines spacing conventions for chains of method calls
@@ -440,7 +440,23 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     "VariableDeclarationPerScopeConventions" : {
       "disallowMultiplePerBlockScope": true,
       "requireInTheBeginning": true
-    }
+    },
+		/*
+		defines conventions for object declarations
+
+    Example:
+    // good
+		o = {
+			p1: 1,
+			p2: 2
+		}
+		// bad
+		o = {
+			p1: 1, p2: 2 }
+	 	*/
+		"ObjectDeclarationConventions": {
+			"requireOnePerLineWhenMultiline": true
+		}
 
   }
 ```
