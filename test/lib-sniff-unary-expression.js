@@ -1,14 +1,26 @@
 /*jshint -W068 */
-var fixture = require( "./inc/fixture" ),
+var
+		/**
+		 * @constant
+		 * @type {string}
+		 * @default
+		 */
+		TEST_SUITE_NAME = "UnaryExpressionIdentifierSpacing",
+		/** @var {helper} */
+		helper = require( "./inc/helper" )( TEST_SUITE_NAME ),
+		/** @var {TokenIteratorStub} */
+		TokenIteratorStub = require( "./inc/TokenIteratorStub" ),
+		/** @var {MediatorMock} */
     MediatorMock = require( "./inc/MediatorMock" ),
+		/** @var {SourceCodeStub} */
     SourceCodeStub = require( "./inc/SourceCodeStub" ),
-    sniffClass = require( "../lib/Sniff/SyntaxTree/UnaryExpressionIdentifierSpacing" );
+		/** @var {Sniff/SyntaxTree/ArrayLiteralSpacing} */
+    sniffClass = require( "../lib/Sniff/SyntaxTree/" + TEST_SUITE_NAME );
 
 
 require( "should" );
-describe( "UnaryExpressionIdentifierSpacing", function () {
-  var pNode = null,
-      mediator,
+describe( TEST_SUITE_NAME, function () {
+  var mediator,
       sniff,
       msg;
 
@@ -17,38 +29,45 @@ describe( "UnaryExpressionIdentifierSpacing", function () {
       msg = false;
     });
 
-    it("must trigger violation on (! a;) when no unary exp. preceding spaces allowed", function () {
-      var rule =  {
-        "allowTrailingWhitespaces": 0
-      };
-      sniff = new sniffClass( new SourceCodeStub( fixture.getText( "UnaryExpressionIdentifierSpacing/case1.js" )
-        ), mediator );
+		describe( " ( Contract ) ", function() {
+			it("must throw exception when invalid rule.allowTrailingWhitespaces given", function () {
+				sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
+				(function(){
+					sniff.run( { "allowTrailingWhitespaces": true }, null );
+				}).should[ "throw" ]();
+			});
+		});
+		describe( " ( cases ) ", function() {
+			it("must trigger violation on (! a;) when no unary exp. preceding spaces allowed", function () {
+				var rule =  {
+							"allowTrailingWhitespaces": 0
+						},
+						caseId = "case1",
+						tree = helper.getTree( caseId );
 
-      pNode = fixture.getJson( "UnaryExpressionIdentifierSpacing/case1.json" ).body[ 0 ].expression;
-      sniff.run( rule, pNode );
-      msg = mediator.getMessage( "UnaryExpressionValueTrailingSpacing" );
-      msg.should.be.ok;
-      msg.payload.actual.should.eql( 1 );
-      msg.payload.expected.should.eql( 0 );
-    });
+				sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+						mediator, new TokenIteratorStub( tree.tokens ) );
 
-    it("must throw exception when invalid rule.allowTrailingWhitespaces given", function () {
-      sniff = new sniffClass( new SourceCodeStub( "code" ), mediator );
-      (function(){
-        sniff.run( { "allowTrailingWhitespaces": true }, null );
-      }).should[ "throw" ]();
-    });
+				sniff.run( rule, tree.body[ 0 ].expression );
+				msg = mediator.getMessage( "UnaryExpressionValueTrailingSpacing" );
+				msg.should.be.ok;
+				msg.payload.actual.should.eql( 1 );
+				msg.payload.expected.should.eql( 0 );
+			});
 
-    it("must not trigger violation on (!a;) when no unary exp. preceding spaces allowed", function () {
-      var rule =  {
-        "allowTrailingWhitespaces": 0
-      };
-      sniff = new sniffClass( new SourceCodeStub( fixture.getText( "UnaryExpressionIdentifierSpacing/case2.js" )
-        ), mediator );
+			it("must not trigger violation on (!a;) when no unary exp. preceding spaces allowed", function () {
+				var rule =  {
+							"allowTrailingWhitespaces": 0
+						},
+						caseId = "case2",
+						tree = helper.getTree( caseId );
 
-      pNode = fixture.getJson( "UnaryExpressionIdentifierSpacing/case2.json" ).body[ 0 ].expression;
-      sniff.run( rule, pNode );
-      mediator.getMessages().should.not.be.ok;
-    });
+				sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+						mediator, new TokenIteratorStub( tree.tokens ) );
+
+				sniff.run( rule, tree.body[ 0 ].expression );
+				mediator.getMessages().should.not.be.ok;
+			});
+		});
 
 });
