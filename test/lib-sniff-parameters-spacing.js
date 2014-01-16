@@ -1,11 +1,24 @@
 /*jshint -W068 */
-var fixture = require( "./inc/fixture" ),
+var
+		/**
+		 * @constant
+		 * @type {string}
+		 * @default
+		 */
+		TEST_SUITE_NAME = "ParametersSpacing",
+		/** @var {helper} */
+		helper = require( "./inc/helper" )( TEST_SUITE_NAME ),
+		/** @var {TokenIteratorStub} */
+		TokenIteratorStub = require( "./inc/TokenIteratorStub" ),
+		/** @var {MediatorMock} */
     MediatorMock = require( "./inc/MediatorMock" ),
+		/** @var {SourceCodeStub} */
     SourceCodeStub = require( "./inc/SourceCodeStub" ),
-    sniffClass = require( "../lib/Sniff/SyntaxTree/ParametersSpacing" );
+		/** @var {Sniff/SyntaxTree/ArrayLiteralSpacing} */
+    sniffClass = require( "../lib/Sniff/SyntaxTree/" + TEST_SUITE_NAME );
 
 require( "should" );
-describe( "ParametersSpacing", function () {
+describe( TEST_SUITE_NAME, function () {
   describe( "(Contract)", function () {
     var mediator,
         sniff,
@@ -32,8 +45,7 @@ describe( "ParametersSpacing", function () {
       * testing cases
       */
     describe( "with left spaces = 1, right spaces = 1", function () {
-      var pNode = null,
-          mediator,
+      var mediator,
           msg,
           sniff,
           rule = {
@@ -47,64 +59,52 @@ describe( "ParametersSpacing", function () {
       });
 
       it("must trigger no violation on foo = function( a, b ) {}", function () {
-          var caseId = "case1";
-          pNode = fixture.getJson( "ParametersSpacing/" + caseId + ".json" )
-          .body[ 0 ].expression.right;
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ParametersSpacing/" + caseId + ".js" )
-            ), mediator );
+          var caseId = "case1", tree = helper.getTree( caseId ), pNode =  tree.body[ 0 ].expression.right;
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+            mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           mediator.getMessages().should.not.be.ok;
         });
 
         it("must trigger violation on foo = function(a, b ) {}", function () {
-          var caseId = "case2";
-          pNode = fixture.getJson( "ParametersSpacing/" + caseId + ".json" )
-          .body[ 0 ].expression.right;
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ParametersSpacing/" + caseId + ".js" )
-            ), mediator );
+          var caseId = "case2",  tree = helper.getTree( caseId ), pNode =  tree.body[ 0 ].expression.right;
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+            mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           msg = mediator.getMessage( "ParamPrecedingWhitespaces" );
           msg.should.be.ok;
         });
 
         it("must trigger violation on foo = function( a,b ) {}", function () {
-          var caseId = "case3";
-          pNode = fixture.getJson( "ParametersSpacing/" + caseId + ".json" )
-          .body[ 0 ].expression.right;
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ParametersSpacing/" + caseId + ".js" )
-            ), mediator );
+          var caseId = "case3",  tree = helper.getTree( caseId ), pNode =  tree.body[ 0 ].expression.right;
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+            mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           msg = mediator.getMessage( "ParamPrecedingWhitespaces" );
           msg.should.be.ok;
         });
 
         it("must trigger violation on foo = function( a, b) {}", function () {
-          var caseId = "case4";
-          pNode = fixture.getJson( "ParametersSpacing/" + caseId + ".json" )
-          .body[ 0 ].expression.right;
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ParametersSpacing/" + caseId + ".js" )
-            ), mediator );
+          var caseId = "case4",  tree = helper.getTree( caseId ), pNode =  tree.body[ 0 ].expression.right;
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+            mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           msg = mediator.getMessage( "ParamTrailingWhitespaces" );
           msg.should.be.ok;
         });
 
         it("must trigger no violation on foo = function( a,.. b.. ) {}", function () {
-          var caseId = "case5";
-          pNode = fixture.getJson( "ParametersSpacing/" + caseId + ".json" )
-          .body[ 0 ].expression.right;
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ParametersSpacing/" + caseId + ".js" )
-            ), mediator );
+          var caseId = "case5",  tree = helper.getTree( caseId ), pNode =  tree.body[ 0 ].expression.right;
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+            mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           mediator.getMessages().should.not.be.ok;
         });
 
         it("must trigger violation on foo = function(a,..b ) {}", function () {
-          var caseId = "case6";
-          pNode = fixture.getJson( "ParametersSpacing/" + caseId + ".json" )
-          .body[ 0 ].expression.right;
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ParametersSpacing/" + caseId + ".js" )
-            ), mediator );
+          var caseId = "case6",  tree = helper.getTree( caseId ), pNode =  tree.body[ 0 ].expression.right;
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+            mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           msg = mediator.getMessage( "ParamPrecedingWhitespaces" );
           msg.should.be.ok;
