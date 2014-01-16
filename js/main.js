@@ -1,12 +1,17 @@
 /**
  * @module main
+ * @param {jQuery] $
+ * @param {function] esprima
+ * @param {Sniffer] Sniffer
+ * @param {Object] en
+ * @param {Dictionary] Dictionary
  */
 define([
 	"jquery",
 	"./esprima",
 	"../lib/Sniffer",
 	"../lib/Dictionary/en",
-	"../lib/Dictionary",
+	"../lib/Dictionary"
 	], function( $, esprima, Sniffer, en, Dictionary ) {
     $(function() {
 		var sh = window.SyntaxHighlighter,
@@ -122,31 +127,55 @@ define([
 							 * @param {number} lineInx - 0..
 							 */
 							highlightCodeLine: function( el, messages, lineInx ) {
-									//$( ".overlay" ).remove();
-									$.each( messages, function( inx, obj ) {
+									/**
+									 *
+									 * @param {number} lineInx
+									 * @param {number} col
+									 * @returns {number}
+									 */
+									var tillTheEndOfLine = function( lineInx, col ) {
+										return codeSource.asLines[ lineInx ].length - col;
+									};
+									$.each( messages, function( inx, msg ) {
 											var indicator,
 													overlay,
-													indicatorNum = 1;
+													indicatorPos = 0,
+													indicatorLen = 1;
 
-											if ( obj.loc.start.column === obj.loc.end.column ) {
-												indicatorNum = obj.loc.end.column - obj.loc.start.column;
+											if ( msg.loc.start.line === msg.loc.end.line ) {
+												indicatorLen = msg.loc.end.column - msg.loc.start.column;
+												indicatorPos = msg.loc.start.column;
 											} else {
-												indicatorNum = codeSource.asLines[ lineInx ].length - obj.loc.start.column;
+
+												if ( msg.loc.start.line === lineInx + 1 ) {
+													indicatorPos = msg.loc.start.column;
+													indicatorLen = tillTheEndOfLine( lineInx, msg.loc.start.column );
+												} else {
+
+													if ( msg.loc.end.line === lineInx + 1 ) {
+														indicatorPos = 0;
+														indicatorLen = msg.loc.end.column;
+													}
+													else {
+														indicatorPos = 0;
+														indicatorLen = tillTheEndOfLine( lineInx, msg.loc.start.column );
+													}
+												}
 											}
 
-											indicatorNum = indicatorNum || 1;
-											indicator	= utils.repeatStr( "_", indicatorNum );
+											indicatorLen = indicatorLen || 1;
+											indicator	= utils.repeatStr( "_", indicatorLen );
 											overlay = $( '<div class="overlay" title="' +
-													obj.message + '">' + indicator + '</div>' ).prependTo( el );
+													msg.message + '">' + indicator + '</div>' ).prependTo( el );
 
 											overlay
 												.get( 0 )
 												.style
-												.cssText = "left: " + ( ( obj.loc.start.column * 8 ) + 8 ) + "px !important";
+												.cssText = "left: " + ( ( indicatorPos * 8 ) + 6 ) + "px !important";
 
 											overlay.off( "mouseenter" ).on( "mouseenter", function( e ){
 												// Show up hint
-												logView.activate( obj.loc.start.line, obj.loc.start.column );
+												logView.activate( msg.loc.start.line, msg.loc.start.column );
 											});
 											// Hide hint
 											overlay.off( "mouseleave" ).on( "mouseleave", logView.deactivate );
@@ -160,8 +189,12 @@ define([
 							 */
 							assignMessages: function( messages ) {
 									$.each( parseMarkup( messages ), function( inx, el ){
-											indexedMessages[ el.loc.start.line ] = indexedMessages[ el.loc.start.line ] || [];
-											indexedMessages[ el.loc.start.line ].push( el );
+										var i = el.loc.start.line;
+										for ( ; i <= el.loc.end.line; i++ ) {
+											// Init array
+											indexedMessages[ i ] = indexedMessages[ i ] || [];
+											indexedMessages[ i ].push( el );
+										}
 									});
 							},
 							highlightLines: function() {
@@ -176,7 +209,7 @@ define([
 									_container.empty();
 									_view.hide();
 							}
-            }
+            };
         }()),
 				/**
 				 * Module representing log view
@@ -206,8 +239,12 @@ define([
                         '<tr><th>Line</th><th>Col</th><th>Warning</th></tr></thead><tbody>';
                     $.each( messages, function( inx, val ){
                         html += '<tr id="log' + val.loc.start.line + '-' + val.loc.start.column + '">' +
-                            '<td>' + val.loc.start.line + '</td>' +
-                            '<td>' + val.loc.start.column + '</td>' +
+                            '<td>' + val.loc.start.line +
+														( val.loc.start.line !== val.loc.end.line ? "-" + val.loc.end.line : "" ) +
+														'</td>' +
+                            '<td>' + val.loc.start.column +
+														( val.loc.start.column !== val.loc.end.column ? "-" + val.loc.end.column : "" ) +
+														'</td>' +
                             '<td>' + parseMarkup( val.message ) + '</td></tr>';
                     });
                     html += "</tbody></table>";
@@ -235,7 +272,7 @@ define([
                     _container.empty();
                     _view.hide();
                 }
-            }
+            };
         }()),
 				/**
 				 * Module representing source code
@@ -310,7 +347,7 @@ define([
                 reset: function() {
                     _view.show();
                 }
-            }
+            };
         }());
 
 

@@ -161,7 +161,7 @@ define(function() {
 		If the method changes the context, an extra level of indentation must be used.
 		*/
 	"ChainedMethodCallsPerLineConventions": {
-		"allowOnePerLineWhenMultilineCaller": true
+		"requireOnePerLineWhenMultilineCaller": true
 	},
 
 	"ChainedMethodCallsSpacing": {
@@ -178,6 +178,13 @@ define(function() {
 		*/
 	"VariableDeclarationPerScopeConventions": {
 		"disallowMultiplePerBlockScope": true
+	},
+	/*
+	 Object declarations can be made on a single line if they are short (remember the line length limits).
+	 When an object declaration is too long to fit on one line, there must be one property per line.
+	 */
+	"ObjectDeclarationConventions": {
+		"requireOnePerLineWhenMultiline": true
 	}
 
 	};
