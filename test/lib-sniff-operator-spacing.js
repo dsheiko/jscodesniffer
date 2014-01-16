@@ -1,11 +1,24 @@
 /*jshint -W068 */
-var fixture = require( "./inc/fixture" ),
+var
+		/**
+		 * @constant
+		 * @type {string}
+		 * @default
+		 */
+		TEST_SUITE_NAME = "OperatorSpacing",
+		/** @var {helper} */
+		helper = require( "./inc/helper" )( TEST_SUITE_NAME ),
+		/** @var {TokenIteratorStub} */
+		TokenIteratorStub = require( "./inc/TokenIteratorStub" ),
+		/** @var {MediatorMock} */
     MediatorMock = require( "./inc/MediatorMock" ),
+		/** @var {SourceCodeStub} */
     SourceCodeStub = require( "./inc/SourceCodeStub" ),
-    sniffClass = require( "../lib/Sniff/SyntaxTree/OperatorSpacing" );
+		/** @var {Sniff/SyntaxTree/ArrayLiteralSpacing} */
+    sniffClass = require( "../lib/Sniff/SyntaxTree/" + TEST_SUITE_NAME );
 
 require( "should" );
-describe( "OperatorSpacing", function () {
+describe( TEST_SUITE_NAME, function () {
   describe( "(Contract)", function () {
     var mediator,
         sniff,
@@ -46,12 +59,12 @@ describe( "OperatorSpacing", function () {
       });
 
       it("must trigger violation on (1+ 1)", function () {
-        var caseId = "case1", pNode;
+        var caseId = "case1", tree = helper.getTree( caseId ), pNode;
 
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "OperatorSpacing/" + caseId + ".js" )
-            ), mediator );
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+            mediator, new TokenIteratorStub( tree.tokens ) );
 
-          pNode = fixture.getJson( "OperatorSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          pNode = tree.body[ 0 ].expression;
 
           sniff.run( rule, pNode );
           msg = mediator.getMessage( "OperatorPrecedingWhitespaces" );
@@ -59,12 +72,12 @@ describe( "OperatorSpacing", function () {
         });
 
         it("must trigger violation on (1 +1)", function () {
-        var caseId = "case2", pNode;
+        var caseId = "case2", tree = helper.getTree( caseId ), pNode;
 
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "OperatorSpacing/" + caseId + ".js" )
-            ), mediator );
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+            mediator, new TokenIteratorStub( tree.tokens ) );
 
-          pNode = fixture.getJson( "OperatorSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          pNode = tree.body[ 0 ].expression;
 
           sniff.run( rule, pNode );
           msg = mediator.getMessage( "OperatorTrailingWhitespaces" );
@@ -74,12 +87,12 @@ describe( "OperatorSpacing", function () {
 
 
         it("must not trigger on (1 + 1)", function () {
-        var caseId = "case3", pNode;
+        var caseId = "case3", tree = helper.getTree( caseId ), pNode;
 
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "OperatorSpacing/" + caseId + ".js" )
-            ), mediator );
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+            mediator, new TokenIteratorStub( tree.tokens ) );
 
-          pNode = fixture.getJson( "OperatorSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          pNode = tree.body[ 0 ].expression;
 
           sniff.run( rule, pNode );
 
@@ -87,12 +100,12 @@ describe( "OperatorSpacing", function () {
         });
 
         it("must not trigger on (\"1\" + \"1\")", function () {
-        var caseId = "case4", pNode;
+        var caseId = "case4", tree = helper.getTree( caseId ), pNode;
 
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "OperatorSpacing/" + caseId + ".js" )
-            ), mediator );
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+            mediator, new TokenIteratorStub( tree.tokens ) );
 
-          pNode = fixture.getJson( "OperatorSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          pNode = tree.body[ 0 ].expression;
 
           sniff.run( rule, pNode );
 
@@ -100,12 +113,12 @@ describe( "OperatorSpacing", function () {
         });
 
         it("must trigger violation on (1>>> 1)", function () {
-        var caseId = "case1", pNode;
+        var caseId = "case1", tree = helper.getTree( caseId ), pNode;
 
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "OperatorSpacing/" + caseId + ".js" )
-            ), mediator );
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+            mediator, new TokenIteratorStub( tree.tokens ) );
 
-          pNode = fixture.getJson( "OperatorSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          pNode = tree.body[ 0 ].expression;
 
           sniff.run( rule, pNode );
           msg = mediator.getMessage( "OperatorPrecedingWhitespaces" );
@@ -113,12 +126,12 @@ describe( "OperatorSpacing", function () {
         });
 
       it("must trigger violation on (a= 1 + 1)", function () {
-        var caseId = "case6", pNode;
+        var caseId = "case6", tree = helper.getTree( caseId ), pNode;
 
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "OperatorSpacing/" + caseId + ".js" )
-            ), mediator );
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+            mediator, new TokenIteratorStub( tree.tokens ) );
 
-          pNode = fixture.getJson( "OperatorSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          pNode = tree.body[ 0 ].expression;
 
           sniff.run( rule, pNode );
           msg = mediator.getMessage( "OperatorPrecedingWhitespaces" );
@@ -126,12 +139,12 @@ describe( "OperatorSpacing", function () {
         });
 
         it("must not trigger on (a = 1 + 1)", function () {
-        var caseId = "case7", pNode;
+        var caseId = "case7", tree = helper.getTree( caseId ), pNode;
 
-          sniff = new sniffClass( new SourceCodeStub( fixture.getText( "OperatorSpacing/" + caseId + ".js" )
-            ), mediator );
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+            mediator, new TokenIteratorStub( tree.tokens ) );
 
-          pNode = fixture.getJson( "OperatorSpacing/" + caseId + ".json" ).body[ 0 ].expression;
+          pNode = tree.body[ 0 ].expression;
 
           sniff.run( rule, pNode );
 
