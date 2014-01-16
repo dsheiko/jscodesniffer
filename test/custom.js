@@ -22,12 +22,9 @@ describe( " Custom checks ", function () {
 
   it("-", function () {
 		//var code = "fn( 1,1,bar(1,1) );";
-   var code = "publish( NAME, \"SemicolonPrecedingSpacesNotAllowed\", [\n\
-			token.range[ 0 ] - 1,\n\
-			token.range[ 0 ]\n\
-		] )";
+   var code = "var a = { a:(a) }";
     logger = sniffer.getTestResults( code, OPTIONS );
-    console.log(logger.getMessages());
+    console.log(logger.getMessages()[0]);
   });
 
 });

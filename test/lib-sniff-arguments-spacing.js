@@ -18,7 +18,7 @@ var
     sniffClass = require( "../lib/Sniff/SyntaxTree/" + TEST_SUITE_NAME );
 
 require( "should" );
-describe( "ArgumentsSpacing", function () {
+describe( TEST_SUITE_NAME, function () {
   describe( "(Contract)", function () {
     var mediator,
         sniff,
@@ -97,6 +97,18 @@ describe( "ArgumentsSpacing", function () {
           sniff.run( rule, pNode );
           mediator.getMessages().should.not.be.ok;
         });
+
+				 it("must trigger violation on a(       1, 1 )", function () {
+          var caseId = "case14",
+							tree = helper.getTree( caseId );
+          pNode = tree.body[ 0 ].expression;
+          sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+						mediator, new TokenIteratorStub( tree.tokens ) );
+          sniff.run( rule, pNode );
+          msg = mediator.getMessage( "ArgPrecedingWhitespaces" );
+					msg.should.be.ok;
+        });
+
         it("must trigger violation on a(1, 1 )", function () {
           var caseId = "case2",
 							tree = helper.getTree( caseId );
@@ -105,8 +117,20 @@ describe( "ArgumentsSpacing", function () {
 						mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           msg = mediator.getMessage( "ArgPrecedingWhitespaces" );
+					msg.range.should.eql([ 2, 2 ]);
+					msg.loc.should.eql({
+						start: {
+							line: 1,
+							column: 2
+						},
+						end: {
+							line: 1,
+							column: 2
+						}
+					});
           msg.should.be.ok;
         });
+
         it("must trigger violation on a( 1,1 )", function () {
           var caseId = "case3",
 							tree = helper.getTree( caseId );
@@ -115,6 +139,17 @@ describe( "ArgumentsSpacing", function () {
 						mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           msg = mediator.getMessage( "ArgPrecedingWhitespaces" );
+					msg.range.should.eql([ 5, 5 ]);
+					msg.loc.should.eql({
+						start: {
+							line: 1,
+							column: 5
+						},
+						end: {
+							line: 1,
+							column: 5
+						}
+					});
           msg.should.be.ok;
         });
         it("must trigger violation on a( 1, 1)", function () {
@@ -125,6 +160,17 @@ describe( "ArgumentsSpacing", function () {
 						mediator, new TokenIteratorStub( tree.tokens ) );
           sniff.run( rule, pNode );
           msg = mediator.getMessage( "ArgTrailingWhitespaces" );
+					msg.range.should.eql([ 7, 7 ]);
+					msg.loc.should.eql({
+						start: {
+							line: 1,
+							column: 7
+						},
+						end: {
+							line: 1,
+							column: 7
+						}
+					});
           msg.should.be.ok;
         });
         it("must trigger no violation on a( 1,.. 1..)", function () {

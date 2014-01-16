@@ -1,11 +1,25 @@
 /*jshint -W068 */
-var fixture = require( "./inc/fixture" ),
+var
+		/**
+		 * @constant
+		 * @type {string}
+		 * @default
+		 */
+		TEST_SUITE_NAME = "ObjectLiteralSpacing",
+		/** @var {helper} */
+		helper = require( "./inc/helper" )( TEST_SUITE_NAME ),
+		/** @var {TokenIteratorStub} */
+		TokenIteratorStub = require( "./inc/TokenIteratorStub" ),
+		/** @var {MediatorMock} */
     MediatorMock = require( "./inc/MediatorMock" ),
+		/** @var {SourceCodeStub} */
     SourceCodeStub = require( "./inc/SourceCodeStub" ),
-    sniffClass = require( "../lib/Sniff/SyntaxTree/ObjectLiteralSpacing" );
+		/** @var {Sniff/SyntaxTree/ArrayLiteralSpacing} */
+    sniffClass = require( "../lib/Sniff/SyntaxTree/" + TEST_SUITE_NAME );
+
 
 require( "should" );
-describe( "ObjectLiteralSpacing", function () {
+describe( TEST_SUITE_NAME, function () {
   describe( "(Contract)", function () {
     var mediator,
         sniff;
@@ -64,92 +78,102 @@ describe( "ObjectLiteralSpacing", function () {
 
 
       it("must trigger no violation on o = { p: 1 }", function () {
-        var caseId = "case1";
-        pNode = fixture.getJson( "ObjectLiteralSpacing/" + caseId + ".json" )
+        var caseId = "case1",
+						tree = helper.getTree( caseId );
+
+        pNode = tree
           .body[ 0 ].expression.right;
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ObjectLiteralSpacing/" + caseId +
-          ".js" ) ), mediator );
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+          mediator, new TokenIteratorStub( tree.tokens ) );
         sniff.run( rule, pNode );
         mediator.getMessages().should.not.be.ok;
       });
 
       it("must trigger violation on o = {p: 1 }", function () {
-        var caseId = "case2";
-        pNode = fixture.getJson( "ObjectLiteralSpacing/" + caseId + ".json" )
+        var caseId = "case2",
+						tree = helper.getTree( caseId );
+        pNode = tree
           .body[ 0 ].expression.right;
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ObjectLiteralSpacing/" + caseId +
-          ".js" ) ), mediator );
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+          mediator, new TokenIteratorStub( tree.tokens ) );
         sniff.run( rule, pNode );
         msg = mediator.getMessage( "ObjectPropertyKeyPrecedingSpacing" );
         msg.should.be.ok;
       });
 
       it("must trigger violation on o = { p : 1 }", function () {
-        var caseId = "case3";
-        pNode = fixture.getJson( "ObjectLiteralSpacing/" + caseId + ".json" )
+        var caseId = "case3",
+						tree = helper.getTree( caseId );
+        pNode = tree
           .body[ 0 ].expression.right;
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ObjectLiteralSpacing/" + caseId +
-          ".js" ) ), mediator );
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+          mediator, new TokenIteratorStub( tree.tokens ) );
         sniff.run( rule, pNode );
         msg = mediator.getMessage( "ObjectPropertyKeyTrailingSpacing" );
         msg.should.be.ok;
       });
 
       it("must trigger violation on o = { p:1 }", function () {
-        var caseId = "case4";
-        pNode = fixture.getJson( "ObjectLiteralSpacing/" + caseId + ".json" )
+        var caseId = "case4",
+						tree = helper.getTree( caseId );
+        pNode = tree
           .body[ 0 ].expression.right;
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ObjectLiteralSpacing/" + caseId +
-          ".js" ) ), mediator );
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+          mediator, new TokenIteratorStub( tree.tokens ) );
         sniff.run( rule, pNode );
         msg = mediator.getMessage( "ObjectPropertyValuePrecedingSpacing" );
         msg.should.be.ok;
       });
       it("must trigger violation on o = { p: 1}", function () {
-        var caseId = "case5";
-        pNode = fixture.getJson( "ObjectLiteralSpacing/" + caseId + ".json" )
+        var caseId = "case5",
+						tree = helper.getTree( caseId );
+        pNode = tree
           .body[ 0 ].expression.right;
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ObjectLiteralSpacing/" + caseId +
-          ".js" ) ), mediator );
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+          mediator, new TokenIteratorStub( tree.tokens ) );
         sniff.run( rule, pNode );
         msg = mediator.getMessage( "ObjectPropertyValueTrailingSpacing" );
         msg.should.be.ok;
       });
 
       it("must trigger no violation on o = { p1: 1, p2: 2 }", function () {
-        var caseId = "case6";
-        pNode = fixture.getJson( "ObjectLiteralSpacing/" + caseId + ".json" )
+        var caseId = "case6",
+						tree = helper.getTree( caseId );
+        pNode = tree
           .body[ 0 ].expression.right;
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ObjectLiteralSpacing/" + caseId +
-          ".js" ) ), mediator );
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+          mediator, new TokenIteratorStub( tree.tokens ) );
         sniff.run( rule, pNode );
         mediator.getMessages().should.not.be.ok;
       });
       it("must trigger no violation on o = {..p1: 1,..p2: 2..}", function () {
-        var caseId = "case7";
-        pNode = fixture.getJson( "ObjectLiteralSpacing/" + caseId + ".json" )
+        var caseId = "case7",
+						tree = helper.getTree( caseId );
+        pNode = tree
           .body[ 0 ].expression.right;
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ObjectLiteralSpacing/" + caseId +
-          ".js" ) ), mediator );
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+          mediator, new TokenIteratorStub( tree.tokens ) );
         sniff.run( rule, pNode );
         mediator.getMessages().should.not.be.ok;
       });
       it("must trigger violation on o = {..p1: 1,..p2: 2}", function () {
-        var caseId = "case8";
-        pNode = fixture.getJson( "ObjectLiteralSpacing/" + caseId + ".json" )
+        var caseId = "case8",
+						tree = helper.getTree( caseId );
+        pNode = tree
           .body[ 0 ].expression.right;
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ObjectLiteralSpacing/" + caseId +
-          ".js" ) ), mediator );
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+          mediator, new TokenIteratorStub( tree.tokens ) );
         sniff.run( rule, pNode );
         msg = mediator.getMessage( "ObjectPropertyValueTrailingSpacing" );
         msg.should.be.ok;
       });
       it("must trigger violation on o = {p1: 1,..p2: 2..}", function () {
-        var caseId = "case9";
-        pNode = fixture.getJson( "ObjectLiteralSpacing/" + caseId + ".json" )
+        var caseId = "case9",
+						tree = helper.getTree( caseId );
+        pNode = tree
           .body[ 0 ].expression.right;
-        sniff = new sniffClass( new SourceCodeStub( fixture.getText( "ObjectLiteralSpacing/" + caseId +
-          ".js" ) ), mediator );
+        sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ),
+          mediator, new TokenIteratorStub( tree.tokens ) );
         sniff.run( rule, pNode );
         msg = mediator.getMessage( "ObjectPropertyKeyPrecedingSpacing" );
         msg.should.be.ok;

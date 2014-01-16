@@ -19,7 +19,7 @@ var
 
 require( "should" );
 
-describe( "ArrayLiteralSpacing", function () {
+describe( TEST_SUITE_NAME, function () {
   describe( "(Contract)", function () {
     var mediator,
         sniff,
