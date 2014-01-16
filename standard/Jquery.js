@@ -177,8 +177,7 @@ define(function() {
 		must be listed together at the start of the declaration
 		*/
 	"VariableDeclarationPerScopeConventions": {
-		"disallowMultiplePerBlockScope": true,
-		"requireInTheBeginning": true
+		"disallowMultiplePerBlockScope": true
 	}
 
 	};
