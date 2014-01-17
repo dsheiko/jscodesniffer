@@ -27,7 +27,7 @@ define(function( require ) {
 			Cli = require( "./lib/Cli" ),
 			fs = require( "fs" ),
 			path = require( "path" ),
-			HELP_SCREEN = "Usage: jscs <path>\n" +
+			HELP_SCREEN = "Usage: jscs <path> <path>..\n" +
 				"<path> - filename or dir to sniff\n" +
 				"[--standard=<Standard>] - apply specified standard (Idiomatic, Jquery)\n" +
 				"[--report-full] - full report with source codes\n" +
@@ -63,6 +63,7 @@ define(function( require ) {
 			dictionary,
 			existingReportBody,
 			rulesetOverrides,
+			/* @type {string[]} */
 			where = ".",
 			cli = new Cli( fs, path ),
 			/**
@@ -80,7 +81,7 @@ define(function( require ) {
 			process.exit( 1 );
 		}
 
-		where = cli.findPathInCliArgs( argv );
+		where = cli.findPathsInCliArgs( argv );
 		options = cli.parseCliOptions( argv, options );
 
 		if ( options.hasOwnProperty( "help" ) ) {
@@ -118,16 +119,23 @@ define(function( require ) {
 			logger = sniffer.getTestResults( data, options, rulesetOverrides );
 			reporter.add( pathArg, dictionary.translateBulk( logger.getMessages() ), options.standard );
 		} else {
-			// Generic flow
-			cli.applyToEveryFileInPath( where, function( pathArg, data ) {
-				var logger;
-				options.src = pathArg;
-				try {
-					logger = sniffer.getTestResults( data, options, rulesetOverrides );
-					reporter.add( pathArg, dictionary.translateBulk( logger.getMessages() ), options.standard );
-				} catch ( err ) {
-					console.error( err.message || err );
+			// For every given target
+			where.forEach(function( targetPath ){
+				// If requested externally paths are not of the cwd
+				if ( cwd ) {
+					targetPath = path.join( cwd, targetPath );
 				}
+				// Generic flow
+				cli.applyToEveryFileInPath( targetPath, function( pathArg, data ) {
+					var logger;
+					options.src = pathArg;
+					try {
+						logger = sniffer.getTestResults( data, options, rulesetOverrides );
+						reporter.add( pathArg, dictionary.translateBulk( logger.getMessages() ), options.standard );
+					} catch ( err ) {
+						console.error( err.message || err );
+					}
+				});
 			});
 		}
 

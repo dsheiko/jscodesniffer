@@ -41,14 +41,17 @@ ln -s jscs /usr/local/bin/jscs
 
 ## <a name="a-use"></a> Using JSCodeSniffer in the command line
 
-Simply get detailed report on the file coding style according to jQuery Coding Style Guide
+Simply get detailed report on a target (file or directory) coding style according to jQuery Coding Style Guide
 ```bash
-./jscs source-code.js
+./jscs source-code.js --standard=Jquery
 ```
-
-It's equivalent to:
+or
 ```bash
-node jscs.js source-code.js
+node jscs.js source-code.js  --standard=Jquery
+```
+or
+```bash
+./jscs js/dir1 file1.js js/dir2 file2.js --standard=Jquery
 ```
 
 ![JS CodeSniffer Full Report Example](https://raw.github.com/dsheiko/jscodesniffer/master/doc/sample1.jpg "JS CodeSniffer Full Report Example")

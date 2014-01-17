@@ -23,27 +23,26 @@ module.exports = function(grunt) {
 						options: {
 							"standard": "Jquery"
 						},
-						all: [ "lib", "jscs-module.js" ]
+						all: [ "./lib", "./jscs-module.js" ]
 					}
 				}
     });
 
 	grunt.registerMultiTask( 'jscs', 'Run jscs', function() {
 		var argv = [
-			"node",
-			"jscs",
-			( "--standard=" + grunt.task.current.data.options.standard || "Jquery" )
-			],
+					"node",
+					"jscs",
+					( "--standard=" + grunt.task.current.data.options.standard || "Jquery" )
+				],
+				lArgv,
 				jscs = require( "./jscs-module" ),
 				folders = grunt.task.current.data.all;
 
-		folders.forEach(function( folder ){
-			var lArgv = argv.concat( [ folder ] );
-			grunt.log.writeln( "Starting jscs on `" + folder + "`" );
-			grunt.verbose.writeln( 'Exec: ' + lArgv.join(" ") );
-			jscs( lArgv, process.cwd() );
-		});
 
+		lArgv = argv.concat( folders );
+		grunt.log.writeln( "Starting jscs on `" + folders.join( " " ) + "`" );
+		grunt.verbose.writeln( 'Exec: ' + lArgv.join(" ") );
+		jscs( lArgv, process.cwd() );
 
 	});
 
