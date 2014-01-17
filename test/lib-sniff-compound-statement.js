@@ -6,13 +6,13 @@ var
 		 * @default
 		 */
 		TEST_SUITE_NAME = "CompoundStatementConventions",
-		/** @var {helper} */
+		/** @type {helper} */
 		helper = require( "./inc/helper" )( TEST_SUITE_NAME ),
-		/** @var {MediatorMock} */
+		/** @type {MediatorMock} */
     MediatorMock = require( "./inc/MediatorMock" ),
-		/** @var {SourceCodeStub} */
+		/** @type {SourceCodeStub} */
     SourceCodeStub = require( "./inc/SourceCodeStub" ),
-		/** @var {Sniff/SyntaxTree/ArrayLiteralSpacing} */
+		/** @type {Sniff/SyntaxTree/ArrayLiteralSpacing} */
     sniffClass = require( "../lib/Sniff/SyntaxTree/" + TEST_SUITE_NAME );
 
 

@@ -1,4 +1,4 @@
-var /** @var {fixture} */
+var /** @type {fixture} */
 		fixture = require( "./fixture" );
 		/**
 		 *

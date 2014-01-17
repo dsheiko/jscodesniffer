@@ -107,8 +107,8 @@ define(function( require ) {
 			try {
 				logger = sniffer.getTestResults( data, options, rulesetOverrides );
 				reporter.add( pathArg, dictionary.translateBulk( logger.getMessages() ), options.standard );
-			} catch ( e ) {
-				console.error( e );
+			} catch ( err ) {
+				console.error( err.message || err );
 			}
 		});
 
