@@ -21,7 +21,7 @@ else
     against=4b825dc642cb6eb9a060e54bf8d69288fbee4904
 fi
 
-# this is the magic: 
+# this is the magic:
 # retrieve all files in staging area that are added, modified or renamed
 # but no deletions etc
 FILES=$(git diff-index --name-only --cached --diff-filter=ACMR $against -- )
@@ -70,7 +70,7 @@ do
   STAGED_FILES="$STAGED_FILES $TMP_STAGING/$FILE"
 done
 
-OUTPUT=$($JSCS_BIN $STAGED_FILES --standard=$JSCS_CODING_STANDARD)
+OUTPUT=$($JSCS_BIN $STAGED_FILES --mode=silent --standard=$JSCS_CODING_STANDARD)
 RETVAL=$?
 
 
@@ -78,7 +78,7 @@ RETVAL=$?
 rm -rf $TMP_STAGING
 
 if [ $RETVAL -ne 0 ]; then
-    echo "$OUTPUT" 
+    echo "$OUTPUT"
 fi
 
 exit $RETVAL

@@ -12,7 +12,8 @@
 		"module": false,
 		"__dirname": false,
 		"console": true,
-		"argv": false
+		"argv": false,
+		"process": false
   },
   "boss": true,
   "curly": true,

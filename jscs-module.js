@@ -36,14 +36,16 @@ define(function( require ) {
 				"[--report=checkstyle] - printing Jenkins-friendly checkstyle report\n" +
 				"[--report-file=filePath] - write the report to the specified file path\n" +
 				"[--highlight=0] - disable colors on reports\n" +
+				"[--mode=silent] - suppress output if no violations found\n" +
 				"[--reportWidth=" + DEFAULT_REPORT_WIDTH + "] - How many columns wide screen reports should be printed\n";
 	/**
 	* @constructor
 	* @alias module:jscodesniffer
 	* @param {string[]} argv
-	* @param {string} cwd
+	* @param {string} [cwd]
+	* @param {string} [srcCode]
 	*/
-	return function( argv, cwd ) {
+	return function( argv, cwd, srcCode ) {
 		var
 			/**
 			* Default options
@@ -62,7 +64,16 @@ define(function( require ) {
 			existingReportBody,
 			rulesetOverrides,
 			where = ".",
-			cli = new Cli( fs, path );
+			cli = new Cli( fs, path ),
+			/**
+			* Check if the configured report won't conflict with generic output wrapper
+			* @return {Boolean}
+			*/
+			isSafeForStdOut = function() {
+				return options.report !== "xml" &&
+					options.report !== "checkstyle" &&
+					options.mode !== "silent";
+			};
 
 		if ( argv.length < 3 ) {
 			console.log( HELP_SCREEN );
@@ -91,7 +102,8 @@ define(function( require ) {
 			options.report = "summary";
 		}
 
-		if ( options.report === "checkstyle" || options.report === "xml" ) {
+		if ( options.report === "checkstyle" || options.report === "xml" ||
+			typeof options[ "report-file" ] !== "undefined" ) {
 			options.highlight = "0";
 		}
 
@@ -99,34 +111,53 @@ define(function( require ) {
 		sniffer = new Sniffer();
 		dictionary = new Dictionary();
 
-		rulesetOverrides = cli.readRealtimeConfig( cwd );
+		rulesetOverrides = cwd ? cli.readRealtimeConfig( cwd ) : {};
 
-		cli.applyToEveryFileInPath( where, function( pathArg, data ) {
-			var logger;
-			options.src = pathArg;
-			try {
-				logger = sniffer.getTestResults( data, options, rulesetOverrides );
-				reporter.add( pathArg, dictionary.translateBulk( logger.getMessages() ), options.standard );
-			} catch ( err ) {
-				console.error( err.message || err );
-			}
-		});
+		// If scrCode is povided from external module
+		if ( srcCode ) {
+			logger = sniffer.getTestResults( data, options, rulesetOverrides );
+			reporter.add( pathArg, dictionary.translateBulk( logger.getMessages() ), options.standard );
+		} else {
+			// Generic flow
+			cli.applyToEveryFileInPath( where, function( pathArg, data ) {
+				var logger;
+				options.src = pathArg;
+				try {
+					logger = sniffer.getTestResults( data, options, rulesetOverrides );
+					reporter.add( pathArg, dictionary.translateBulk( logger.getMessages() ), options.standard );
+				} catch ( err ) {
+					console.error( err.message || err );
+				}
+			});
+		}
 
-		if ( options.report === "checkstyle" && typeof options["report-file"] !== "undefined" ) {
-			existingReportBody = cli.extractExistingReportBody( options["report-file"] );
+		if ( options.report === "checkstyle" && typeof options[ "report-file" ] !== "undefined" ) {
+			existingReportBody = cli.extractExistingReportBody( options[ "report-file" ] );
 		}
 
 		formatter = reporter.loadFormatter( options.report, options );
 		stdout = reporter.print( formatter, ( options.highlight === "1" ), existingReportBody );
 
+
+		isSafeForStdOut() && cli.printHeader( options.version );
+
 		if ( stdout.length ) {
-			if ( typeof options["report-file"] !== "undefined" ) {
-					fs.writeFileSync( options["report-file"], stdout, "utf-8" );
+			// Violations found
+			if ( typeof options[ "report-file" ] !== "undefined" ) {
+				fs.writeFileSync( options[ "report-file" ], stdout, "utf-8" );
 			} else {
-					console.error( stdout );
+				console.error( stdout );
 			}
+			isSafeForStdOut() && cli.printFooter();
 			process.exit( 1 );
+		} else {
+			// Success
+			if ( isSafeForStdOut() ){
+				cli.printSuccess( options.standard );
+				cli.printFooter();
+			}
 		}
+
 	};
 });
 

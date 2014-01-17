@@ -40,7 +40,7 @@ describe( "Formatter/Summary.js", function () {
 
 
       it("header must render intended output", function () {
-        normalize( formatter.header() ).should.eql( "JS CODE SNIFFER 1 REPORT SUMMARY ---------------" +
+        normalize( formatter.header() ).should.eql( "REPORT SUMMARY ---------------" +
         "----------------------------------------------- FILE ERRORS " +
         "--------------------------------------------------------------" );
       });

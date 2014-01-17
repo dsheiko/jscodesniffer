@@ -1,77 +1,59 @@
 #!/usr/bin/env node
 // @TODO rewrite it as bash script performing jscs on temporarily created folder
 // It will allow add easily additional tasks
-var JSCS = "<Your path to jscodesniffer>",
-    DEFAULT_STANDARD = "Idiomatic",
+
+var jscodesniffer = require( "<Your path to jscodesniffer>/jscs-module" ),
+    DEFAULT_STANDARD = "JQuery",
+		jscArgv = [ "node", "jscs", "--report-full", "--mode-silent", "--standard=" + DEFAULT_STANDARD ],
     SVN_LOOK = "/usr/bin/svnlook",
     REPOS = process.argv[ 2 ],
     TXN = process.argv[ 3 ],
-
-
     fs = require( 'fs' ),
     sys = require( 'sys' ),
     exec = require( 'child_process' ).exec,
-    esprima = require( JSCS + "node_modules/esprima/esprima"),
-    sniffer = require( JSCS + 'lib/Sniffer' ),
-    Reporter = require( JSCS + 'lib/Reporter' ),
-    reporter = new Reporter("full"),
     command,
-    Standard,
     exit = 0,
-
     log = function( stdout ) {
         fs.writeFile( "/repositories/home/sheiko/report.txt", stdout );
     },
-    helpScreen = "    Each additional argument is passed to the `svnlook changed ...`\n" +
-                    "    and `svnlook cat ...` commands.  The report is printed on standard output,\n" +
-                    "    however Subversion displays only standard error to the user, so in a\n" +
-                    "    pre-commit hook, this script should be invoked as follows:\n\n" +
-                    "    " + process.argv[ 1 ] + "... \"$REPOS\" -t \"$TXN\" >&2 || exit 1\n";
+    helpScreen =  "    Each additional argument is passed to the `svnlook changed ...`\n" +
+									"    and `svnlook cat ...` commands.  The report is printed on standard output,\n" +
+									"    however Subversion displays only standard error to the user, so in a\n" +
+									"    pre-commit hook, this script should be invoked as follows:\n\n" +
+									"    " + process.argv[ 1 ] + "... \"$REPOS\" -t \"$TXN\" >&2 || exit 1\n";
 
 
 if ( process.argv.length < 3 ) {
-    return console.log( helpScreen );
+    console.log( helpScreen );
+		process.exit( 2 );
 }
 
-try {
-    Standard = require( JSCS + 'standard/' + DEFAULT_STANDARD);
-} catch ( e ) {
-    sys.puts( e.message );
-    process.exit( 2 );
-}
 command = SVN_LOOK + " changed -t \"" + TXN + "\"  \"" + REPOS + "\" " + process.argv.slice( 4 ).join(" ");
 exec( command, function( error, stdout, stderr ) {
-        if ( error !== null ) {
-            sys.puts( "ERROR: Could not execute command " + command + "\n" );
-            process.exit( 2 );
-        }
-        // Do not check deleted paths.
-        stdout = stdout.replace(/^D.*/gm, "");
-        // Drop the four characters representing the action which precede the path on
-        // each line.
-        stdout = stdout.replace(/^.{4}/gm, "");
+		if ( error !== null ) {
+			sys.puts( "ERROR: Could not execute command " + command + "\n" );
+			process.exit( 2 );
+		}
+		// Do not check deleted paths.
+		stdout = stdout.replace(/^D.*/gm, "");
+		// Drop the four characters representing the action which precede the path on
+		// each line.
+		stdout = stdout.replace(/^.{4}/gm, "");
 
-        stdout.split("\n").forEach(function( file ){
-            var re = /\.js$/gi,
-                excludeRe = /\.min\.js$/gi,
-                data;
-            if ( !re.test( file ) || re.test( excludeRe ) ) {
-                return;
-            }
-            command = SVN_LOOK + " cat -t \"" + TXN + "\"  \"" + REPOS + "\" " + file;
-            exec( command, function( error, stdout, stderr ) {
-                if ( error !== null ) {
-                    sys.puts( "ERROR: Could not execute command " + command + "\n" );
-                    process.exit( 2 );
-                }
-                msgs = sniffer.run(stdout, Standard).getMessages();
-                if ( msgs.length ) {
-                    exit = 1;
-                    reporter.add( file, msgs );
-                    console.error( reporter.print({ highlight: false }) );
-                    process.exit( 1 );
-                }
-            });
-        });
+		stdout.split("\n").forEach(function( file ){
+			var re = /\.js$/gi,
+					excludeRe = /\.min\.js$/gi;
+			if ( !re.test( file ) || re.test( excludeRe ) ) {
+					return;
+			}
+			command = SVN_LOOK + " cat -t \"" + TXN + "\"  \"" + REPOS + "\" " + file;
+			exec( command, function( error, stdout, stderr ) {
+				if ( error !== null ) {
+						sys.puts( "ERROR: Could not execute command " + command + "\n" );
+						process.exit( 2 );
+				}
+				jscodesniffer( jscArgv, null, stdout );
+			});
+		});
 });
 
