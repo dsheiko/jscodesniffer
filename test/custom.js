@@ -22,8 +22,7 @@ describe( " Custom checks ", function () {
 
   it("-", function () {
 		//var code = "fn( 1,1,bar(1,1) );";
-   var code = "var o = {\na: 1,\nb: 2\n}";
-	 console.log(code);
+   var code = "a = new Ass()";
     logger = sniffer.getTestResults( code, OPTIONS );
     console.log(logger.getMessages());
   });

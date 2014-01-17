@@ -1,0 +1,1 @@
+obj = new Constructor(); // good

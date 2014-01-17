@@ -334,6 +334,19 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       "allowNumbers": true
     },
    /*
+    defines naming conventions for new expressions
+
+    Example:
+    obj = new Constructor(); // good
+    obj = new constructor(); // bad
+    */
+		"NewExpressionCalleeNamingConventions": {
+			"allowCase": [ "pascal" ],
+			"allowRepeating": true,
+			"allowNumbers": true
+		},
+
+   /*
     defines spacing conventions for arguments
 
     Example:
@@ -446,6 +459,8 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
 		defines conventions for object declarations
 
     Example:
+		// good
+		o = { p1: 1, p2: 2 }
     // good
 		o = {
 			p1: 1,
@@ -455,7 +470,25 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
 		o = {
 			p1: 1, p2: 2 }
 	 	*/
-		"ObjectDeclarationConventions": {
+		"ObjectLiteralConventions": {
+			"requireOnePerLineWhenMultiline": true
+		},
+		/*
+		defines conventions for array declarations
+
+    Example:
+		// good
+		arr = [ 1, "two" ]
+    // good
+		arr = [
+			1,
+			"two"
+		]
+		// bad
+		arr = [
+			1, "two" ]
+	 	*/
+		"ArrayLiteralConventions": {
 			"requireOnePerLineWhenMultiline": true
 		}
 

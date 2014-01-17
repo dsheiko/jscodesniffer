@@ -17,6 +17,11 @@ require( "./lib-sniff-unary-expression.js" );
 require( "./lib-sniff-var-dec-per-scope.js" );
 require( "./lib-sniff-variable-naming-conventions.js" );
 require( "./lib-sniff-chained-methods.js" );
+require( "./lib-sniff-object-declaration-conventions.js" );
+require( "./lib-sniff-array-declaration-conventions.js" );
+require( "./lib-sniff-array-declaration-conventions.js" );
+require( "./lib-sniff-new-naming-conventions.js" );
+
 
 require( "./lib-reporter" );
 require( "./lib-cli" );

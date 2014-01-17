@@ -1,0 +1,1 @@
+obj = new constructor(); // bad
