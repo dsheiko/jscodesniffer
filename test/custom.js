@@ -22,7 +22,22 @@ describe( " Custom checks ", function () {
 
   it("-", function () {
 		//var code = "fn( 1,1,bar(1,1) );";
-   var code = "a = new Ass()";
+   var code = "a = {\n\
+	a: 1,\n\
+	supportedInputProps: (function() {\n\
+					var inputElem = document.createElement( \"input\" ),\n\
+						attrs = (function( props ) {\n\
+							var i = 0, attrs = [], len = props.length;\n\
+							for ( ; i < len; i++ ) {\n\
+								attrs[ props[i] ] = !!(props[i] in inputElem);\n\
+							}\n\
+							return attrs;\n\
+						})(\"autocomplete autofocus list placeholder max min multiple pattern required step\"\n\
+							.split( \" \" ));\n\
+					return attrs;\n\
+				}())\n\
+}";
+		//console.log(code);
     logger = sniffer.getTestResults( code, OPTIONS );
     console.log(logger.getMessages());
   });
