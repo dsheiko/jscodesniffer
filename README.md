@@ -156,7 +156,8 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
   */
     "Indentation": {
       "allowOnlyTabs": true,
-      "allowOnlySpaces": true
+      "allowOnlySpaces": true,
+			"disallowMixed": true
     },
   /*
     defines if trailing spaces allowed for lines

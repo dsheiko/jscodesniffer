@@ -30,9 +30,7 @@ define(function() {
 	Never mix spaces and tabs.
 	*/
 	"Indentation": {
-		// Choose one:
-		// "allowOnlyTabs": true,
-		// "allowOnlySpaces": false
+		 "disallowMixed": true
 	},
 
 	/*
