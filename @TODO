@@ -7,8 +7,5 @@
 describe("method",..
 it ("must..."
 it ("must..."
-* Make online validator highlighting problem code using payload start/end locations
-* Make inline documentation compatible to JSDoc 3 (http://usejsdoc.org/tags-param.html)
-* Add a Sniff checking all the NewExpression followed by PascalStyle
 * Add experimental mode --resolve, it invokes Resolver instead of Reporter, that analyzes logger and tries to solve
 	conflicts. It uses Replacer to apply changes on the code, and checks JavaScript validity with esprima before outputing the code
