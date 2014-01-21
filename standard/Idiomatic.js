@@ -171,15 +171,7 @@ define(function() {
 		"allowSingleQuotes": false
 		*/
 	},
-	/*
-		6.A.3.3
-		Naming functions, objects, instances, etc
-		*/
-	"VariableNamingConventions": {
-		"allowCase": [ "camel" ],
-		"allowRepeating": true,
-		"allowNumbers": true
-	},
+
 	/*
 		6.A.3.3
 		Naming constructors, prototypes, etc.
