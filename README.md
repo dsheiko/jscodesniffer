@@ -518,7 +518,7 @@ NOTE: If you have phpcs-ci ant target, invoke it prior to this one. Jscs will fi
 
 *Gruntfile.js*
 ```javascript
-grunt.loadNpmTasks('grunt-jscs');
+grunt.loadNpmTasks('grunt-contrib-jscs');
 grunt.initConfig({
      // Validate against jQuery coding standard
      jscs: {
@@ -533,8 +533,7 @@ grunt.initConfig({
 ```javascript
 "devDependencies": {
     //..
-    "jscodesniffer": ">= 2.0.0",
-    "grunt-jscs": ">0.0.1"
+    "grunt-contrib-jscs": "*"
   }
 ```
 

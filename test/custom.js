@@ -21,11 +21,7 @@ describe( " Custom checks ", function () {
   });
 
   it(" must implement custom standard correctly", function () {
-   var code = "/*global define */\n\
-define( 'library/uielements/textinput', [\n\
-  'core'\n\
-], function(require) {\n\
-});",
+   var code = "var core = require('core');",
 
 	modifiers = {
 		"Indentation": false,
@@ -42,7 +38,7 @@ define( 'library/uielements/textinput', [\n\
 				"allowArgTrailingWhitespaces": 0,
 				"exceptions": {
 					"singleArg" : {
-						"for": ["FunctionExpression", "ArrayExpression", "ObjectExpression"],
+						"for": ["FunctionExpression", "ArrayExpression", "ObjectExpression", "Literal"],
 						"allowArgPrecedingWhitespaces": 0,
 						"allowArgTrailingWhitespaces": 0
 					},
