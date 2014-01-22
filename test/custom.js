@@ -20,26 +20,47 @@ describe( " Custom checks ", function () {
     sniffer = new Sniffer();
   });
 
-  it("-", function () {
-		//var code = "fn( 1,1,bar(1,1) );";
-   var code = "a = {\n\
-	a: 1,\n\
-	supportedInputProps: (function() {\n\
-					var inputElem = document.createElement( \"input\" ),\n\
-						attrs = (function( props ) {\n\
-							var i = 0, attrs = [], len = props.length;\n\
-							for ( ; i < len; i++ ) {\n\
-								attrs[ props[i] ] = !!(props[i] in inputElem);\n\
-							}\n\
-							return attrs;\n\
-						})(\"autocomplete autofocus list placeholder max min multiple pattern required step\"\n\
-							.split( \" \" ));\n\
-					return attrs;\n\
-				}())\n\
-}";
-		//console.log(code);
-    logger = sniffer.getTestResults( code, OPTIONS );
-    console.log(logger.getMessages());
+  it(" must implement custom standard correctly", function () {
+   var code = "/*global define */\n\
+define( 'library/uielements/textinput', [\n\
+  'core'\n\
+], function(require) {\n\
+});",
+
+	modifiers = {
+		"Indentation": false,
+		"QuoteConventions": {
+			"allowDoubleQuotes": false,
+			"allowSingleQuotes": true
+		},
+		"ParametersSpacing": {
+			"allowParamPrecedingWhitespaces": 0,
+			"allowParamTrailingWhitespaces": 0
+		},
+		"ArgumentsSpacing": {
+				"allowArgPrecedingWhitespaces": 1,
+				"allowArgTrailingWhitespaces": 0,
+				"exceptions": {
+					"singleArg" : {
+						"for": ["FunctionExpression", "ArrayExpression", "ObjectExpression"],
+						"allowArgPrecedingWhitespaces": 0,
+						"allowArgTrailingWhitespaces": 0
+					},
+					"firstArg": {
+						"for": [ "FunctionExpression" ],
+						"allowArgPrecedingWhitespaces": 0
+					},
+					"lastArg": {
+						"for": [ "FunctionExpression" ],
+						"allowArgTrailingWhitespaces": 0
+					}
+				}
+		}
+	};
+
+    logger = sniffer.getTestResults( code, OPTIONS, modifiers );
+    //console.log(logger.getMessages());
+		logger.getMessages().length.should.not.be.ok;
   });
 
 });
