@@ -298,7 +298,25 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     */
     "ArrayLiteralSpacing": {
       "allowElementPrecedingWhitespaces": 1,
-      "allowElementTrailingWhitespaces": 1
+      "allowElementTrailingWhitespaces": 1,
+      /*
+        Optional modifier.
+			*/
+			"exceptions": {
+				"singleArg": {
+					"for": [ "Literal" ],
+					"allowElementPrecedingWhitespaces": 0,
+					"allowElementTrailingWhitespaces": 0
+				},
+				"firstArg": {
+					"for": [ "Literal" ],
+					"allowElementPrecedingWhitespaces": 1
+				},
+				"lastArg": {
+					"for": [ "Literal" ],
+					"allowElementTrailingWhitespaces": 1
+				}
+			}
     },
    /*
     defines type of quotes to use across the code-base

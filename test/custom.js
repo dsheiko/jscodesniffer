@@ -21,36 +21,34 @@ describe( " Custom checks ", function () {
   });
 
   it(" must implement custom standard correctly", function () {
-   var code = "var core = require('core');",
+   var code = "arr = [ 1,1 ]",
 
 	modifiers = {
 		"Indentation": false,
-		"QuoteConventions": {
-			"allowDoubleQuotes": false,
-			"allowSingleQuotes": true
-		},
+		"QuoteConventions": false,
 		"ParametersSpacing": {
 			"allowParamPrecedingWhitespaces": 0,
 			"allowParamTrailingWhitespaces": 0
 		},
-		"ArgumentsSpacing": {
-				"allowArgPrecedingWhitespaces": 1,
-				"allowArgTrailingWhitespaces": 0,
-				"exceptions": {
-					"singleArg" : {
-						"for": ["FunctionExpression", "ArrayExpression", "ObjectExpression", "Literal"],
-						"allowArgPrecedingWhitespaces": 0,
-						"allowArgTrailingWhitespaces": 0
-					},
-					"firstArg": {
-						"for": [ "FunctionExpression" ],
-						"allowArgPrecedingWhitespaces": 0
-					},
-					"lastArg": {
-						"for": [ "FunctionExpression" ],
-						"allowArgTrailingWhitespaces": 0
-					}
+
+		"ArrayLiteralSpacing": {
+			"allowElementPrecedingWhitespaces": 0,
+			"allowElementTrailingWhitespaces": 0,
+			"exceptions": {
+				"singleArg": {
+					"for": [ "Literal" ],
+					"allowElementPrecedingWhitespaces": 0,
+					"allowElementTrailingWhitespaces": 0
+				},
+				"firstArg": {
+					"for": [ "Literal" ],
+					"allowElementPrecedingWhitespaces": 1
+				},
+				"lastArg": {
+					"for": [ "Literal" ],
+					"allowElementTrailingWhitespaces": 1
 				}
+			}
 		}
 	};
 
