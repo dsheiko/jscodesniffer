@@ -301,18 +301,19 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       "allowElementTrailingWhitespaces": 1,
       /*
         Optional modifier.
+				When qualifier "for" is missing the exception rules gets applied for any node type
 			*/
 			"exceptions": {
-				"singleArg": {
+				"singleElement": {
 					"for": [ "Literal" ],
 					"allowElementPrecedingWhitespaces": 0,
 					"allowElementTrailingWhitespaces": 0
 				},
-				"firstArg": {
+				"firstElement": {
 					"for": [ "Literal" ],
 					"allowElementPrecedingWhitespaces": 1
 				},
-				"lastArg": {
+				"lastElement": {
 					"for": [ "Literal" ],
 					"allowElementTrailingWhitespaces": 1
 				}
@@ -377,6 +378,10 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     "ArgumentsSpacing": {
       "allowArgPrecedingWhitespaces": 1,
       "allowArgTrailingWhitespaces": 1,
+      /*
+        Optional modifier.
+        When qualifier "for" is missing the exception rules gets applied for any node type
+      */
       "exceptions": {
         "singleArg" : {
           "for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression" ],
@@ -414,7 +419,26 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     */
     "ParametersSpacing": {
       "allowParamPrecedingWhitespaces": 1,
-      "allowParamTrailingWhitespaces": 1
+      "allowParamTrailingWhitespaces": 1,
+      /*
+        Optional modifier.
+        When qualifier "for" is missing the exception rules gets applied for any node type
+			*/
+			"exceptions": {
+				"singleParam": {
+					"for": [ "Literal" ],
+					"allowElementPrecedingWhitespaces": 0,
+					"allowElementTrailingWhitespaces": 0
+				},
+				"firstParam": {
+					"for": [ "Literal" ],
+					"allowElementPrecedingWhitespaces": 1
+				},
+				"lastParam": {
+					"for": [ "Literal" ],
+					"allowElementTrailingWhitespaces": 1
+				}
+			}
     },
   /*
     defines how methods can be placed when a chain of method calls is too long to fit on one line

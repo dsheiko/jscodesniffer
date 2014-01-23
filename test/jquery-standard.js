@@ -296,15 +296,6 @@ object[ array[ i ] ] = someFn( i );\n\
       beforeEach(function(){
         sniffer = new Sniffer();
       });
-
-        it("Variables must go caMel style.", function () {
-          logger = sniffer.getTestResults( "var not_camel_style;", OPTIONS );
-          logger.getMessages().hasErrorCode( "VariableNamingConventions" ).should.be.ok;
-        });
-        it("Variables must go caMel style.", function () {
-          logger = sniffer.getTestResults( "var PascalStyle;", OPTIONS );
-          logger.getMessages().hasErrorCode( "VariableNamingConventions" ).should.be.ok;
-        });
         it("Constructors must go PasCal style.", function () {
           logger = sniffer.getTestResults( "var PascalStyle = function(){};", OPTIONS );
           logger.getMessages().length.should.not.be.ok;
