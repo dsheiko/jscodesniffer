@@ -96,6 +96,7 @@ Define width of report screen
 ## <a name="a-amd"></a> Using JSCodeSniffer as RequireJS (AMD) module
 
 1. Install the package or download and unpack it into you project folder
+
 ```bash
  npm i jscodesniffer
 ```
@@ -300,9 +301,9 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       "allowElementPrecedingWhitespaces": 1,
       "allowElementTrailingWhitespaces": 1,
       /*
-        Optional modifier.
-				When qualifier "for" is missing the exception rules gets applied for any node type
-			*/
+      Optional modifier.
+			When qualifier "for" is missing the exception rules gets applied for any node type
+      */
 			"exceptions": {
 				"singleElement": {
 					"for": [ "Literal" ],
@@ -355,18 +356,18 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       "allowRepeating": true,
       "allowNumbers": true
     },
-   /*
+    /*
     defines naming conventions for new expressions
 
     Example:
     obj = new Constructor(); // good
     obj = new constructor(); // bad
     */
-		"NewExpressionCalleeNamingConventions": {
-			"allowCase": [ "pascal" ],
-			"allowRepeating": true,
-			"allowNumbers": true
-		},
+    "NewExpressionCalleeNamingConventions": {
+      "allowCase": [ "pascal" ],
+      "allowRepeating": true,
+      "allowNumbers": true
+    },
 
    /*
     defines spacing conventions for arguments
@@ -421,26 +422,26 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       "allowParamPrecedingWhitespaces": 1,
       "allowParamTrailingWhitespaces": 1,
       /*
-        Optional modifier.
-        When qualifier "for" is missing the exception rules gets applied for any node type
-			*/
-			"exceptions": {
-				"singleParam": {
-					"for": [ "Literal" ],
-					"allowElementPrecedingWhitespaces": 0,
-					"allowElementTrailingWhitespaces": 0
-				},
-				"firstParam": {
-					"for": [ "Literal" ],
-					"allowElementPrecedingWhitespaces": 1
-				},
-				"lastParam": {
-					"for": [ "Literal" ],
-					"allowElementTrailingWhitespaces": 1
-				}
-			}
+      Optional modifier.
+      When qualifier "for" is missing the exception rules gets applied for any node type
+      */
+      "exceptions": {
+      	"singleParam": {
+      		"for": [ "Literal" ],
+      		"allowElementPrecedingWhitespaces": 0,
+      		"allowElementTrailingWhitespaces": 0
+      	},
+      	"firstParam": {
+      		"for": [ "Literal" ],
+      		"allowElementPrecedingWhitespaces": 1
+      	},
+      	"lastParam": {
+      		"for": [ "Literal" ],
+      		"allowElementTrailingWhitespaces": 1
+      	}
+      }
     },
-  /*
+    /*
     defines how methods can be placed when a chain of method calls is too long to fit on one line
 
     Example:
@@ -454,10 +455,10 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     .children();
     */
 
-	"ChainedMethodCallsPerLineConventions": {
-		"requireOnePerLineWhenMultilineCaller": true
-	},
-	/*
+    "ChainedMethodCallsPerLineConventions": {
+      "requireOnePerLineWhenMultilineCaller": true
+    },
+    /*
     defines spacing conventions for chains of method calls
 		Example:
     // good
@@ -466,7 +467,6 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     // bad
     elements.  addClass( "foo" )
     */
-	*/
 		"ChainedMethodCallsSpacing": {
 			"allowPrecedingPropertyWhitespaces": 0
 		},
@@ -515,28 +515,27 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
 		o = {
 			p1: 1, p2: 2 }
 	 	*/
-		"ObjectLiteralConventions": {
-			"requireOnePerLineWhenMultiline": true
-		},
-		/*
-		defines conventions for array declarations
+    "ObjectLiteralConventions": {
+    	"requireOnePerLineWhenMultiline": true
+    },
+    /*
+    defines conventions for array declarations
 
     Example:
-		// good
-		arr = [ 1, "two" ]
     // good
-		arr = [
-			1,
-			"two"
-		]
-		// bad
-		arr = [
-			1, "two" ]
-	 	*/
+    arr = [ 1, "two" ]
+    // good
+    arr = [
+    	1,
+    	"two"
+    ]
+    // bad
+    arr = [
+    	1, "two" ]
+    */
 		"ArrayLiteralConventions": {
 			"requireOnePerLineWhenMultiline": true
 		}
-
   }
 ```
 
