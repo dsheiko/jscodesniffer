@@ -46,11 +46,11 @@ describe( " Custom standard ", function () {
   });
 
 	it(" must accept ArrayLiteralSpacing exceptions", function () {
-		var code = "var arr = [ 1,2,3 ]",
+		var code = "var arr = [1, 2, 3]",
 			modifiers = {
 				"ArrayLiteralSpacing": {
-					"allowElementPrecedingWhitespaces": 0,
-					"allowElementTrailingWhitespaces": 0,
+					"allowElementPrecedingWhitespaces": 1,
+					"allowElementTrailingWhitespaces": 1,
 					"exceptions": {
 						"singleElement": {
 							"for": [ "Literal" ],
@@ -59,17 +59,35 @@ describe( " Custom standard ", function () {
 						},
 						"firstElement": {
 							"for": [ "Literal" ],
-							"allowElementPrecedingWhitespaces": 1
+							"allowElementPrecedingWhitespaces": 0
 						},
 						"lastElement": {
 							"for": [ "Literal" ],
-							"allowElementTrailingWhitespaces": 1
+							"allowElementTrailingWhitespaces": 0
 						}
 					}
 				}
 			};
     logger = sniffer.getTestResults( code, OPTIONS, modifiers );
-		console.log(logger.getMessages());
-		//logger.getMessages().length.should.not.be.ok;
+		logger.getMessages().length.should.not.be.ok;
   });
+
+	it(" must accept ArgumentsSpacing ifNesting modifiers", function () {
+		var code = "foo( 1, bar(1,1) )",
+			modifiers = {
+				"ArgumentsSpacing": {
+					"allowArgPrecedingWhitespaces": 1,
+					"allowArgTrailingWhitespaces": 1,
+					"ifNesting": {
+						"allowArgPrecedingWhitespaces": 0,
+						"allowArgTrailingWhitespaces": 0
+					}
+				}
+			};
+    logger = sniffer.getTestResults( code, OPTIONS, modifiers );
+		logger.getMessages().length.should.not.be.ok;
+  });
+
+
+
 });
