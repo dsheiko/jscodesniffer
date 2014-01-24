@@ -1,6 +1,7 @@
 /*jshint -W068 */
 var fixture = require( "./inc/fixture" ),
     locEntity = require( "./inc/LocEntity" ),
+		SourceCodeStub = require( "./inc/SourceCodeStub" ),
     sniffClass = require( "../lib/Sniff/SyntaxTree/FunctionNamingConventions" ),
     MediatorMock = require( "./inc/MediatorMock" );
 
@@ -57,7 +58,6 @@ describe( "FunctionNamingConventions", function () {
 
       beforeEach(function(){
         mediator = new MediatorMock();
-        sniff = new sniffClass( null, mediator );
       });
 
       it("must trigger violation when camelcase expected, but pascal case found (function Invalid() {})", function () {
@@ -65,7 +65,9 @@ describe( "FunctionNamingConventions", function () {
               "allowCase": ["camel"],
               "allowRepeating": true,
               "allowNumbers": true
-            }, msg;
+            }, msg, caseId = "case21";
+				sniff = new sniffClass( new SourceCodeStub( fixture.getText( "NamingConventions/" + caseId + ".js" )
+            ), mediator );
         pNode = fixture.getJson( "NamingConventions/case21.json" ).body[ 0 ];
         sniff.run( rule, pNode );
         msg = mediator.getMessage( "FunctionNamingConventions" );
@@ -79,7 +81,9 @@ describe( "FunctionNamingConventions", function () {
               "allowCase": ["pascal"],
               "allowRepeating": true,
               "allowNumbers": true
-            };
+            }, caseId = "case22";
+				sniff = new sniffClass( new SourceCodeStub( fixture.getText( "NamingConventions/" + caseId + ".js" )
+            ), mediator );
 
         pNode = fixture.getJson( "NamingConventions/case22.json" ).body[ 0 ];
         sniff.run( rule, pNode );
@@ -91,7 +95,9 @@ describe( "FunctionNamingConventions", function () {
               "allowCase": ["camel"],
               "allowRepeating": true,
               "allowNumbers": true
-            };
+            }, caseId = "case23";
+				sniff = new sniffClass( new SourceCodeStub( fixture.getText( "NamingConventions/" + caseId + ".js" )
+            ), mediator );
 
         pNode = fixture.getJson( "NamingConventions/case23.json" ).body[ 0 ];
         sniff.run( rule, pNode );
@@ -104,7 +110,9 @@ describe( "FunctionNamingConventions", function () {
               "allowCase": ["camel"],
               "allowRepeating": true,
               "allowNumbers": false
-            };
+            }, caseId = "case23";
+				sniff = new sniffClass( new SourceCodeStub( fixture.getText( "NamingConventions/" + caseId + ".js" )
+            ), mediator );
         pNode = fixture.getJson( "NamingConventions/case23.json" ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessage( "FunctionNamingNumbersNotAllowed" ).should.be.ok;
@@ -116,7 +124,9 @@ describe( "FunctionNamingConventions", function () {
               "allowCase": ["camel", "pascal"],
               "allowRepeating": true,
               "allowNumbers": true
-            };
+            }, caseId = "case24";
+				sniff = new sniffClass( new SourceCodeStub( fixture.getText( "NamingConventions/" + caseId + ".js" )
+            ), mediator );
         pNode = fixture.getJson( "NamingConventions/case24.json" ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessage( "FunctionNamingConventions" ).should.be.ok;
@@ -128,7 +138,9 @@ describe( "FunctionNamingConventions", function () {
               "allowCase": ["camel", "pascal"],
               "allowRepeating": false,
               "allowNumbers": true
-            };
+            }, caseId = "case25";
+				sniff = new sniffClass( new SourceCodeStub( fixture.getText( "NamingConventions/" + caseId + ".js" )
+            ), mediator );
         pNode = fixture.getJson( "NamingConventions/case25.json" ).body[ 0 ];
         sniff.run( rule, pNode );
         mediator.getMessage( "FunctionNamingRepeatingUppercase" ).should.be.ok;
@@ -139,7 +151,9 @@ describe( "FunctionNamingConventions", function () {
               "allowCase": ["camel"],
               "allowRepeating": true,
               "allowNumbers": true
-            }, msg;
+            }, msg, caseId = "case13";
+				sniff = new sniffClass( new SourceCodeStub( fixture.getText( "NamingConventions/" + caseId + ".js" )
+            ), mediator );
 
         pNode = fixture.getJson( "NamingConventions/case13.json" ).body[ 0 ].declarations[ 1 ];
         sniff.run( rule, pNode );
@@ -152,7 +166,9 @@ describe( "FunctionNamingConventions", function () {
             "allowCase": ["camel"],
             "allowRepeating": true,
             "allowNumbers": true
-          }, msg;
+          }, msg, caseId = "case12";
+				sniff = new sniffClass( new SourceCodeStub( fixture.getText( "NamingConventions/" + caseId + ".js" )
+            ), mediator );
 
       pNode = fixture.getJson( "NamingConventions/case12.json" ).body[ 0 ];
       sniff.run( rule, pNode );
@@ -165,7 +181,9 @@ describe( "FunctionNamingConventions", function () {
             "allowCase": ["camel"],
             "allowRepeating": true,
             "allowNumbers": true
-          }, msg;
+          }, msg, caseId = "case13";
+				sniff = new sniffClass( new SourceCodeStub( fixture.getText( "NamingConventions/" + caseId + ".js" )
+            ), mediator );
 
       pNode = fixture.getJson( "NamingConventions/case13.json" ).body[ 0 ].declarations[ 1 ];
       sniff.run( rule, pNode );
@@ -178,7 +196,9 @@ describe( "FunctionNamingConventions", function () {
             "allowCase": ["camel"],
             "allowRepeating": false,
             "allowNumbers": true
-          };
+          }, caseId = "case6";
+				sniff = new sniffClass( new SourceCodeStub( fixture.getText( "NamingConventions/" + caseId + ".js" )
+            ), mediator );
 
       pNode = fixture.getJson( "NamingConventions/case6.json" ).body[ 0 ].declarations[ 0 ];
       sniff.run( rule, pNode );

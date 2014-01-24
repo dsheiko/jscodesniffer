@@ -1,6 +1,7 @@
 /*jshint -W068 */
 var fixture = require( "./inc/fixture" ),
     sniffClass = require( "../lib/Sniff/SyntaxTree/NewExpressionCalleeNamingConventions" ),
+		SourceCodeStub = require( "./inc/SourceCodeStub" ),
     MediatorMock = require( "./inc/MediatorMock" );
 
 require( "should" );
@@ -56,7 +57,6 @@ describe( "NewExpressionCalleeNamingConventions", function () {
 
       beforeEach(function(){
         mediator = new MediatorMock();
-        sniff = new sniffClass( null, mediator );
       });
 
 
@@ -65,7 +65,9 @@ describe( "NewExpressionCalleeNamingConventions", function () {
               "allowCase": ["pascal"],
               "allowRepeating": true,
               "allowNumbers": true
-            };
+            }, caseId = "case1";
+				sniff = new sniffClass( new SourceCodeStub( fixture.getText( "NewExpressionCalleeNamingConventions/" + caseId + ".js" )
+            ), mediator );
 
         pNode = fixture.getJson( "NewExpressionCalleeNamingConventions/case1.json" ).body[ 0 ].expression.right;
         sniff.run( rule, pNode );
@@ -77,7 +79,9 @@ describe( "NewExpressionCalleeNamingConventions", function () {
               "allowCase": ["pascal"],
               "allowRepeating": true,
               "allowNumbers": true
-            }, msg;
+            }, msg, caseId = "case2";
+				sniff = new sniffClass( new SourceCodeStub( fixture.getText( "NewExpressionCalleeNamingConventions/" + caseId + ".js" )
+            ), mediator );
         pNode = fixture.getJson( "NewExpressionCalleeNamingConventions/case2.json" ).body[ 0 ].expression.right;
         sniff.run( rule, pNode );
         msg = mediator.getMessage( "NewExpressionCalleeNamingConventions" );
