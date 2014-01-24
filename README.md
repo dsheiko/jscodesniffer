@@ -161,7 +161,7 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     "Indentation": {
       "allowOnlyTabs": true,
       "allowOnlySpaces": true,
-			"disallowMixed": true
+      "disallowMixed": true
     },
   /*
     defines if trailing spaces allowed for lines
@@ -187,7 +187,7 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     "CommaPunctuatorSpacing": {
       "disallowPrecedingSpaces": false
     },
-/*
+  /*
     defines spacing conventions for semicolon punctuator
     Example:
     // good
@@ -302,23 +302,23 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       "allowElementTrailingWhitespaces": 1,
       /*
       Optional modifier.
-			When qualifier "for" is missing the exception rules gets applied for any node type
+      When qualifier "for" is missing the exception rules gets applied for any node type
       */
-			"exceptions": {
-				"singleElement": {
-					"for": [ "Literal" ],
-					"allowElementPrecedingWhitespaces": 0,
-					"allowElementTrailingWhitespaces": 0
-				},
-				"firstElement": {
-					"for": [ "Literal" ],
-					"allowElementPrecedingWhitespaces": 1
-				},
-				"lastElement": {
-					"for": [ "Literal" ],
-					"allowElementTrailingWhitespaces": 1
-				}
-			}
+      "exceptions": {
+        "singleElement": {
+          "for": [ "Literal" ],
+          "allowElementPrecedingWhitespaces": 0,
+          "allowElementTrailingWhitespaces": 0
+        },
+        "firstElement": {
+          "for": [ "Literal" ],
+          "allowElementPrecedingWhitespaces": 1
+        },
+        "lastElement": {
+          "for": [ "Literal" ],
+          "allowElementTrailingWhitespaces": 1
+        }
+      }
     },
    /*
     defines type of quotes to use across the code-base
@@ -426,19 +426,19 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       When qualifier "for" is missing the exception rules gets applied for any node type
       */
       "exceptions": {
-      	"singleParam": {
-      		"for": [ "Literal" ],
-      		"allowElementPrecedingWhitespaces": 0,
-      		"allowElementTrailingWhitespaces": 0
-      	},
-      	"firstParam": {
-      		"for": [ "Literal" ],
-      		"allowElementPrecedingWhitespaces": 1
-      	},
-      	"lastParam": {
-      		"for": [ "Literal" ],
-      		"allowElementTrailingWhitespaces": 1
-      	}
+        "singleParam": {
+          "for": [ "Literal" ],
+          "allowElementPrecedingWhitespaces": 0,
+          "allowElementTrailingWhitespaces": 0
+        },
+        "firstParam": {
+          "for": [ "Literal" ],
+          "allowElementPrecedingWhitespaces": 1
+        },
+        "lastParam": {
+          "for": [ "Literal" ],
+          "allowElementTrailingWhitespaces": 1
+        }
       }
     },
     /*
@@ -460,16 +460,16 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     },
     /*
     defines spacing conventions for chains of method calls
-		Example:
+    Example:
     // good
     elements.addClass( "foo" )
 
     // bad
     elements.  addClass( "foo" )
     */
-		"ChainedMethodCallsSpacing": {
-			"allowPrecedingPropertyWhitespaces": 0
-		},
+    "ChainedMethodCallsSpacing": {
+      "allowPrecedingPropertyWhitespaces": 0
+    },
     /*
     defines spacing conventions for operators (including declarator)
 
@@ -500,23 +500,23 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       "disallowMultiplePerBlockScope": true,
       "requireInTheBeginning": true
     },
-		/*
-		defines conventions for object declarations
+    /*
+    defines conventions for object declarations
 
     Example:
-		// good
-		o = { p1: 1, p2: 2 }
     // good
-		o = {
-			p1: 1,
-			p2: 2
-		}
-		// bad
-		o = {
-			p1: 1, p2: 2 }
-	 	*/
+    o = { p1: 1, p2: 2 }
+    // good
+    o = {
+      p1: 1,
+      p2: 2
+    }
+    // bad
+    o = {
+      p1: 1, p2: 2 }
+     */
     "ObjectLiteralConventions": {
-    	"requireOnePerLineWhenMultiline": true
+      "requireOnePerLineWhenMultiline": true
     },
     /*
     defines conventions for array declarations
@@ -526,16 +526,16 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     arr = [ 1, "two" ]
     // good
     arr = [
-    	1,
-    	"two"
+      1,
+      "two"
     ]
     // bad
     arr = [
-    	1, "two" ]
+      1, "two" ]
     */
-		"ArrayLiteralConventions": {
-			"requireOnePerLineWhenMultiline": true
-		}
+    "ArrayLiteralConventions": {
+      "requireOnePerLineWhenMultiline": true
+    }
   }
 ```
 
