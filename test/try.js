@@ -19,32 +19,17 @@ describe( " Custom checks ", function () {
   });
 
   it(" must implement custom standard correctly", function () {
-   var code = "function foo( a,b ){}",
-
-	modifiers = {
-		"Indentation": false,
-		"QuoteConventions": false,
-
-		"ParametersSpacing": {
-			"allowParamPrecedingWhitespaces": 0,
-			"allowParamTrailingWhitespaces": 0,
-			"exceptions": {
-				"singleParam": {
-					"for": [ "Identifier" ],
-					"allowParamPrecedingWhitespaces": 0,
-					"allowParamTrailingWhitespaces": 0
-				},
-				"firstParam": {
-					"for": [ "Identifier" ],
-					"allowParamPrecedingWhitespaces": 1
-				},
-				"lastParam": {
-					"for": [ "Identifier" ],
-					"allowParamTrailingWhitespaces": 1
-				}
+   var code = "var noVariables = function( x ) {\n\
+return x;\n\
+};",
+		modifiers = {
+			"VariableDeclarationPerScopeConventions": {
+				"disallowMultiplePerBlockScope": true,
+				"requireInTheBeginning": true
 			}
-		}
-	};
+		};
+
+
     logger = sniffer.getTestResults( code, OPTIONS, modifiers );
     console.log(logger.getMessages());
 		//logger.getMessages().length.should.not.be.ok;
