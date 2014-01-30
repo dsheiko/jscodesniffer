@@ -19,15 +19,35 @@ describe( " Custom checks ", function () {
   });
 
   it(" must implement custom standard correctly", function () {
-   var code = "var noVariables = function( x ) {\n\
-return x;\n\
-};",
-		modifiers = {
-			"VariableDeclarationPerScopeConventions": {
-				"disallowMultiplePerBlockScope": true,
-				"requireInTheBeginning": true
-			}
-		};
+   var code = "ok.push([ok[1]]);",
+
+    modifiers = {
+      "LineLength": false,
+      "Indentation": false,
+      "QuoteConventions": false,
+      "ArgumentsSpacing": false,
+      "ParametersSpacing": false,
+      "ObjectLiteralSpacing": false,
+      "ArrayLiteralSpacing": {
+            "allowElementPrecedingWhitespaces": 1,
+            "allowElementTrailingWhitespaces": 0,
+            "exceptions": {
+                "singleElement": {
+                    "for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression", "Literal" ],
+                    "allowElementPrecedingWhitespaces": 0,
+                    "allowElementTrailingWhitespaces": 0
+                },
+                "firstElement": {
+                    "for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression", "Literal" ],
+                    "allowElementPrecedingWhitespaces": 0
+                },
+                "lastElement": {
+                    "for": [ "FunctionExpression", "ArrayExpression", "ObjectExpression", "Literal" ],
+                    "allowElementTrailingWhitespaces": 0
+                }
+            }
+        }
+    };
 
 
     logger = sniffer.getTestResults( code, OPTIONS, modifiers );
