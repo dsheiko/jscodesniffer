@@ -9,3 +9,5 @@ it ("must..."
 it ("must..."
 * Add experimental mode --resolve, it invokes Resolver instead of Reporter, that analyzes logger and tries to solve
 	conflicts. It uses Replacer to apply changes on the code, and checks JavaScript validity with esprima before outputing the code
+* Cli with https://npmjs.org/package/commander module
+* Code browser in style of jscoverage (probably build it by using chunks array)
