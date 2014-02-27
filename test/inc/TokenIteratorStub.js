@@ -116,6 +116,13 @@
 			*/
 			get: function( offset ) {
 				return tokens[ pos + offset ];
+			},
+			/**
+			 * Get an independent copy of the iterator
+			 * @returns {Object} self
+			 */
+			clone: function() {
+				return new TokenIterator( tokens );
 			}
 		};
 	};

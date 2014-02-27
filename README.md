@@ -264,6 +264,7 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     },
     /*
     defines spacing conventions for empty constructs
+    "for" qualifier takes an array of tokens compatible with [Mozilla Parser AST](https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API)
 
     Example:
     obj = {}; // good
@@ -302,6 +303,7 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       "allowElementTrailingWhitespaces": 1,
       /*
       Optional modifier.
+      "for" qualifier takes an array of tokens compatible with [Mozilla Parser AST](https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API)
       When qualifier "for" is missing the exception rules gets applied for any node type
       */
       "exceptions": {
@@ -381,6 +383,7 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       "allowArgTrailingWhitespaces": 1,
       /*
         Optional modifier.
+       "for" qualifier takes an array of tokens compatible with [Mozilla Parser AST](https://developer.mozilla.org/en-US/docs/SpiderMonkey/Parser_API)
         When qualifier "for" is missing the exception rules gets applied for any node type
       */
       "exceptions": {
