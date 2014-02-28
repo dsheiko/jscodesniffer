@@ -20,7 +20,7 @@ if ( typeof module === "object" && typeof define !== "function" ) {
 define(function() {
 	/**
 	* Rules based on https://github.com/rwaldron/idiomatic.js/
-	* @constructor
+	* @type {object}
 	* @alias module:standard/Idiomatic
 	*/
 	return {

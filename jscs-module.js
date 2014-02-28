@@ -29,64 +29,64 @@ if ( typeof module === "object" && typeof define !== "function" ) {
 define(function( require ) {
 	"use strict";
 			/**
-			 * @constant
-			 * @default
-			 * @memberOf module:jscs-module
-			 * @type {number}
-			 * @access private
-			 */
+			* @constant
+			* @default
+			* @memberOf module:jscs-module
+			* @type {number}
+			* @access private
+			*/
 	var MIN_REPORT_WIDTH = 32,
 			/**
-			 * @constant
-			 * @default
-			 * @memberOf module:jscs-module
-			 * @type {number}
-			 * @access private
-			 */
+			* @constant
+			* @default
+			* @memberOf module:jscs-module
+			* @type {number}
+			* @access private
+			*/
 			DEFAULT_REPORT_WIDTH = 84,
 			/**
-			 * @memberOf module:jscs-module
-			 * @type {module:lib/Sniffer}
-			 * @access private
-			 */
+			* @memberOf module:jscs-module
+			* @type {module:lib/Sniffer}
+			* @access private
+			*/
 			Sniffer = require( "./lib/Sniffer" ),
 			/**
-			 * @memberOf module:jscs-module
-			 * @type {module:lib/Reporter}
-			 * @access private
-			 */
+			* @memberOf module:jscs-module
+			* @type {module:lib/Reporter}
+			* @access private
+			*/
 			Reporter = require( "./lib/Reporter" ),
 			/**
-			 * @memberOf module:jscs-module
-			 * @type {module:lib/Dictionary}
-			 * @access private
-			 */
+			* @memberOf module:jscs-module
+			* @type {module:lib/Dictionary}
+			* @access private
+			*/
 			Dictionary = require( "./lib/Dictionary" ),
 			/**
-			 * @memberOf module:jscs-module
-			 * @type {module:lib/Cli}
-			 * @access private
-			 */
+			* @memberOf module:jscs-module
+			* @type {module:lib/Cli}
+			* @access private
+			*/
 			Cli = require( "./lib/Cli" ),
 			/**
-			 * @memberOf module:jscs-module
-			 * @type {function}
-			 * @access private
-			 */
+			* @memberOf module:jscs-module
+			* @type {function}
+			* @access private
+			*/
 			fs = require( "fs" ),
 			/**
-			 * @memberOf module:jscs-module
-			 * @type {function}
-			 * @access private
-			 */
+			* @memberOf module:jscs-module
+			* @type {function}
+			* @access private
+			*/
 			path = require( "path" ),
 			/**
-			 * @constant
-			 * @default
-			 * @memberOf module:jscs-module
-			 * @type {number}
-			 * @access private
-			 */
+			* @constant
+			* @default
+			* @memberOf module:jscs-module
+			* @type {number}
+			* @access private
+			*/
 			HELP_SCREEN = "Usage: jscs <path> <path>..\n" +
 				"<path> - filename or dir to sniff\n" +
 				"[--standard=<Standard>] - apply specified standard (Idiomatic, Jquery)\n" +
@@ -107,13 +107,13 @@ define(function( require ) {
 	*/
 	return function( argv, cwd, srcCode ) {
 	/**
-	 * @typedef optionsDto
-	 * @type {object}
-	 * @property {string} standard - name of the coding style standard, e.g. Jquery
-	 * @property {string} highlight - colorize on ot ("1" or "0")
-	 * @property {string} report - reporter name
-	 * @property {number} reportWidth - width of the report
-	 */
+	* @typedef optionsDto
+	* @type {object}
+	* @property {string} standard - name of the coding style standard, e.g. Jquery
+	* @property {string} highlight - colorize on ot ("1" or "0")
+	* @property {string} report - reporter name
+	* @property {number} reportWidth - width of the report
+	*/
 		var
 			/**
 			* Default options

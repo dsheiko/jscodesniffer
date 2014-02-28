@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: TokenIterator.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: TokenIterator.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+* @package jscodesniffer
+* @author sheiko
+* @license MIT
+* @copyright (c) Dmitry Sheiko http://www.dsheiko.com
+* jscs standard:Jquery
+* Code style: http://docs.jquery.com/JQuery_Core_Style_Guidelines
+*/
+// UMD boilerplate according to https://github.com/umdjs/umd
+if ( typeof module === "object" &amp;&amp; typeof define !== "function" ) {
+	/**
+	* Override AMD `define` function for RequireJS
+	* @param {function( function, Object, Object )} factory
+	*/
+var define = function ( factory ) {
+	module.exports = factory( require, exports, module );
+};
+}
+/**
+* A module representing token sequence
+* @module lib/TokenIterator
+*/
+define(function() {
+/**
+* Represent token sequence the way it's easy to navigate
+*
+* @constructor
+* @alias module:lib/TokenIterator
+* @param {Object[]} tokens
+*/
+var TokenIterator = function( tokens ) {
+	/**
+	* @type {number}
+	* @access private
+	* @memberOf module:lib/TokenIterator
+	*/
+	var pos = 0,
+	/**
+	* @type {number[]}
+	* @access private
+	* @memberOf module:lib/TokenIterator
+	*/
+		leftPosIndexMap = [],
+	/**
+	* @type {number[]}
+	* @access private
+	* @memberOf module:lib/TokenIterator
+	*/
+		rightPosIndexMap = [];
+
+	// Update position X index map on the first run
+	if ( !leftPosIndexMap.length ) {
+		tokens.forEach(function( el, inx ){
+			leftPosIndexMap[ el.range[ 0 ] ] = inx;
+			rightPosIndexMap[ el.range[ 1 ] ] = inx;
+		});
+	}
+	/** @lends module:lib/TokenIterator.prototype */
+	return {
+		/**
+		* Iterator interface
+		*/
+
+		/**
+		* Check if the end of the sequence reached
+		* @access public
+		* @returns {boolean}
+		*/
+		valid: function(){
+			return typeof tokens[ pos ] !== "undefined";
+		},
+		/**
+		* Move to the next element
+		* @access public
+		*/
+		next: function(){
+			pos++;
+		},
+		/**
+		* Check if the end of the sequence reached
+		* @access public
+		* @returns {boolean}
+		*/
+		key: function(){
+			return pos;
+		},
+		/**
+		* Rewind the sequence
+		* @access public
+		*/
+		rewind: function() {
+			pos = 0;
+		},
+		/**
+		* Get the current token
+		* @access public
+		* @returns {Object}
+		*/
+		current: function() {
+			return tokens[ pos ];
+		},
+		/**
+		* Move to the token corresponding given left in-code position
+		* @access public
+		* @param {number} lPos
+		* @returns {TokenIterator}
+		*/
+		findByLeftPos: function( lPos ) {
+			if ( typeof leftPosIndexMap[ lPos ] === "undefined" ) {
+				throw new RangeError( "No token associated with the position " + lPos );
+			}
+			pos = leftPosIndexMap[ lPos ];
+			return this;
+		},
+		/**
+		* Move to the token corresponding given right in-code position
+		* @access public
+		* @param {number} rPos
+		* @returns {TokenIterator}
+		*/
+		findByRightPos: function( rPos ) {
+			if ( typeof rightPosIndexMap[ rPos ] === "undefined" ) {
+				throw new RangeError( "No token associated with the position " + rPos );
+			}
+			pos = rightPosIndexMap[ rPos ];
+			return this;
+		},
+		/**
+			* Group boundaries are not present in the SyntaxTree,
+			* find the group opening token
+			* &lt;(>((1)))
+			* @access public
+			* @param {number} leftBoundaryPos
+			*/
+		findGroupOpener: function( leftBoundaryPos ) {
+			var i = 0, el;
+			do {
+				el = this.get( --i );
+			} while( el &amp;&amp; el.type === "Punctuator" &amp;&amp; el.value === "(" &amp;&amp; el.range[ 0 ] > leftBoundaryPos );
+			pos = pos + i + 1;
+			return this;
+		},
+		/**
+			* Group boundaries are not present in the SyntaxTree,
+			* find the group closing token
+			* (((1))&lt;)>
+			* @access public
+			* @param {number} rightBoundaryPos
+			*/
+		findGroupCloser: function( rightBoundaryPos ) {
+			var i = 0, el;
+			do {
+				el = this.get( ++i );
+			} while( el &amp;&amp; el.type === "Punctuator" &amp;&amp; el.value === ")" &amp;&amp; el.range[ 1 ] &lt; rightBoundaryPos );
+			pos = pos + i - 1;
+			return this;
+		},
+		/**
+		* Get token by a given offset
+		* @access public
+		* @param {number} offset (can be negative)
+		* @returns {object}
+		*/
+		get: function( offset ) {
+			return tokens[ pos + offset ];
+		},
+		/**
+		* Get an independent copy of the iterator
+		* @returns {module:lib/TokenIterator} self
+		*/
+		clone: function() {
+			return new TokenIterator( tokens );
+		}
+	};
+};
+return TokenIterator;
+});
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="Cli.html">lib/Cli</a></li><li><a href="Dictionary.html">lib/Dictionary</a></li><li><a href="en.html">lib/Dictionary/en</a></li><li><a href="Checkstyle.html">lib/Formatter/Checkstyle</a></li><li><a href="Full.html">lib/Formatter/Full</a></li><li><a href="Summary.html">lib/Formatter/Summary</a></li><li><a href="Xml.html">lib/Formatter/Xml</a></li><li><a href="Logger.html">lib/Logger</a></li><li><a href="Mediator.html">lib/Mediator</a></li><li><a href="Reporter.html">lib/Reporter</a></li><li><a href="Replacer.html">lib/Resolver/Replacer</a></li><li><a href="ReservedWords.html">lib/Sniff/ReservedWords</a></li><li><a href="LineLength.html">lib/Sniff/SourceCode/LineLength</a></li><li><a href="LineSpacing.html">lib/Sniff/SourceCode/LineSpacing</a></li><li><a href="ArgumentsSpacing.html">lib/Sniff/SyntaxTree/ArgumentsSpacing</a></li><li><a href="ArrayLiteralSpacing.html">lib/Sniff/SyntaxTree/ArrayLiteralSpacing</a></li><li><a href="ChainedMethodCallsPerLineConventions.html">lib/Sniff/SyntaxTree/ChainedMethodCallsPerLineConventions</a></li><li><a href="ChainedMethodCallsSpacing.html">lib/Sniff/SyntaxTree/ChainedMethodCallsSpacing</a></li><li><a href="CompoundStatementConventions.html">lib/Sniff/SyntaxTree/CompoundStatementConventions</a></li><li><a href="EmptyConstructsSpacing.html">lib/Sniff/SyntaxTree/EmptyConstructsSpacing</a></li><li><a href="FunctionNamingConventions.html">lib/Sniff/SyntaxTree/FunctionNamingConventions</a></li><li><a href="NewExpressionCalleeNamingConventions.html">lib/Sniff/SyntaxTree/NewExpressionCalleeNamingConventions</a></li><li><a href="ObjectLiteralConventions.html">lib/Sniff/SyntaxTree/ObjectLiteralConventions</a></li><li><a href="ObjectLiteralSpacing.html">lib/Sniff/SyntaxTree/ObjectLiteralSpacing</a></li><li><a href="OperatorSpacing.html">lib/Sniff/SyntaxTree/OperatorSpacing</a></li><li><a href="ParametersSpacing.html">lib/Sniff/SyntaxTree/ParametersSpacing</a></li><li><a href="TernaryConditionalPunctuatorsSpacing.html">lib/Sniff/SyntaxTree/TernaryConditionalPunctuatorsSpacing</a></li><li><a href="UnaryExpressionIdentifierSpacing.html">lib/Sniff/SyntaxTree/UnaryExpressionIdentifierSpacing</a></li><li><a href="VariableDeclarationPerScopeConventions.html">lib/Sniff/SyntaxTree/VariableDeclarationPerScopeConventions</a></li><li><a href="VariableNamingConventions.html">lib/Sniff/SyntaxTree/VariableNamingConventions</a></li><li><a href="CommaPunctuatorSpacing.html">lib/Sniff/Token/CommaPunctuatorSpacing</a></li><li><a href="QuoteConventions.html">lib/Sniff/Token/QuoteConventions</a></li><li><a href="SemicolonPunctuatorSpacing.html">lib/Sniff/Token/SemicolonPunctuatorSpacing</a></li><li><a href="Utils.html">lib/Sniff/Utils</a></li><li><a href="Sniffer.html">lib/Sniffer</a></li><li><a href="SourceCode.html">lib/SourceCode</a></li><li><a href="SyntaxAnalizer.html">lib/SyntaxAnalizer</a></li><li><a href="TokenIterator.html">lib/TokenIterator</a></li><li><a href="Utils_.html">lib/Utils</a></li></ul><h3>Classes</h3><ul><li><a href="Utils_Mixin.html">Mixin</a></li></ul><h3>Namespaces</h3><ul></ul><h3>Global</h3><ul><li><a href="global.html#define">define</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha4</a> on Fri Feb 28 2014 13:56:23 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

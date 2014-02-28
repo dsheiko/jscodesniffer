@@ -46,6 +46,21 @@ module.exports = function(grunt) {
 
 	});
 
+	grunt.registerTask('jsdoc', 'Run jsdoc', function() {
+    var exec = require('child_process').exec;
+     grunt.log.writeln( 'Running jsdoc' );
+     grunt.verbose.writeln( 'Exec: node ./node_modules/jsdoc/jsdoc ' );
+     exec( "node node_modules/jsdoc/jsdoc.js -r ./lib -d build/doc -p", function( err, stdout ) {
+      if ( stdout ) {
+        grunt.log.write( stdout );
+      }
+      if ( err ) {
+        grunt.fatal( err );
+      }
+      done();
+    });
+  });
+
   grunt.registerTask( "test", [ "jshint", "mochacli", "jscs" ] );
   grunt.registerTask( "default", [ "test" ] );
 

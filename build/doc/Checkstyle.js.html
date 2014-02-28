@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Formatter/Checkstyle.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: Formatter/Checkstyle.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+* @package jscodesniffer
+* @author sheiko
+* @license MIT
+* @copyright (c) Dmitry Sheiko http://www.dsheiko.com
+* jscs standard:Jquery
+* jshint unused:false
+* Code style: http://docs.jquery.com/JQuery_Core_Style_Guidelines
+*/
+/**
+* A module representing a formatter.
+* @module lib/Formatter/Checkstyle
+*/
+
+// UMD boilerplate according to https://github.com/umdjs/umd
+if ( typeof module === "object" &amp;&amp; typeof define !== "function" ) {
+	/**
+	* Override AMD `define` function for RequireJS
+	* @param {function( function, Object, Object )} factory
+	*/
+	var define = function ( factory ) {
+		module.exports = factory( require, exports, module );
+	};
+}
+
+define(function() {
+"use strict";
+	/**
+	* @constructor
+	* @alias module:lib/Formatter/Checkstyle
+	* @param {Object} config
+	*/
+	return function( config ) {
+		/** @lends module:lib/Formatter/Checkstyle.prototype */
+		return {
+			/**
+			* Render header of the report
+			* @access public
+			* @returns {string}
+			*/
+			header: function() {
+				return "&lt;?xml version=\"1.0\" encoding=\"UTF-8\"?>" + "\n" +
+					"  &lt;checkstyle version=\"" + config.version + "\">" + "\n";
+			},
+			/**
+			* Render body of the report
+			* @access public
+			* @param {string} path
+			* @param {Object[]} messages
+			* @returns {string}
+			*/
+			report: function( path, messages ) {
+				var out = "  &lt;file name=\"" + path + "\">" + "\n";
+				if ( !messages.length ) {
+					return "";
+				}
+				messages.forEach(function( log ){
+					var re = /[\'\"\n\r]/gm;
+					out += "    &lt;error line=\"" + log.loc.start.line +
+						"\" column=\"" + log.loc.start.column + "\" source=\"" + log.errorCode +
+						"\" severity=\"error\" message=\"" + log.message.replace( re, "" ) + "\" />" + "\n";
+				});
+				return out + "  &lt;/file>" + "\n";
+			},
+			/**
+			* Render footer of the report
+			* @access public
+			* @returns {string}
+			*/
+			footer: function() {
+				return "&lt;/checkstyle>" + "\n";
+			}
+		};
+	};
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="Cli.html">lib/Cli</a></li><li><a href="Dictionary.html">lib/Dictionary</a></li><li><a href="en.html">lib/Dictionary/en</a></li><li><a href="Checkstyle.html">lib/Formatter/Checkstyle</a></li><li><a href="Full.html">lib/Formatter/Full</a></li><li><a href="Summary.html">lib/Formatter/Summary</a></li><li><a href="Xml.html">lib/Formatter/Xml</a></li><li><a href="Logger.html">lib/Logger</a></li><li><a href="Mediator.html">lib/Mediator</a></li><li><a href="Reporter.html">lib/Reporter</a></li><li><a href="Replacer.html">lib/Resolver/Replacer</a></li><li><a href="ReservedWords.html">lib/Sniff/ReservedWords</a></li><li><a href="LineLength.html">lib/Sniff/SourceCode/LineLength</a></li><li><a href="LineSpacing.html">lib/Sniff/SourceCode/LineSpacing</a></li><li><a href="ArgumentsSpacing.html">lib/Sniff/SyntaxTree/ArgumentsSpacing</a></li><li><a href="ArrayLiteralSpacing.html">lib/Sniff/SyntaxTree/ArrayLiteralSpacing</a></li><li><a href="ChainedMethodCallsPerLineConventions.html">lib/Sniff/SyntaxTree/ChainedMethodCallsPerLineConventions</a></li><li><a href="ChainedMethodCallsSpacing.html">lib/Sniff/SyntaxTree/ChainedMethodCallsSpacing</a></li><li><a href="CompoundStatementConventions.html">lib/Sniff/SyntaxTree/CompoundStatementConventions</a></li><li><a href="EmptyConstructsSpacing.html">lib/Sniff/SyntaxTree/EmptyConstructsSpacing</a></li><li><a href="FunctionNamingConventions.html">lib/Sniff/SyntaxTree/FunctionNamingConventions</a></li><li><a href="NewExpressionCalleeNamingConventions.html">lib/Sniff/SyntaxTree/NewExpressionCalleeNamingConventions</a></li><li><a href="ObjectLiteralConventions.html">lib/Sniff/SyntaxTree/ObjectLiteralConventions</a></li><li><a href="ObjectLiteralSpacing.html">lib/Sniff/SyntaxTree/ObjectLiteralSpacing</a></li><li><a href="OperatorSpacing.html">lib/Sniff/SyntaxTree/OperatorSpacing</a></li><li><a href="ParametersSpacing.html">lib/Sniff/SyntaxTree/ParametersSpacing</a></li><li><a href="TernaryConditionalPunctuatorsSpacing.html">lib/Sniff/SyntaxTree/TernaryConditionalPunctuatorsSpacing</a></li><li><a href="UnaryExpressionIdentifierSpacing.html">lib/Sniff/SyntaxTree/UnaryExpressionIdentifierSpacing</a></li><li><a href="VariableDeclarationPerScopeConventions.html">lib/Sniff/SyntaxTree/VariableDeclarationPerScopeConventions</a></li><li><a href="VariableNamingConventions.html">lib/Sniff/SyntaxTree/VariableNamingConventions</a></li><li><a href="CommaPunctuatorSpacing.html">lib/Sniff/Token/CommaPunctuatorSpacing</a></li><li><a href="QuoteConventions.html">lib/Sniff/Token/QuoteConventions</a></li><li><a href="SemicolonPunctuatorSpacing.html">lib/Sniff/Token/SemicolonPunctuatorSpacing</a></li><li><a href="Utils.html">lib/Sniff/Utils</a></li><li><a href="Sniffer.html">lib/Sniffer</a></li><li><a href="SourceCode.html">lib/SourceCode</a></li><li><a href="SyntaxAnalizer.html">lib/SyntaxAnalizer</a></li><li><a href="TokenIterator.html">lib/TokenIterator</a></li><li><a href="Utils_.html">lib/Utils</a></li></ul><h3>Classes</h3><ul><li><a href="Utils_Mixin.html">Mixin</a></li></ul><h3>Namespaces</h3><ul></ul><h3>Global</h3><ul><li><a href="global.html#define">define</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha4</a> on Fri Feb 28 2014 13:56:23 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

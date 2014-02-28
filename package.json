@@ -19,7 +19,8 @@
         "grunt-mocha-cli": "~1.2.1",
         "assert": ">=0.4.9",
         "mocha": ">=1.7.4",
-        "should": "*"
+        "should": "*",
+				"jsdoc": "*"
     },
     "licenses": [
 			{

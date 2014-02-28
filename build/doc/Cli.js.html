@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: Cli.js</title>
+    
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+    
+    <h1 class="page-title">Source: Cli.js</h1>
+    
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/*
+* @package jscodesniffer
+* @author sheiko
+* @license MIT
+* @copyright (c) Dmitry Sheiko http://www.dsheiko.com
+* jscs standard:Jquery
+* jshint unused:false
+* Code style: http://docs.jquery.com/JQuery_Core_Style_Guidelines
+*/
+
+/**
+* A module representing Cli
+* @module lib/Cli
+*/
+
+// UMD boilerplate according to https://github.com/umdjs/umd
+if ( typeof module === "object" &amp;&amp; typeof define !== "function" ) {
+	/**
+	* Override AMD `define` function for RequireJS
+	* @param {function( function, Object, Object )} factory
+	*/
+	var define = function ( factory ) {
+		module.exports = factory( require, exports, module );
+	};
+}
+
+define(function() {
+/**
+* @access private
+*/
+var utils = {
+		/**
+		* @access public
+		* @param {string} str
+		* @returns {string}
+		*/
+		ltrim: function( str ) {
+			var lTrimRe = /^\s+/;
+			// normalize: ltrim
+			return str.replace( lTrimRe, "" );
+		}
+	},
+	/**
+	* CLI services
+	* @constructor
+	* @alias module:lib/Cli
+	* @param {type} fsContainer
+	* @param {type} pathContainer
+	*/
+	Cli = function( fsContainer, pathContainer ) {
+		var startTime = process.hrtime();
+		// Dependency injection
+		fsContainer = fsContainer || {};
+		pathContainer = pathContainer || {};
+		/** @lends module:lib/Cli.prototype */
+		return {
+			/**
+			* @type {number}
+			*/
+			fileCount: 0,
+			/**
+			* Display header information (copyright)
+			* @param {string} version
+			*/
+			printHeader: function( version ) {
+				console.log( " JsCodeSniffer " + version + " (https://github.com/dsheiko/jscodesniffer) ");
+			},
+			/**
+			* Display boy in the case of successful bypass
+			* @param {string} standard
+			*/
+			printSuccess: function( standard ) {
+				console.log( " \033[0;32m>>>\033[0m All the files appear to be valid according to '" + standard + "' standard" );
+			},
+			/**
+			* Display footer information
+			*/
+			printFooter: function() {
+				console.log( " " + this.fileCount + " file(s) validated in " + this.getElapsedTime() );
+			},
+			/**
+			* Determine script execution time
+			* @return {String}
+			*/
+			getElapsedTime: function() {
+					var precision = 0,
+							elapsed = process.hrtime( startTime )[ 1 ] / 1000000, // divide by a million to get nano to milli
+					out = process.hrtime( startTime )[ 0 ] + "s, " + elapsed.toFixed( precision ) + "ms";
+					startTime = process.hrtime(); // reset the timer
+					return out;
+			},
+
+			/**
+			* @callback dirIteratorCb
+			* @param {string} pathArg
+			* @param {string} text
+			*/
+
+			/**
+			* Apply callback to the file
+			* @access public
+			* @param {string} pathArg
+			* @param {dirIteratorCb} fn
+			*/
+			applyToFile: function( pathArg, fn ) {
+				this.fileCount++;
+				fn( pathArg, fsContainer.readFileSync( pathArg, "utf-8" ) );
+			},
+			/**
+				* Apply callback to every file within the directory recursively
+				* @access public
+				* @param {string} pathArg
+				* @param {dirIteratorCb} fn
+				*/
+			applyToEveryFileInDir: function( pathArg, fn ) {
+				var that = this,
+					dir = fsContainer.readdirSync( pathArg ),
+					stat;
+				dir &amp;&amp; dir.forEach(function( file ){
+				var re = /\.js$/gi,
+					excludeRe = /\.min\.js$/gi;
+				stat = fsContainer.statSync( pathArg + "/" + file );
+
+				stat.isFile() &amp;&amp; re.test( file ) &amp;&amp; !excludeRe.test( file ) &amp;&amp;
+					that.applyToFile( pathArg + "/" + file, fn );
+
+				stat.isDirectory() &amp;&amp; that.applyToEveryFileInDir( pathArg + "/" + file, fn );
+				});
+			},
+			/**
+				* Apply callback to every file within the path recursively
+				* @access public
+				* @param {string} pathArg
+				* @param {dirIteratorCb} fn
+				*/
+			applyToEveryFileInPath: function( pathArg, fn ) {
+				var stat,
+					reNormPath = /\/+$/;
+
+				pathArg = pathArg.replace( reNormPath, "" );
+				if ( !fsContainer.existsSync( pathArg ) ) {
+				throw new ReferenceError( pathArg + " doesn't exist\n" );
+				}
+				stat = fsContainer.statSync( pathArg );
+				return stat.isFile() ? this.applyToFile( pathArg, fn ) : this.applyToEveryFileInDir( pathArg, fn );
+			},
+			/**
+				* Get object with project info
+				* @access public
+				* @returns {Object}
+				*/
+			getProjectInfo: function() {
+				var project, plain;
+				try {
+				plain = fsContainer.readFileSync( pathContainer.join( __dirname, "..", "package.json" ), "utf-8" );
+				project = JSON.parse( plain );
+				} catch ( e ) {
+				throw new ReferenceError( "Cannot read package.json\n" );
+				}
+				return project;
+			},
+			/**
+				* Populate options with ones founds in args
+				* @access public
+				* @param {Array} args
+				* @param {Object} options - reference
+				* @returns {Object}
+				*/
+			parseCliOptions: function( args, options ) {
+				var re = /^--/g;
+				args.slice( 2 ).forEach(function( arg ){
+					var slices;
+					// normalize: ltrim
+					arg = utils.ltrim( arg );
+					if ( arg.indexOf( "--" ) === 0 ) {
+						slices = arg.split( "=" );
+						options[ slices[0].replace( re, "" ) ] = slices[ 1 ] || null;
+					}
+				});
+				return options;
+			},
+
+			/**
+				* Find file name or path given in CLI arguments
+				* @access public
+				* @param {string[]} args
+				* @returns {string[]}
+				*/
+			findPathsInCliArgs: function( args ) {
+				var out = args.slice( 2 ).filter(function( arg ){
+					arg = utils.ltrim( arg );
+					return arg.indexOf( "-" ) !== 0;
+				});
+				return out || [ "." ];
+			},
+
+			/**
+				* If checkstyle already exists (e.g. built by phpcs), extend it with actual report body
+				* @access public
+				* @param {string} file
+				* @returns {string}
+				*/
+			extractExistingReportBody: function( file ) {
+				var data,
+					// Extract body of the existing report
+					re1 = /^\s*&lt;\?xml.*?\?>/i,
+					re2 = /^\s*&lt;checkstyle.*?>/i,
+					re3 = /&lt;\/checkstyle>\s*$/i;
+
+				if ( !fsContainer.existsSync( file ) ) {
+				return "";
+				}
+
+				data = fsContainer.readFileSync( file, "utf-8" );
+				return data.replace( re1, "" ).replace( re2, "" ).replace( re3, "" );
+			},
+			/**
+				* Find in project root (any parent) directory and read local sniffer configuration
+				* Just like .jshintrc
+				* @access public
+				* @param {string} pathArg
+				* @returns {Object}
+				*/
+			readRealtimeConfig: function( pathArg ) {
+				var LOCAL_CFG_FILE = ".jscsrc",
+					parentPath,
+					cfgPath = pathContainer.join( pathArg, LOCAL_CFG_FILE );
+
+				if ( fsContainer.existsSync( cfgPath ) ){
+					return JSON.parse( fsContainer.readFileSync( cfgPath, "utf-8" ) );
+				}
+
+				parentPath = pathContainer.join( pathArg, "/../" );
+
+				if ( parentPath.length > 1 &amp;&amp; fsContainer.statSync( parentPath ).isDirectory() ) {
+					this.readRealtimeConfig( parentPath );
+				}
+				return {};
+			}
+
+		};
+	};
+
+	return Cli;
+
+});</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="Cli.html">lib/Cli</a></li><li><a href="Dictionary.html">lib/Dictionary</a></li><li><a href="en.html">lib/Dictionary/en</a></li><li><a href="Checkstyle.html">lib/Formatter/Checkstyle</a></li><li><a href="Full.html">lib/Formatter/Full</a></li><li><a href="Summary.html">lib/Formatter/Summary</a></li><li><a href="Xml.html">lib/Formatter/Xml</a></li><li><a href="Logger.html">lib/Logger</a></li><li><a href="Mediator.html">lib/Mediator</a></li><li><a href="Reporter.html">lib/Reporter</a></li><li><a href="Replacer.html">lib/Resolver/Replacer</a></li><li><a href="ReservedWords.html">lib/Sniff/ReservedWords</a></li><li><a href="LineLength.html">lib/Sniff/SourceCode/LineLength</a></li><li><a href="LineSpacing.html">lib/Sniff/SourceCode/LineSpacing</a></li><li><a href="ArgumentsSpacing.html">lib/Sniff/SyntaxTree/ArgumentsSpacing</a></li><li><a href="ArrayLiteralSpacing.html">lib/Sniff/SyntaxTree/ArrayLiteralSpacing</a></li><li><a href="ChainedMethodCallsPerLineConventions.html">lib/Sniff/SyntaxTree/ChainedMethodCallsPerLineConventions</a></li><li><a href="ChainedMethodCallsSpacing.html">lib/Sniff/SyntaxTree/ChainedMethodCallsSpacing</a></li><li><a href="CompoundStatementConventions.html">lib/Sniff/SyntaxTree/CompoundStatementConventions</a></li><li><a href="EmptyConstructsSpacing.html">lib/Sniff/SyntaxTree/EmptyConstructsSpacing</a></li><li><a href="FunctionNamingConventions.html">lib/Sniff/SyntaxTree/FunctionNamingConventions</a></li><li><a href="NewExpressionCalleeNamingConventions.html">lib/Sniff/SyntaxTree/NewExpressionCalleeNamingConventions</a></li><li><a href="ObjectLiteralConventions.html">lib/Sniff/SyntaxTree/ObjectLiteralConventions</a></li><li><a href="ObjectLiteralSpacing.html">lib/Sniff/SyntaxTree/ObjectLiteralSpacing</a></li><li><a href="OperatorSpacing.html">lib/Sniff/SyntaxTree/OperatorSpacing</a></li><li><a href="ParametersSpacing.html">lib/Sniff/SyntaxTree/ParametersSpacing</a></li><li><a href="TernaryConditionalPunctuatorsSpacing.html">lib/Sniff/SyntaxTree/TernaryConditionalPunctuatorsSpacing</a></li><li><a href="UnaryExpressionIdentifierSpacing.html">lib/Sniff/SyntaxTree/UnaryExpressionIdentifierSpacing</a></li><li><a href="VariableDeclarationPerScopeConventions.html">lib/Sniff/SyntaxTree/VariableDeclarationPerScopeConventions</a></li><li><a href="VariableNamingConventions.html">lib/Sniff/SyntaxTree/VariableNamingConventions</a></li><li><a href="CommaPunctuatorSpacing.html">lib/Sniff/Token/CommaPunctuatorSpacing</a></li><li><a href="QuoteConventions.html">lib/Sniff/Token/QuoteConventions</a></li><li><a href="SemicolonPunctuatorSpacing.html">lib/Sniff/Token/SemicolonPunctuatorSpacing</a></li><li><a href="Utils.html">lib/Sniff/Utils</a></li><li><a href="Sniffer.html">lib/Sniffer</a></li><li><a href="SourceCode.html">lib/SourceCode</a></li><li><a href="SyntaxAnalizer.html">lib/SyntaxAnalizer</a></li><li><a href="TokenIterator.html">lib/TokenIterator</a></li><li><a href="Utils_.html">lib/Utils</a></li></ul><h3>Classes</h3><ul><li><a href="Utils_Mixin.html">Mixin</a></li></ul><h3>Namespaces</h3><ul></ul><h3>Global</h3><ul><li><a href="global.html#define">define</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha4</a> on Fri Feb 28 2014 13:56:23 GMT+0100 (CET)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

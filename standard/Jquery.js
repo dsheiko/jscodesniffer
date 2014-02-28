@@ -20,7 +20,7 @@ if ( typeof module === "object" && typeof define !== "function" ) {
 define(function() {
 	/**
 	* Rules based on contribute.jquery.org/style-guide/js/
-	* @constructor
+	* @type {object}
 	* @alias module:standard/Jquery
 	*/
 	return {
