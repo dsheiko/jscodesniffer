@@ -1,0 +1,6 @@
+{
+  "LineLength": {
+		"allowMaxLength": 120
+	},
+  "QuoteConventions": false
+}
