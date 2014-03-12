@@ -6,90 +6,199 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
         <link rel="stylesheet" type="text/css" href="./assets/demo.css" />
         <link rel="publisher" href="https://plus.google.com/113857365337532405020" />
-        <link href='http://fonts.googleapis.com/css?family=Berkshire+Swash' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Open+Sans:600,700' rel='stylesheet' type='text/css'>
         <link rel="shortcut icon" href="favicon.ico">
         <link href="./js/sh/build/sh.min.css" rel="stylesheet" type="text/css" />
         <link rel="demo" href="http://jscodesniffer.dsheiko.com" title="JS CodeSniffer" />
-				<script type="text/javascript" src="./js/sh/build/sh.min.js"></script>
-				<script data-main="js/app" src="./js/require.js"></script>
+				<script data-main="js/app" src="./js/vendors/requirejs/require.js"></script>
 
         <!--[if lt IE 9]>
             <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
           <script type="text/javascript">
-            var _gaq = _gaq || [];
-              _gaq.push(['_setAccount', 'UA-1150677-1']);
-              _gaq.push(['_setDomainName', 'jscodesniffer.dsheiko.com']);
-              _gaq.push(['_trackPageview']);
-            (function() {
-              var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-              ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-              var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-            })();
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-1150677-12', 'dsheiko.github.io');
+  ga('send', 'pageview');
           </script>
     </head>
     <body>
         <header id="home" role="banner">
             <div>
-                <hgroup>
+                <div class="hgroup">
                     <h1>JSCodeSniffer Online</h1>
-                    <h2>validates JavaScript code according to a provided coding style</h2>
-                </hgroup>
+                </div>
                 <a class="fork" href="https://github.com/dsheiko/jscodesniffer">Fork Me on GitHub</a>
             </div>
         </header>
         <section role="main">
             <div>
                 <article>
-                    <h2>Overview</h2>
-
-                    <p>This validator checks JavaScript code style consistency according to <a href="http://contribute.jquery.org/style-guide/js/">jQuery JavaScript Style Guide</a> or
-											<a href="https://github.com/rwaldron/idiomatic.js/">Idiomatic Style Manifesto</a> depending on which standard you choose.</p>
-
-										<p>Maintaining a uniform style and following conventions encourages code readability, increases efficiency and productivity</p>
-
                     <h2>Check your code online</h2>
-
-
                     <form id="srccode">
                         <p>Insert your code in the form below, select coding style standard and press "Validate" button</p>
-                        <textarea rows="10"></textarea>
+
+
+                        <div class="grid">
+                          <div class="col">
+
+                            <div id="textView">
+                              <div class="textViewLeftRuller"></div>
+                              <div contenteditable="true" class="textViewContent" spellcheck="false" role="textbox" aria-multiline="true" aria-readonly="false" draggable="false"></div>
+                            </div>
+
+                          </div>
+
+                          <div class="col report">
+                            <h2>JSCodeSniffer report</h2>
+                            <table id="jscs-report">
+
+                            </table>
+                          </div>
+                        </div>
                         <div class="standard">
                             Standard: <select name="standard">
 															<option value="Jquery">jQuery</option>
-															<option>Idiomatic</option>
                             </select>
                         </div>
-                        <button type="submit">Validate</button>
+                        <textarea class="textarea" id="standard">
+{
+  "Indentation": false,
+  "LineSpacing": {
+    "allowLineTrailingSpaces": false
+  },
+  "LineLength": {
+    "allowMaxLength": 80
+  },
+  "CommaPunctuatorSpacing": {
+    "disallowPrecedingSpaces": true
+  },
+  "SemicolonPunctuatorSpacing": {
+    "disallowPrecedingSpaces": true
+  },
+  "CompoundStatementConventions": {
+    "for": [
+      "IfStatement",
+      "SwitchStatement",
+      "WhileStatement",
+      "DoWhileStatement",
+      "ForStatement",
+      "ForInStatement",
+      "WithStatement",
+      "TryStatement"
+    ],
+    "requireBraces": true,
+    "requireMultipleLines": true
+  },
+  "UnaryExpressionIdentifierSpacing": {
+    "allowTrailingWhitespaces": 0
+  },
+  "TernaryConditionalPunctuatorsSpacing": {
+    "allowTestTrailingWhitespaces": 1,
+    "allowConsequentPrecedingWhitespaces": 1,
+    "allowConsequentTrailingWhitespaces": 1,
+    "allowAlternatePrecedingWhitespaces": 1
+  },
+  "EmptyConstructsSpacing": {
+    "for": [
+      "ObjectExpression",
+      "ArrayExpression",
+      "CallExpression",
+      "FunctionDeclaration",
+      "FunctionExpression"
+    ],
+    "allowWhitespaces": false
+  },
+  "ObjectLiteralSpacing": {
+    "allowKeyPrecedingWhitespaces": 1,
+    "allowKeyTrailingWhitespaces": 0,
+    "allowValuePrecedingWhitespaces": 1,
+    "allowValueTrailingWhitespaces": 1
+  },
+  "ArrayLiteralSpacing": {
+    "allowElementPrecedingWhitespaces": 1,
+    "allowElementTrailingWhitespaces": 1
+  },
+  "QuoteConventions": {
+    "allowDoubleQuotes": true,
+    "allowSingleQuotes": false
+  },
+  "FunctionNamingConventions": {
+    "allowCase": ["camel", "pascal"],
+    "allowRepeating": true,
+    "allowNumbers": true
+  },
+  "NewExpressionCalleeNamingConventions": {
+    "allowCase": ["pascal"],
+    "allowRepeating": true,
+    "allowNumbers": true
+  },
+  "ArgumentsSpacing": {
+    "allowArgPrecedingWhitespaces": 1,
+    "allowArgTrailingWhitespaces": 1,
+    "exceptions": {
+      "singleArg": {
+        "for": ["FunctionExpression", "ArrayExpression", "ObjectExpression"],
+        "allowArgPrecedingWhitespaces": 0,
+        "allowArgTrailingWhitespaces": 0
+      },
+      "firstArg": {
+        "for": ["FunctionExpression", "ArrayExpression", "ObjectExpression"],
+        "allowArgPrecedingWhitespaces": 0
+      },
+      "lastArg": {
+        "for": ["FunctionExpression", "ArrayExpression", "ObjectExpression"],
+        "allowArgTrailingWhitespaces": 0
+      }
+    }
+  },
+  "ParametersSpacing": {
+    "allowParamPrecedingWhitespaces": 1,
+    "allowParamTrailingWhitespaces": 1
+  },
+  "ChainedMethodCallsPerLineConventions": {
+    "requireOnePerLineWhenMultilineCaller": true
+  },
+  "ChainedMethodCallsSpacing": {
+    "allowPrecedingPropertyWhitespaces": 0
+  },
+  "OperatorSpacing": {
+    "allowOperatorPrecedingWhitespaces": 1,
+    "allowOperatorTrailingWhitespaces": 1
+  },
+  "VariableDeclarationPerScopeConventions": {
+    "disallowMultiplePerBlockScope": true
+  },
+  "ObjectLiteralConventions": {
+    "requireOnePerLineWhenMultiline": true
+  },
+  "ArrayLiteralConventions": {
+    "requireOnePerLineWhenMultiline": true
+  }
+
+}
+
+                        </textarea>
+
                     </form>
-                    <div id="srcview">
-                        <p class="message"></p>
-                        <div class="container">
-                        </div>
-                    </div>
                     <div id="srclog">
                         <h2>Error Log</h2>
                         <div class="container">
                         </div>
                     </div>
-                    <div id="reset">
-                        <button>Do you want to try again?</button>
-                    </div>
+
 
 										<p></p>
-										<div id="disqus_thread"></div>
+
                 </article>
 
-
-                <div class="download">
-                    <a class="btn btn-inverse btn-large" href="https://github.com/dsheiko/jscodesniffer">Download the latest version from GitHub</a>
-                </div>
             </div>
         </section>
         <footer>
             <article>
-                <p><var>jscodesniffer</var> is created by <a href="http://dsheiko.com">Dmitry Sheiko</a>.
+                <p><var>jscodesniffer</var>  is created and maintained by <a href="http://dsheiko.com">Dmitry Sheiko</a>.
                     It's released under the MIT license. </p>
                 <p>If you have any questions or feedback you can use the <a href="https://github.com/dsheiko/jscodesniffer">GitHub project page.</a>
                 </p>

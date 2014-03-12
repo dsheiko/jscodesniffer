@@ -57,14 +57,14 @@ define(function() {
 			*/
 		"CompoundStatementConventions": {
 			"for": [
-			"IfStatement",
-			"SwitchStatement",
-			"WhileStatement",
-			"DoWhileStatement",
-			"ForStatement",
-			"ForInStatement",
-			"WithStatement",
-			"TryStatement"
+				"IfStatement",
+				"SwitchStatement",
+				"WhileStatement",
+				"DoWhileStatement",
+				"ForStatement",
+				"ForInStatement",
+				"WithStatement",
+				"TryStatement"
 			],
 			"requireBraces": true,
 			"requireMultipleLines": true
@@ -121,11 +121,6 @@ define(function() {
 		/*
 			Variable and function names should be full words, using camel case with a lowercase first letter.
 			*/
-		"VariableNamingConventions": {
-			"allowCase": [ "camel" ],
-			"allowRepeating": true,
-			"allowNumbers": true
-		},
 		"FunctionNamingConventions": {
 			"allowCase": [ "camel", "pascal" ],
 			"allowRepeating": true,
