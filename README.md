@@ -604,4 +604,41 @@ ln -s /<full path>/scripts/jscs-git-pre-commit /<project>/.git/hooks/pre-commit
 ```
 
 
+## API Notes
+
+High-level interface example (the report in stdout):
+```javascript
+var argv = [ "node", "jscs", "./source-dir/", "--standard=Jquery", "--report-full" ],
+		jscodesniffer = require( "jscodesniffer" );
+
+jscodesniffer( argv, process.cwd() );
+```
+
+Low-level one example:
+```javascript
+var Sniffer = require( "./lib/Sniffer" ),
+		sniffer = new Sniffer(),
+		src = "var a= 1;",
+		options = {
+			standard: "Jquery"
+		},
+		logger = sniffer.getTestResults( src, options, {} );
+
+console.log(logger.getMessages());
+
+/*
+  [ { sniff: 'OperatorSpacing',
+    errorCode: 'OperatorPrecedingWhitespaces',
+    range: [ 5, 5 ],
+    loc: {  start: { line: 1, column: 5 }, end: { line: 1, column: 5 }  },
+    payload:
+     { actual: 0,
+       expected: 1,
+       excerpt: '',
+       trace: '..a=..',
+       where: '<' } } ]
+
+*/
+```
+
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/ec7ee35f81b13e41097453e9da3106cb "githalytics.com")](http://githalytics.com/dsheiko/jscodesniffer)
