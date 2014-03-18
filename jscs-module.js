@@ -185,8 +185,10 @@ define(function( require ) {
 
 		// If scrCode is povided from external module
 		if ( srcCode ) {
-			logger = sniffer.getTestResults( data, options, rulesetOverrides );
-			reporter.add( pathArg, dictionary.translateBulk( logger.getMessages() ), options.standard );
+			(function(){
+				var logger = sniffer.getTestResults( srcCode, options, rulesetOverrides );
+				reporter.add( cwd, dictionary.translateBulk( logger.getMessages() ), options.standard );
+			}());
 		} else {
 			// For every given target
 			where.forEach(function( targetPath ){
