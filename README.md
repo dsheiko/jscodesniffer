@@ -641,4 +641,40 @@ console.log(logger.getMessages());
 */
 ```
 
+## Developing a sniff
+
+Let's consider a sniff, which validates the number of spaces preceding parameter list in a function declaration.
+First of all, we need to apply the defined rules to function declarations only. Syntax Tree gives us
+precise information about any function declaration in the code. As the sniff will rely on Syntax Tree we
+place the new module to /Lib/Sniff/SyntaxTree and name it according to the defined
+rule-set `FunctionDeclarationParameterListSpacing` (has to be also presented in `SyntaxAnalizer`).
+
+Every sniff module has method `validateRule`. There we simply enlist the option validators:
+```
+utils.validateRule( rule, "allowPrecedingWhitespaces", "number", true );
+```
+
+Method `run` performs the sniffing job. There we lop off all the inappropriate nodes (`node.type === "FunctionDeclaration"`).
+Now we have to determine what the node parts correspond to the rule. In this case we need
+function identifier (`node.id`) and the following token representing opening parenthesis. Unfortunately the Syntax Tree
+doesn't contain any information about such tokens as grouping parentheses. However we can ask TokenIterator for help.
+Let's get the token corresponding to the function identifier:
+```
+tokenIt = tokenIterator.findByLeftPos( node.id.range[ 0 ] );
+```
+Now we can simply request the token following this one as `tokenIt.get( 1 )` (and preceding as `tokenIt.get( -1 )`.
+So the spaces of our interest are expected between those two tokens. We can make sure we point to the right code
+fragment like that:
+
+```
+sourceCode.extract( node.id.range[ 1 ], tokenIt.get( 1 ).range[ 0 ] ).print();
+```
+
+to make the real check, we use the following mixin:
+```
+mixin.sniffExcerpt( node.id, tokenIt.get( 1 ),
+  rule.allowPrecedingWhitespaces, "FunctionDeclarationParamListPrecedingSpacing", "<" );
+```
+
+
 [![githalytics.com alpha](https://cruel-carlota.pagodabox.com/ec7ee35f81b13e41097453e9da3106cb "githalytics.com")](http://githalytics.com/dsheiko/jscodesniffer)

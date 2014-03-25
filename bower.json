@@ -1,6 +1,6 @@
 {
   "name": "jscodesniffer",
-  "version": "2.1.4",
+  "version": "2.1.7",
   "main": {
     "jscs": "./jscs"
   },
