@@ -21,6 +21,21 @@ One can define a custom coding style by using described below JSON notation or u
 * Relaxing options can be provided with [real-time configuration](#a-realtime) (`.jscsrc`) per project
 * Thoroughly covered with automated tests: 200+ unit-tests, 70+ integration tests
 
+## Install
+You have at least three installation options:
+### Download or clone the Git repository
+```
+git clone https://github.com/dsheiko/jscodesniffer.git
+```
+### Install by using Node.js Package Manager
+```
+npm  install --save jscodesniffer
+```
+### Install by using Bower.io Package Manager
+```
+bower install --save jscodesniffer
+```
+
 ## Setup
 
 JS_CodeSniffer relies on node.js. If you don't have node.js installed, just follow the instructions:
