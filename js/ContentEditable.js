@@ -22,14 +22,15 @@ return function( containerEl ) {
 		/**
 		 * Restore caret position marked with #rangeToken token node
 		 */
-		restoreSelection: function() {
-				var range = window.getSelection().getRangeAt( 0 ),
-						token = containerEl.querySelector( ".caret-offset" );
-				if ( !token )	{
-					return;
-				}
-				range.setStartAfter( token );
-				containerEl.removeChild( token );
+		restoreSelection: function( caretOffset ) {
+
+        var range = document.createRange();
+
+        var newNode = document.createElement( "span" );
+        newNode.appendChild(document.createTextNode("New Node Inserted Here"));
+        containerEl.appendChild( newNode );
+        range.selectNode( newNode );
+
 		}
 	};
 };

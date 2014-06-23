@@ -9,7 +9,6 @@
         <link rel="shortcut icon" href="favicon.ico">
         <link href="./js/sh/build/sh.min.css" rel="stylesheet" type="text/css" />
         <link rel="demo" href="http://jscodesniffer.dsheiko.com" title="JS CodeSniffer" />
-				<script data-main="js/app" src="./js/vendors/requirejs/require.js"></script>
 
         <!--[if lt IE 9]>
             <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -46,7 +45,7 @@
 
                             <div id="textView">
                               <div class="textViewLeftRuller"></div>
-                              <div contenteditable="true" class="textViewContent" spellcheck="false" role="textbox" aria-multiline="true" aria-readonly="false" draggable="false"></div>
+                              <textarea wrap="off" class="textViewContent" spellcheck="false" role="textbox" aria-multiline="true" aria-readonly="false" draggable="false"></textarea>
                             </div>
 
                           </div>
@@ -205,6 +204,6 @@
             </article>
         </footer>
 
-
+    <script data-main="js/app" src="./js/vendors/requirejs/require.js"></script>
     </body>
 </html>

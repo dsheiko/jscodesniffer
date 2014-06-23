@@ -28,14 +28,14 @@ define([
 	 * @constructor
 	 * @alias module:Source
 	 * @param {string} text
-	 * @param {number} caretOffset
 	 */
-	return function( text, caretOffset ) {
+	return function( text ) {
 		var HIGHLIGHT_TYPES = [ "Keyword", "Numeric", "String" ],
 				sniffer = new Sniffer( esprima ),
         dictionary = new Dictionary( en ),
 				splicer = new Splicer(),
 				messages = [];
+
 			return {
 				/**
 				 * Getter
@@ -43,7 +43,6 @@ define([
 				 * @returns {string}
 				 */
 				getText: function() {
-          console.log( 2, splicer.splice( text )  );
 					return splicer.splice( text );
 				},
 
@@ -81,6 +80,7 @@ define([
 				 * @param {Object} syntaxTree
 				 */
 				highlightSyntax: function( syntaxTree ) {
+          return;
 					// Highlight keywords
 					syntaxTree.tokens && syntaxTree.tokens.forEach(function( token ){
 						if ( HIGHLIGHT_TYPES.indexOf( token.type ) !== -1 ) {
@@ -186,10 +186,8 @@ define([
 						return this;
 					}
 
-					splicer.push([ caretOffset, caretOffset ], "caret-offset" );
-
+//.highlightSyntax( syntaxTree )
 					this
-						.highlightSyntax( syntaxTree )
 						.getWarnings( syntaxTree )
 						.highlightWarnings();
 					return this;

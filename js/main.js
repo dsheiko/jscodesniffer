@@ -37,7 +37,40 @@ var document = window.document,
 				if ( typeof el.className !== "undefined" ) {
 					el.className = el.className.replace( new RegExp( "\b" + name + "\b" ), "" );
 				}
-			}
+			},
+      /**
+       * Bind emulated onChange event (any keydown+mouseup node event fired with frequency no more than ONINPUT_DELAY)
+       * @param {jQuery} node - one or colelction
+       * @param {function} cb - handler
+       * @param {Object} context - [context = this]
+       * @returns {module:jquery}
+       */
+      bindChangeDeffered: function( node, cb, context ) {
+        var
+           /**
+            *  How long on-input event handler waits before catching the input
+            *  @constant
+            *  @default
+            */
+            ONINPUT_DELAY = 700,
+            /**
+            * Timeout id
+            * @type {number}
+            */
+            deferredRequest = null;
+
+        context = context || this;
+
+        node.addEventListener( "keydown", function( e ){
+          if ( null !== deferredRequest ) {
+            window.clearTimeout( deferredRequest );
+          }
+          deferredRequest = window.setTimeout( function(){
+            deferredRequest = null;
+            cb.call( context, e );
+          }, ONINPUT_DELAY );
+        }, false );
+      }
 		},
 		/**
 		 * Represents view of source code
@@ -54,9 +87,7 @@ var document = window.document,
 			return {
 				bindUi: function() {
 					// Update when code is copy-pasted
-					$content.addEventListener( "change", util.proxy( this.keyupHandler, this ), false );
-					// Update when code is typed
-					$content.addEventListener( "input", util.proxy( this.keyupHandler, this ), false );
+          util.bindChangeDeffered( $content, this.updateContainer, this );
 					$content.addEventListener( "scroll", util.proxy( this.syncCodeRullerScroll, this ), false );
 				},
 				syncCodeRullerScroll: function() {
@@ -75,16 +106,6 @@ var document = window.document,
 //						.replace( /\n/g, "<br>" );
 //				},
 
-				keyupHandler: function() {
-					var that = this;
-					if ( timer ) {
-						clearTimeout( timer );
-					}
-					timer = setTimeout(function(){
-						that.updateContainer();
-					},300 );
-
-				},
 				renderRuller: function( lines ){
 					var i = 1, html = "";
 					for ( ; i <= lines; i++ ) {
@@ -127,25 +148,25 @@ var document = window.document,
 					return $content.textContent;
 				},
 
+
+        /**
+         * Source code changed
+         * @returns {void}
+         */
 				updateContainer: function() {
-					var text, srcCode, caretOffset;
+					var srcCode;
 
-					caretOffset = editable.saveSelection();
-					text = this.getText();
+					srcCode = new Source( $content.value );
+					this.renderRuller( $content.value.split( "\n").length );
 
-					srcCode = new Source( text, caretOffset );
-					this.renderRuller( text.split( "\n").length );
-					$content.focus();
-
-					text = srcCode
+					srcCode
 						.highlightAll()
 						.getText();
 
-					$content.innerHTML = text.split( "\n" ).join( "<br>" );
-					this.renderReport( srcCode.getMessages() );
+
+          this.renderReport( srcCode.getMessages() );
 					this.markWarningLines( srcCode.getMessages() );
 					this.syncCodeRullerScroll();
-					editable.restoreSelection();
 
 				}
 			};
