@@ -119,6 +119,7 @@ var document = window.document,
 				renderReport: function( messages ){
 					var html = "";
 					if ( !messages.length ) {
+            $report.innerHTML = "";
 						return;
 					}
 					html + "<thead><tr><th>Line</th><th>Col.</th><th>Message</th></tr></thead>\n<tbody>";
