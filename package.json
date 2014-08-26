@@ -1,7 +1,7 @@
 {
     "name": "jscodesniffer",
     "description": "Tool to ensure that your JavaScript code does not violate the specified coding standard (Idiomatic Style Manifesto or JQuery Core Style Guidelines)",
-    "version": "2.1.10",
+    "version": "2.1.11",
     "author": "Dmitry Sheiko <me@dsheiko.com>",
 		"contributors": [],
 		"main": "jscs-module.js",
