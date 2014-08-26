@@ -29,44 +29,26 @@ git clone https://github.com/dsheiko/jscodesniffer.git
 ```
 ### Install by using Node.js Package Manager
 ```
-npm  install --save jscodesniffer
+sudo npm  install jscodesniffer -g
 ```
 ### Install by using Bower.io Package Manager
 ```
 bower install --save jscodesniffer
 ```
 
-## Setup
-
-JS_CodeSniffer relies on node.js. If you don't have node.js installed, just follow the instructions:
-https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
-
-Make sure all the required dependencies installed
-```bash
-npm i
-```
-Make sure the binary is executable
-```bash
-chmod +x jscs
-```
-You can also create a symlink to make it globally available
-```bash
-ln -s jscs /usr/local/bin/jscs
-```
-
 ## <a name="a-use"></a> Using JSCodeSniffer in the command line
 
 Simply get detailed report on a target (file or directory) coding style according to jQuery Coding Style Guide
 ```bash
-./jscs source-code.js --standard=Jquery
+./jscs source-code.js --standard=Jquery  --report-full
 ```
 or
 ```bash
-node jscs.js source-code.js  --standard=Jquery
+node jscs.js source-code.js  --standard=Jquery  --report-full
 ```
 or
 ```bash
-./jscs js/dir1 file1.js js/dir2 file2.js --standard=Jquery
+./jscs js/dir1 file1.js js/dir2 file2.js --standard=Jquery  --report-full
 ```
 
 ![JS CodeSniffer Full Report Example](https://raw.github.com/dsheiko/jscodesniffer/master/doc/sample1.jpg "JS CodeSniffer Full Report Example")
