@@ -27,7 +27,21 @@ describe( "ChainedMethodCallsPerLineConventions", function () {
       }).should[ "throw" ]();
     });
 
-    it("must trigger violation ", function () {
+    it("must trigger violation when multiline and starts with method", function () {
+      var rule =  {
+        "requireOnePerLineWhenMultilineCaller": true
+      }, tree = fixture.getJson( "ChainedMethodCallsPerLineConventions/case3.json" );
+      sniff = new ChainedMethodCallsPerLineConventions( new SourceCodeStub(
+						fixture.getText( "ChainedMethodCallsPerLineConventions/case3.js" )
+        ), mediator, new TokenIteratorStub( tree.tokens )  );
+
+      pNode = tree.body[ 0 ];
+      sniff.run( rule, pNode.expression, pNode );
+      msg = mediator.getMessage( "ChainedMethodCallsOnePerLine" );
+      msg.should.be.ok;
+    });
+
+    it("must trigger violation when multiline and starts with variable", function () {
       var rule =  {
         "requireOnePerLineWhenMultilineCaller": true
       }, tree = fixture.getJson( "ChainedMethodCallsPerLineConventions/case2.json" );
@@ -41,7 +55,7 @@ describe( "ChainedMethodCallsPerLineConventions", function () {
       msg.should.be.ok;
     });
 
-    it("must not trigger violation", function () {
+    it("must not trigger violation when single line", function () {
       var rule =  {
         "requireOnePerLineWhenMultilineCaller": true
       }, tree = fixture.getJson( "ChainedMethodCallsPerLineConventions/case1.json" );
