@@ -424,23 +424,21 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     "ParametersSpacing": {
       "allowParamPrecedingWhitespaces": 1,
       "allowParamTrailingWhitespaces": 1,
-      /*
-      Optional modifier.
-      When qualifier "for" is missing the exception rules gets applied for any node type
-      */
       "exceptions": {
         "singleParam": {
-          "for": [ "Literal" ],
-          "allowElementPrecedingWhitespaces": 0,
-          "allowElementTrailingWhitespaces": 0
+          "for": [ "Identifier" ],
+          "allowParamPrecedingWhitespaces": 0,
+          "allowParamTrailingWhitespaces": 0
         },
         "firstParam": {
-          "for": [ "Literal" ],
-          "allowElementPrecedingWhitespaces": 1
+          "for": [ "Identifier" ],
+          "allowParamPrecedingWhitespaces": 1,
+          "allowParamTrailingWhitespaces": 0
         },
         "lastParam": {
-          "for": [ "Literal" ],
-          "allowElementTrailingWhitespaces": 1
+          "for": [ "Identifier" ],
+          "allowParamPrecedingWhitespaces": 1
+          "allowParamTrailingWhitespaces": 0
         }
       }
     },
