@@ -671,5 +671,4 @@ mixin.sniffExcerpt( node.id, tokenIt.get( 1 ),
   rule.allowPrecedingWhitespaces, "FunctionDeclarationParamListPrecedingSpacing", "<" );
 ```
 
-
-[![githalytics.com alpha](https://cruel-carlota.pagodabox.com/ec7ee35f81b13e41097453e9da3106cb "githalytics.com")](http://githalytics.com/dsheiko/jscodesniffer)
+[![Analytics](https://ga-beacon.appspot.com/UA-1150677-13/dsheiko/jscodesniffer)](http://githalytics.com/dsheiko/jscodesniffer)
