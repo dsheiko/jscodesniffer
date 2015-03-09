@@ -19,30 +19,35 @@ describe( " Custom checks ", function () {
   });
 
   it(" must implement custom standard correctly", function () {
-   var code = "$(selector).css(\"width\", final + \"px\");",
+   var code = "if (dumb)\n{\ndumb = 1;\n}a = 1;\n",
 
     modifiers = {
-     "ArgumentsSpacing": {
-        "allowArgPrecedingWhitespaces": 1,
-        "allowArgTrailingWhitespaces": 0,
-        "exceptions": {
-            "singleArg": {
-                "allowArgPrecedingWhitespaces": 0,
-                "allowArgTrailingWhitespaces": 0
-            },
-            "firstArg": {
-                "allowArgPrecedingWhitespaces": 0
-            },
-            "lastArg": {
-                "allowArgTrailingWhitespaces": 0
-            }
-        }
+      "CompoundStatementConventions": {
+        "for": [
+          "IfStatement",
+          "SwitchStatement",
+          "WhileStatement",
+          "DoWhileStatement",
+          "ForStatement",
+          "ForInStatement",
+          "WithStatement",
+          "TryStatement"
+        ],
+        "requireBraces": true,
+        "requireMultipleLines": true,
+
+        "allowOpeningBracePrecedingWhitespaces": 1,
+        "allowOpeningBraceTrailingWhitespaces": 1,
+        "requireOpeningBracePrecedingNewLine": true,
+        "requireOpeningBraceTrailingNewLine": true,
+        "allowClosingBracePrecedingWhitespaces": 1,
+        "requireClosingBracePrecedingNewLine": true
       }
     };
 
 
     logger = sniffer.getTestResults( code, OPTIONS, modifiers );
-    //console.log(logger.getMessages());
-		logger.getMessages().length.should.not.be.ok;
+    console.log(logger.getMessages());
+		//logger.getMessages().length.should.not.be.ok;
   });
 });
