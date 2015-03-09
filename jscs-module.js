@@ -182,6 +182,8 @@ define(function( require ) {
 		dictionary = new Dictionary();
 
 		rulesetOverrides = cwd ? cli.readRealtimeConfig( cwd ) : {};
+		// Check for .jscsignore
+		cwd && cli.readIgnoreList( cwd );
 
 		// If scrCode is povided from external module
 		if ( srcCode ) {

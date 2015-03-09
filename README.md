@@ -19,6 +19,7 @@ One can define a custom coding style by using described below JSON notation or u
 * Custom standard [can be easily configured](#a-standard) by using JSON notation
 * Scripts can be associated to a coding style in block comments [using `jscs` tag](#a-env)
 * Relaxing options can be provided with [real-time configuration](#a-realtime) (`.jscsrc`) per project
+* Ignore list can be provided with [`.jscsignore`](#a-jscsignore)  per project
 * Thoroughly covered with automated tests: 200+ unit-tests, 70+ integration tests
 
 ## Install
@@ -140,6 +141,23 @@ empty rule-set configurations:
   "Indentation": false,
   "QuoteConventions": false
 }
+```
+
+## <a name="a-jscsignore"></a> .jscsignore
+
+Specifies files to ignore in the same format as [`.gitignore`](http://git-scm.com/docs/gitignore)
+
+With `.jscsignore` in project root directory:
+```bash
+standard/**/*.js
+```
+
+The code sniffer produces following output:
+```bash
+ node jscs.js ./standard --standard=Jquery
+ * `standard/Idiomatic.js` ignored in concordance with .jscsignore
+ * `standard/Jquery.js` ignored in concordance with .jscsignore
+ JsCodeSniffer 2.1.15 (https://github.com/dsheiko/jscodesniffer)
 ```
 
 ## <a name="a-standard"></a> Declaring coding style
