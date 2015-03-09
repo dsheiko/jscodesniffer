@@ -19,17 +19,30 @@ describe( " Custom checks ", function () {
   });
 
   it(" must implement custom standard correctly", function () {
-   var code = "foo ( a );",
+   var code = "$(selector).css(\"width\", final + \"px\");",
 
     modifiers = {
-      "CallExpressionArgumentListSpacing": {
-				"allowPrecedingWhitespaces": 1
-			}
+     "ArgumentsSpacing": {
+        "allowArgPrecedingWhitespaces": 1,
+        "allowArgTrailingWhitespaces": 0,
+        "exceptions": {
+            "singleArg": {
+                "allowArgPrecedingWhitespaces": 0,
+                "allowArgTrailingWhitespaces": 0
+            },
+            "firstArg": {
+                "allowArgPrecedingWhitespaces": 0
+            },
+            "lastArg": {
+                "allowArgTrailingWhitespaces": 0
+            }
+        }
+      }
     };
 
 
     logger = sniffer.getTestResults( code, OPTIONS, modifiers );
-    console.log(logger.getMessages());
-		//logger.getMessages().length.should.not.be.ok;
+    //console.log(logger.getMessages());
+		logger.getMessages().length.should.not.be.ok;
   });
 });
