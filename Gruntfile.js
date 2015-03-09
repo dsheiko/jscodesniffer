@@ -32,7 +32,8 @@ module.exports = function(grunt) {
 		var argv = [
 					"node",
 					"jscs",
-					( "--standard=" + grunt.task.current.data.options.standard || "Jquery" )
+					( "--standard=" + grunt.task.current.data.options.standard || "Jquery" ),
+          "--report-full"
 				],
 				lArgv,
 				jscs = require( "./jscs-module" ),
@@ -45,21 +46,6 @@ module.exports = function(grunt) {
 		jscs( lArgv, process.cwd() );
 
 	});
-
-	grunt.registerTask('jsdoc', 'Run jsdoc', function() {
-    var exec = require('child_process').exec;
-     grunt.log.writeln( 'Running jsdoc' );
-     grunt.verbose.writeln( 'Exec: node ./node_modules/jsdoc/jsdoc ' );
-     exec( "node node_modules/jsdoc/jsdoc.js -r ./lib -d build/doc -p", function( err, stdout ) {
-      if ( stdout ) {
-        grunt.log.write( stdout );
-      }
-      if ( err ) {
-        grunt.fatal( err );
-      }
-      done();
-    });
-  });
 
   grunt.registerTask( "test", [ "jshint", "mochacli", "jscs" ] );
   grunt.registerTask( "default", [ "test" ] );
