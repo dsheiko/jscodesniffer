@@ -2,6 +2,7 @@ require( "./lib-sniff-arguments-spacing" );
 require( "./lib-sniff-array-literal" );
 require( "./lib-sniff-comma-punctuator-spacing" );
 require( "./lib-sniff-compound-statement" );
+require( "./int-sniff-compound-statement" );
 require( "./lib-sniff-empty-constructs-spacing" );
 require( "./lib-sniff-function-naming-conventions" );
 require( "./lib-sniff-indentation" );

@@ -176,7 +176,8 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     "Indentation": {
       "allowOnlyTabs": true,
       "allowOnlySpaces": true,
-      "disallowMixed": true
+      "disallowMixed": true,
+      "ignoreBlockComments: true
     },
   /*
     defines if trailing spaces allowed for lines
@@ -225,6 +226,10 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
     // bad
     if ( true ) var foo = "bar";
 
+    All the constrains are optional.
+    if ( true )__{..}, for (..)__{..} - opening brace preceding whitespace
+    if ( true ) {__..}, for (..){__..} - opening brace trailing whitespace
+    if ( true ) {..__}, for (..){..__} - closing brace preceding whitespace
   */
     "CompoundStatementConventions": {
       "for": [
@@ -238,7 +243,13 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
         "TryStatement"
       ],
       "requireBraces": true,
-      "requireMultipleLines": true
+      "requireMultipleLines": true,
+      "allowOpeningBracePrecedingWhitespaces": 1,
+      "allowOpeningBraceTrailingWhitespaces": 1,
+      "requireOpeningBracePrecedingNewLine": true,
+      "requireOpeningBraceTrailingNewLine": true,
+      "allowClosingBracePrecedingWhitespaces": 1,
+      "requireClosingBracePrecedingNewLine": true
     },
     /*
     defines spacing conventions for unary expressions

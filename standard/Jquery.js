@@ -29,7 +29,8 @@ define(function() {
 		*/
 		"Indentation": {
 			"allowOnlyTabs": true,
-			"allowOnlySpaces": false
+			"allowOnlySpaces": false,
+			"ignoreBlockComments": true
 		},
 		/*
 		No whitespace at the end of line or on blank lines.

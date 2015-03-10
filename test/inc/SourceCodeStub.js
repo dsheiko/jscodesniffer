@@ -15,6 +15,10 @@ var SourceCodeMock = function( text ) {
       return text.indexOf( char );
     },
 
+    match: function( re ) {
+      return text.match( re );
+    },
+
     length: function() {
       return text.length;
     },
