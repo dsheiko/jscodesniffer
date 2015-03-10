@@ -93,11 +93,11 @@ describe( "CompoundStatementConventions", function () {
           mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
         });
 
-        it("must not trigger violation on (if(1) {..}) when breaces and multiple lines required", function () {
+        it("must not trigger violation on (if(1) {..}) when braces required and multiple lines not", function () {
           var rule = {
 								"for": [ statement ],
 								"requireBraces": true,
-								"requireMultipleLines": true
+								"requireMultipleLines": false
 							},
 							caseId = "case1.ok";
           sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator );
@@ -136,12 +136,12 @@ describe( "CompoundStatementConventions", function () {
           mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
         });
 
-        it("must not trigger violation on (switch(true) {...}) when multiple lines required", function () {
+        it("must not trigger violation on (switch(true) {...}) when multiple lines not required", function () {
           var caseId = "case2.ok",
 							rule = {
 								"for": [ statement ],
 								"requireBraces": true,
-								"requireMultipleLines": true
+								"requireMultipleLines": false
 							};
           sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId ) ), mediator );
 
@@ -193,12 +193,12 @@ describe( "CompoundStatementConventions", function () {
         mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
       });
 
-      it("must not trigger violation on (while (true) {...}) when braces and multiple lines required", function () {
+      it("must not trigger violation on (while (true) {...}) when braces required and multiple lines not", function () {
         var caseId = "case3.ok",
 						rule = {
 							"for": [ statement ],
 							"requireBraces": true,
-							"requireMultipleLines": true
+							"requireMultipleLines": false
 						};
         sniff = new sniffClass( new SourceCodeStub( helper.getCode( caseId  ) ), mediator );
 
@@ -254,12 +254,12 @@ describe( "CompoundStatementConventions", function () {
         mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
       });
 
-      it("must not trigger violation on (do {...} while (true)) when braces and multiple lines required", function () {
+      it("must not trigger violation on (do {...} while (true)) when braces required and multiple lines not", function () {
         var caseId = "case4.ok",
 						rule = {
 							"for": [ statement ],
 							"requireBraces": true,
-							"requireMultipleLines": true
+							"requireMultipleLines": false
 						};
         sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
@@ -315,12 +315,12 @@ describe( "CompoundStatementConventions", function () {
         mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
       });
 
-      it("must not trigger violation on (for(;;) {...}) when braces and multiple lines required", function () {
+      it("must not trigger violation on (for(;;) {...}) when braces required and multiple lines not", function () {
         var caseId = "case5.ok",
 						rule = {
 							"for": [ statement ],
 							"requireBraces": true,
-							"requireMultipleLines": true
+							"requireMultipleLines": false
 						};
         sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
@@ -375,12 +375,12 @@ describe( "CompoundStatementConventions", function () {
         mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
       });
 
-      it("must not trigger violation on (for(p in o) {...}) when braces and multiple lines required", function () {
+      it("must not trigger violation on (for(p in o) {...}) when braces required and multiple lines not", function () {
         var caseId = "case6.ok",
 						rule = {
 							"for": [ statement ],
 							"requireBraces": true,
-							"requireMultipleLines": true
+							"requireMultipleLines": false
 						};
         sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
@@ -436,7 +436,7 @@ describe( "CompoundStatementConventions", function () {
         mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
       });
 
-      it("must not trigger violation on (with(o) {...}) when braces and multiple lines required", function () {
+      it("must not trigger violation on (with(o) {...}) when braces required and multiple lines not", function () {
         var caseId = "case7.ok",
 						rule = {
 							"for": [ statement ],
@@ -481,12 +481,12 @@ describe( "CompoundStatementConventions", function () {
         mediator.getMessage( "CompoundStatementRequireMultipleLines" ).should.be.ok;
       });
 
-      it("must not trigger violation on (try {..} catch(e){}) when braces and multiple lines required", function () {
+      it("must not trigger violation on (try {..} catch(e){}) when braces required and multiple lines not", function () {
         var caseId = "case8.ok",
 						rule = {
 							"for": [ statement ],
 							"requireBraces": true,
-							"requireMultipleLines": true
+							"requireMultipleLines": false
 						};
         sniff = new sniffClass( new SourceCodeStub( helper.getCode(  caseId )
           ), mediator );
