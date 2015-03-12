@@ -39,7 +39,8 @@
     "url": "https://github.com/dsheiko/jscodesniffer/issues"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt test",
+    "postinstall": "bower install"
   },
   "keywords": [
     "code style",
