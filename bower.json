@@ -1,8 +1,8 @@
 {
   "name": "jscodesniffer",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "main": {
-    "jscs": "./jscs"
+    "jscs": "./jscs.js"
   },
   "dependencies": {
     "esprima": "~1.0.4",
@@ -17,16 +17,6 @@
 		"should": "*",
 		"jsdoc": "*"
   },
-  "homepage": "https://github.com/dsheiko/jscodesniffer.git",
-  "description": "Tool to ensure that your JavaScript code does not violate the specified coding standard (Idiomatic Style Manifesto or JQuery Core Style Guidelines)",
-  "keywords": [
-    "styleguide",
-    "formatter"
-  ],
-  "authors": [
-    "Dmitry Sheiko (http://dsheiko.com)"
-  ],
-  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
