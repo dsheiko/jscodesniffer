@@ -1,5 +1,8 @@
 JSCodeSniffer v.2.x
 ==============
+
+[![NPM](https://nodei.co/npm/jscodesniffer.png)](https://nodei.co/npm/jscodesniffer/)
+
 [![Build Status](https://travis-ci.org/dsheiko/jscodesniffer.png)](https://travis-ci.org/dsheiko/jscodesniffer)
 [![NPM version](https://badge.fury.io/js/jscodesniffer.png)](http://badge.fury.io/js/jscodesniffer)
 
