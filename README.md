@@ -4,7 +4,7 @@ JSCodeSniffer v.2.x
 [![NPM](https://nodei.co/npm/jscodesniffer.png)](https://nodei.co/npm/jscodesniffer/)
 
 [![Build Status](https://travis-ci.org/dsheiko/jscodesniffer.png)](https://travis-ci.org/dsheiko/jscodesniffer)
-[![Analytics](https://ga-beacon.appspot.com/UA-1150677-13/dsheiko/jscodesniffer)](http://githalytics.com/dsheiko/jscodesniffer)
+[![Bower version](https://badge.fury.io/bo/jscodesniffer.svg)](http://badge.fury.io/bo/jscodesniffer)
 
 JSCodeSniffer is a node.js application that checks JavaScript code style consistency according to a provided coding style, just like phpcs.
 One can define a custom coding style by using described below JSON notation or use one of predefined standards.
@@ -703,3 +703,4 @@ mixin.sniffExcerpt( node.id, tokenIt.get( 1 ),
   rule.allowPrecedingWhitespaces, "FunctionDeclarationParamListPrecedingSpacing", "<" );
 ```
 
+[![Analytics](https://ga-beacon.appspot.com/UA-1150677-13/dsheiko/jscodesniffer)](http://githalytics.com/dsheiko/jscodesniffer)
