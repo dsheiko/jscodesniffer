@@ -5,6 +5,7 @@ JSCodeSniffer v.2.x
 
 [![Build Status](https://travis-ci.org/dsheiko/jscodesniffer.png)](https://travis-ci.org/dsheiko/jscodesniffer)
 [![Bower version](https://badge.fury.io/bo/jscodesniffer.svg)](http://badge.fury.io/bo/jscodesniffer)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dsheiko/jscodesniffer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
 JSCodeSniffer is a node.js application that checks JavaScript code style consistency according to a provided coding style, just like phpcs.
 One can define a custom coding style by using described below JSON notation or use one of predefined standards.
