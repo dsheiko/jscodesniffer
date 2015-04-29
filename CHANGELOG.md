@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## R2.2.2
+* https://github.com/dsheiko/jscodesniffer/issues/25
+
 ## R2.2.0
 * New constrains of CompoundStatementConventions introduced
   "allowOpeningBracePrecedingWhitespaces", "allowOpeningBraceTrailingWhitespaces",
