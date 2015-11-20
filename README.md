@@ -181,7 +181,7 @@ are tested by JSHint and therefore not provided with sniffs (See [http://contrib
       "allowOnlyTabs": true,
       "allowOnlySpaces": true,
       "disallowMixed": true,
-      "ignoreBlockComments: true
+      "ignoreBlockComments": true
     },
   /*
     defines if trailing spaces allowed for lines
