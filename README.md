@@ -705,3 +705,6 @@ mixin.sniffExcerpt( node.id, tokenIt.get( 1 ),
 ```
 
 [![Analytics](https://ga-beacon.appspot.com/UA-1150677-13/dsheiko/jscodesniffer)](http://githalytics.com/dsheiko/jscodesniffer)
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/dsheiko/jscodesniffer/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
