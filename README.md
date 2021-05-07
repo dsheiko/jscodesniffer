@@ -1,6 +1,10 @@
 JSCodeSniffer v.2.x
 ==============
 
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+> WARNING - THIS PROJECT IS NO LONGER MAINTAINED!!!
+
 [![NPM](https://nodei.co/npm/jscodesniffer.png)](https://nodei.co/npm/jscodesniffer/)
 
 [![Build Status](https://travis-ci.org/dsheiko/jscodesniffer.png)](https://travis-ci.org/dsheiko/jscodesniffer)
