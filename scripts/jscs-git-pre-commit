@@ -3,7 +3,7 @@
 JSCS_BIN=/usr/local/bin/jscs
 JSCS_CODING_STANDARD=Idiomatic
 TMP_STAGING=".tmp_staging"
-JSCS_FILE_PATTERN="\.js$"
+JSCS_FILE_PATTERN="\.(js|jsx)$"
 
 
 # simple check if code sniffer is set up correctly
